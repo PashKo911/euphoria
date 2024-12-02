@@ -1,0 +1,33 @@
+@use 'sass:math';
+@import './styles/mixins';
+
+// Container ======================================================================================================================================================================================================================
+[class*='__container'] {
+	max-width: toRem($containerWidth);
+	margin: 0 auto;
+	padding: 0 toRem(math.div($containerPadding, 2));
+}
+
+body {
+	font-family: var(--causten);
+	color: var(--main-color);
+	&.menu-open {
+		overflow: hidden;
+		touch-action: none;
+		overscroll-behavior: none;
+	}
+}
+
+#root {
+	overflow: clip;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	@media (max-width: toEm(540)) {
+		padding-bottom: toRem(75);
+	}
+}
+
+#root > main {
+	flex-grow: 1;
+}

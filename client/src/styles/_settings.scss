@@ -1,0 +1,19 @@
+// Adaptive Grid ===============================================================================================================================================================================================================================================================================================
+// Min Page Width
+$minWidth: 320;
+// Web Width
+$maxWidth: 1440;
+// Container Width
+$maxWidthContainer: 1240;
+// Containers paddings
+// (15px + 15px)
+$containerPadding: 30;
+
+// First Brakepoint
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Brakepionts
+$pc: toEm($containerWidth);
+$tablet: toEm(991.98);
+$mobile: toEm(767.98);
+$mobileSmall: toEm(479.98);
