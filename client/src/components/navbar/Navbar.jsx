@@ -1,66 +1,69 @@
-import './navbar.scss'
+import { Link, NavLink } from 'react-router-dom'
+
 import { HiOutlineSearch } from 'react-icons/hi'
 import { MdFavoriteBorder } from 'react-icons/md'
 import { LuUser2 } from 'react-icons/lu'
 import { FiShoppingCart } from 'react-icons/fi'
 import { useState } from 'react'
 
+import './navbar.scss'
+
 const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
 
 	return (
-		<header className="header">
+		<header className={`${showMenu ? 'header menu-open' : 'header'}`}>
 			<div className="header__container">
-				<img className="header__logo" src="/logo.svg" alt="Image" />
+				<img className="header__logo" src="/logo.svg" alt="Image" aria-label="Website's Logotype" />
 				<div className="header__menu menu">
 					<nav className="menu__body">
 						<ul className="menu__list">
 							<li className="menu__item">
-								<a href="#" className="menu__link menu__link--active">
+								<NavLink to={'/home'} className="menu__link">
 									Shop
-								</a>
+								</NavLink>
 							</li>
 							<li className="menu__item">
-								<a href="#" className="menu__link">
+								<NavLink to={'/products/men'} className="menu__link">
 									Men
-								</a>
+								</NavLink>
 							</li>
 							<li className="menu__item">
-								<a href="#" className="menu__link">
+								<NavLink to={'/products/women'} className="menu__link">
 									Women
-								</a>
+								</NavLink>
 							</li>
 							<li className="menu__item">
-								<a href="#" className="menu__link">
+								<NavLink to={'/products/combos'} className="menu__link">
 									Combos
-								</a>
+								</NavLink>
 							</li>
 							<li className="menu__item">
-								<a href="#" className="menu__link">
+								<NavLink to={'/products/joggers'} className="menu__link">
 									Joggers
-								</a>
+								</NavLink>
 							</li>
 						</ul>
 					</nav>
 				</div>
 				<form action="#" className="header__search search-form">
 					<input className="search-form__input" placeholder="Search" type="text" />
-					<button className="search-form__button">
+					<button className="search-form__button" aria-label="Search Form">
 						<HiOutlineSearch />
 					</button>
 				</form>
 				<div className="header__action action-header">
-					<a href="#" className="action-header__item">
+					<Link to={'/home'} className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />
-					</a>
-					<a href="#" className="action-header__item">
+					</Link>
+					<Link to={'/home'} className="action-header__item" aria-label="Profile">
 						<LuUser2 />
-					</a>
-					<a href="#" className="action-header__item">
+					</Link>
+					<Link to={'/home'} className="action-header__item" aria-label="Cart">
 						<FiShoppingCart />
-					</a>
+					</Link>
 				</div>
-				<button className="icon-menu">
+				<button className="icon-menu" onClick={() => setShowMenu(!showMenu)}>
 					<span></span>
 				</button>
 			</div>

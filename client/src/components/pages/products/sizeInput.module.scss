@@ -1,0 +1,35 @@
+@import '../../../styles/mixins';
+
+.label {
+	font-weight: 600;
+	text-transform: uppercase;
+	transition: all 0.3s;
+	border-radius: toRem(8);
+	border: toRem(1) solid #bebcbd;
+	padding: toRem(7);
+	cursor: pointer;
+	color: var(--dark-color);
+	line-height: 121.428571%; /* 17/14 */
+	font-size: toRem(14);
+
+	&:has(input:focus-visible) {
+		outline: toRem(2) solid #000;
+		border-radius: toRem(2);
+	}
+	&:has(input:checked) {
+		background-color: #000;
+		color: #fff;
+	}
+	@media (any-hover: hover) {
+		&:hover {
+			background-color: #000;
+			color: #fff;
+		}
+	}
+}
+.input {
+	position: absolute;
+	width: 0;
+	height: 0;
+	opacity: 0;
+}

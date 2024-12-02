@@ -11,7 +11,7 @@
 body {
 	font-family: var(--causten);
 	color: var(--main-color);
-	&.menu-open {
+	&:has(.menu-open) {
 		overflow: hidden;
 		touch-action: none;
 		overscroll-behavior: none;
