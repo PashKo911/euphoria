@@ -8,6 +8,7 @@
 	justify-content: space-between;
 	gap: toRem(10);
 	transition: all 0.3s;
+	cursor: pointer;
 
 	&.active {
 		color: var(--purple-color);
@@ -21,10 +22,7 @@
 	svg {
 		transform: rotate(90deg);
 	}
-	cursor: pointer;
-	&:not(:last-child) {
-		margin-bottom: toRem(18);
-	}
+
 	&:has(input:focus-visible) {
 		outline: toRem(2) solid #000;
 		border-radius: toRem(2);

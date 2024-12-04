@@ -230,9 +230,6 @@
 	// .filter__body
 	&__body {
 	}
-	// .filter__section
-	&__section {
-	}
 }
 .section-filter {
 	// .section-filter__body
@@ -240,6 +237,7 @@
 		position: relative;
 		padding: toRem(35) toRem(30);
 		border-bottom: toRem(1) solid #bebcbd;
+		// max-height: 0;
 	}
 	// .section-filter__menu
 	&__menu {

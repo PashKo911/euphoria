@@ -1,17 +1,62 @@
 // pages/About.js
 import React from 'react'
-
-import ColorsInput from './ColorsInput'
-
+import { v4 as uuid } from 'uuid'
 import { GiSettingsKnobs } from 'react-icons/gi'
 import { IoIosArrowUp } from 'react-icons/io'
 
-import './products.scss'
+import ColorsInput from './ColorsInput'
 import SizeInput from './SizeInput'
 import CategoryInput from './CategoryInput'
 import SliderInput from './SliderInput'
+import Accordion from '../../accordion/Accordion'
+
+import './products.scss'
 
 const Products = () => {
+	const data = {
+		topStyles: {
+			title: 'Top Styles',
+			items: [
+				<CategoryInput title={'Tops'} key={'Tops'} />,
+				<CategoryInput title={'Printed T-shirts'} key={'Printed'} />,
+				<CategoryInput title={'Plain T-shirts'} key={'Plain'} />,
+				<CategoryInput title={'Kurti'} key={'Kurti'} />,
+			],
+		},
+		price: {
+			title: 'Price',
+			items: [<SliderInput key={uuid()} min={20} max={1000} />],
+		},
+		colors: {
+			title: 'Colors',
+			items: [
+				<ColorsInput title={'Purple'} color={'#8434e1'} key={'#8434e1'} />,
+				<ColorsInput title={'Black'} color={'#000000'} key={'#000000'} />,
+				<ColorsInput title={'Red'} color={'#F35528'} key={'#F35528'} />,
+				<ColorsInput title={'Orange'} color={'#F16F2B'} key={'#F16F2B'} />,
+				<ColorsInput title={'Navy'} color={'#345EFF'} key={'#345EFF'} />,
+			],
+		},
+		size: {
+			title: 'Size',
+			items: [
+				<SizeInput title={'XXS'} key={'XXS'} />,
+				<SizeInput title={'XS'} key={'XS'} />,
+				<SizeInput title={'S'} key={'S'} />,
+				<SizeInput title={'M'} key={'M'} />,
+				<SizeInput title={'L'} key={'L'} />,
+			],
+		},
+		style: {
+			title: 'Dress Style',
+			items: [
+				<CategoryInput title={'Classic'} key={'Classic'} />,
+				<CategoryInput title={'Casual'} key={'Casual'} />,
+				<CategoryInput title={'Business'} key={'Business'} />,
+			],
+		},
+	}
+
 	return (
 		<>
 			<div className="page__catalog catalog">
@@ -25,89 +70,11 @@ const Products = () => {
 								</button>
 							</h4>
 							<form action="#" className="filter__body">
-								<div className="filter__section section-filter">
-									<div className="section-filter__body">
-										<CategoryInput title={'Tops'} />
-										<CategoryInput title={'Printed T-shirts'} />
-										<CategoryInput title={'Plain T-shirts'} />
-										<CategoryInput title={'Kurti'} />
-									</div>
-								</div>
-								<div className="filter__section section-filter">
-									<h5 data-spoller="open" className="section-filter__title title-filter">
-										<button type="button" className="title-filter__button _icon-ch-down">
-											Price
-											<IoIosArrowUp size={'1em'} />
-										</button>
-									</h5>
-									<div className="section-filter__body">
-										<SliderInput />
-										{/* <div className="section-filter__price price-filter">
-											<div className="price-filter__range"></div>
-											<div className="price-filter__inputs">
-												<input
-													type="text"
-													name="price-from"
-													className="price-filter__input price-filter__input--from"
-												/>
-												<input
-													type="text"
-													name="price-to"
-													className="price-filter__input price-filter__input--to"
-												/>
-											</div>
-										</div> */}
-									</div>
-								</div>
-								<div className="filter__section section-filter">
-									<h5 data-spoller="open" className="section-filter__title title-filter">
-										<button type="button" className="title-filter__button _icon-ch-down">
-											Colors
-											<IoIosArrowUp size={'1em'} />
-										</button>
-									</h5>
-									<div className="section-filter__body">
-										<div className="section-filter__colors colors-filter">
-											<ColorsInput title={'Purple'} color={'#8434e1'} />
-											<ColorsInput title={'Black'} color={'#000000'} />
-											<ColorsInput title={'Red'} color={'#F35528'} />
-											<ColorsInput title={'Orange'} color={'#F16F2B'} />
-											<ColorsInput title={'Navy'} color={'#345EFF'} />
-										</div>
-									</div>
-								</div>
-								<div className="filter__section section-filter">
-									<h5 data-spoller="open" className="section-filter__title title-filter">
-										<button type="button" className="title-filter__button _icon-ch-down">
-											Size
-											<IoIosArrowUp size={'1em'} />
-										</button>
-									</h5>
-									<div className="section-filter__body">
-										<div className="section-filter__size size-filter">
-											<SizeInput title={'XXS'} />
-											<SizeInput title={'XS'} />
-											<SizeInput title={'S'} />
-											<SizeInput title={'M'} />
-											<SizeInput title={'L'} />
-										</div>
-									</div>
-								</div>
-								<div className="filter__section section-filter">
-									<h5 data-spoller="open" className="section-filter__title title-filter">
-										<button type="button" className="title-filter__button ">
-											Dress Style
-											<IoIosArrowUp size={'1em'} />
-										</button>
-									</h5>
-									<div className="section-filter__body">
-										<div className="section-filter__style style-filter">
-											<CategoryInput title={'Classic'} />
-											<CategoryInput title={'Casual'} />
-											<CategoryInput title={'Business'} />
-										</div>
-									</div>
-								</div>
+								<Accordion title={data.topStyles.title} items={data.topStyles.items} colCount={1} />
+								<Accordion title={data.price.title} items={data.price.items} colCount={1} />
+								<Accordion title={data.colors.title} items={data.colors.items} colCount={4} />
+								<Accordion title={data.size.title} items={data.size.items} colCount={3} />
+								<Accordion title={data.style.title} items={data.style.items} colCount={1} />
 							</form>
 						</aside>
 						<div className="catalog__body">

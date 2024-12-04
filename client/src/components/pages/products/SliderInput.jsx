@@ -4,10 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 import styles from './sliderInput.module.scss'
 
-const SliderInput = () => {
+const SliderInput = ({ min, max }) => {
 	const [values, setValues] = useState([100, 630])
-	const max = 1000
-	const min = 20
 
 	const handleInputChange = (index, event) => {
 		let value = event.target.value.slice(1)

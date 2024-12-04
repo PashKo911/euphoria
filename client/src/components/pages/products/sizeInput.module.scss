@@ -11,6 +11,7 @@
 	color: var(--dark-color);
 	line-height: 121.428571%; /* 17/14 */
 	font-size: toRem(14);
+	text-align: center;
 
 	&:has(input:focus-visible) {
 		outline: toRem(2) solid #000;
