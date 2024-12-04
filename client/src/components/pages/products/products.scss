@@ -237,6 +237,7 @@
 .section-filter {
 	// .section-filter__body
 	&__body {
+		position: relative;
 		padding: toRem(35) toRem(30);
 		border-bottom: toRem(1) solid #bebcbd;
 	}

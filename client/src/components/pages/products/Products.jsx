@@ -9,6 +9,7 @@ import { IoIosArrowUp } from 'react-icons/io'
 import './products.scss'
 import SizeInput from './SizeInput'
 import CategoryInput from './CategoryInput'
+import SliderInput from './SliderInput'
 
 const Products = () => {
 	return (
@@ -40,7 +41,8 @@ const Products = () => {
 										</button>
 									</h5>
 									<div className="section-filter__body">
-										<div className="section-filter__price price-filter">
+										<SliderInput />
+										{/* <div className="section-filter__price price-filter">
 											<div className="price-filter__range"></div>
 											<div className="price-filter__inputs">
 												<input
@@ -54,7 +56,7 @@ const Products = () => {
 													className="price-filter__input price-filter__input--to"
 												/>
 											</div>
-										</div>
+										</div> */}
 									</div>
 								</div>
 								<div className="filter__section section-filter">
@@ -110,7 +112,7 @@ const Products = () => {
 						</aside>
 						<div className="catalog__body">
 							<div className="catalog__header">
-								<h1 className="catalog__title">Women’s Clothing</h1>
+								<h1 className="catalog__title">Men’s Clothing</h1>
 								<ul className="catalog__type type-catalog">
 									<li className="type-catalog__item">
 										<button className="type-catalog__button type-catalog__button--active">New</button>
