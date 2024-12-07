@@ -56,7 +56,7 @@ const Navbar = () => {
 					<Link to={'/home'} className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />
 					</Link>
-					<Link to={'/home'} className="action-header__item" aria-label="Profile">
+					<Link to={'/auth'} className="action-header__item" aria-label="Profile">
 						<LuUser2 />
 					</Link>
 					<Link to={'/home'} className="action-header__item" aria-label="Cart">

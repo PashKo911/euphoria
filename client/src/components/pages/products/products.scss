@@ -231,30 +231,7 @@
 	&__body {
 	}
 }
-.section-filter {
-	// .section-filter__body
-	&__body {
-		position: relative;
-		padding: toRem(35) toRem(30);
-		border-bottom: toRem(1) solid #bebcbd;
-		// max-height: 0;
-	}
-	// .section-filter__menu
-	&__menu {
-	}
-	// .section-filter__title
-	&__title {
-	}
-	// .section-filter__price
-	&__price {
-	}
-	// .section-filter__size
-	&__size {
-	}
-	// .section-filter__style
-	&__style {
-	}
-}
+
 .title-filter {
 	&.active {
 		.title-filter__button:not(.title-filter__button--main)::before {
