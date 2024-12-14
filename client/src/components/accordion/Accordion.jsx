@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { IoIosArrowUp } from 'react-icons/io'
-import FilterItem from '../pages/products/FilterItem'
+import FilterItem from '../filters/FilterItem'
 
 import styles from './accordion.module.scss'
 

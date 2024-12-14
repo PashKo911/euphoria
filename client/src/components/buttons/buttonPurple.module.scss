@@ -3,7 +3,11 @@
 .button {
 	font-family: 'Causten';
 	background-color: var(--purple-color);
-	padding: toRem(16) toRem(20);
+	padding: toRem(10) toRem(20);
+	min-height: toRem(42);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-size: toRem(18);
 	font-weight: 500;
 	color: #fff;
@@ -24,6 +28,18 @@
 			background-color: #eaeaea;
 			cursor: default;
 			color: #807d7e;
+		}
+	}
+	.spinner {
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
 		}
 	}
 	&--border {

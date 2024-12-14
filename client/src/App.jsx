@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout'
-import Home from './components/pages/home/Home'
-import Products from './components/pages/products/Products'
+import Home from './pages/home/Home'
+import Products from './pages/products/Products'
+import Auth from './pages/auth/Auth'
 
 import './App.scss'
-import Auth from './components/pages/auth/Auth'
 
 function App() {
 	return (

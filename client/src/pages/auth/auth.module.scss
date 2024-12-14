@@ -1,0 +1,254 @@
+@import '../../styles/mixins';
+
+.auth {
+	@media (min-width: $mobile) {
+		@include gridContainer(4);
+	}
+}
+.wrapper {
+	display: flex;
+	position: relative;
+}
+.img {
+	flex-basis: 50%;
+	position: relative;
+	// aspect-ratio: 695 / 956;
+
+	@media (max-width: $mobile) {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0%;
+		left: 0%;
+	}
+
+	img {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0%;
+		left: 0%;
+		object-fit: cover;
+		z-index: 1;
+	}
+}
+.content {
+	position: relative;
+	z-index: 1;
+	background-color: #fffffff0;
+	width: 100%;
+	padding-right: toRem(15);
+	@include adaptiveValue('padding-left', 78, 30, 20, $containerWidth, 767.98);
+	@include adaptiveValue('padding-top', 60, 40);
+	@include adaptiveValue('padding-bottom', 200, 50);
+
+	@media (min-width: $mobile) {
+		flex-basis: 50%;
+	}
+}
+.title {
+	color: #333;
+	font-family: var(--core-sans);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: toRem(0.68);
+	@include adaptiveValue('font-size', 34, 24);
+	&:not(:last-child) {
+		@include adaptiveValue('margin-bottom', 50, 30);
+	}
+}
+.link {
+	display: block;
+	padding: toRem(16) toRem(20);
+	border-radius: toRem(8);
+	border: toRem(1) solid #3c4242;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: toRem(12);
+
+	@media (any-hover: hover) {
+		&:hover span::before {
+			width: 100%;
+			left: 0;
+		}
+	}
+
+	span {
+		position: relative;
+		display: inline-block;
+		color: var(--purple-color);
+		font-weight: 500;
+		line-height: normal;
+		@include adaptiveValue('font-size', 22, 16);
+
+		&::before {
+			content: '';
+			height: toRem(2);
+			background-color: var(--purple-color);
+			position: absolute;
+			top: 100%;
+			width: 0;
+			left: 50%;
+			transition: all 0.3s;
+			border-radius: toRem(2);
+			margin-top: toRem(-1);
+		}
+	}
+}
+
+.links {
+	display: grid;
+	gap: toRem(20);
+	&:not(:last-child) {
+		@include adaptiveValue('margin-bottom', 50, 40);
+	}
+}
+
+.or {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: toRem(23);
+	color: #666;
+	font-family: var(--core-sans);
+	line-height: 1.2;
+	@include adaptiveValue('font-size', 18, 16);
+	&:not(:last-child) {
+		@include adaptiveValue('margin-bottom', 50, 40);
+	}
+
+	&::before {
+		content: '';
+		flex-grow: 1;
+		height: toRem(2);
+		background-color: rgba(102, 102, 102, 0.25);
+		border-radius: toRem(2);
+	}
+	&::after {
+		content: '';
+		flex-grow: 1;
+		height: toRem(2);
+		background-color: rgba(102, 102, 102, 0.25);
+		border-radius: toRem(2);
+	}
+}
+.form {
+	display: grid;
+	position: relative;
+}
+.body {
+	display: grid;
+	gap: toRem(10);
+	&:not(:last-child) {
+		margin-bottom: toRem(30);
+	}
+	&:nth-child(2) {
+		&:not(:last-child) {
+			margin-bottom: toRem(10);
+		}
+	}
+}
+.label {
+	color: #3c4242;
+	font-weight: 400;
+	line-height: 1.2;
+	letter-spacing: toRem(0.36);
+	@include adaptiveValue('font-size', 18, 16);
+}
+.input {
+	padding: toRem(18) toRem(20);
+	border-radius: toRem(8);
+	border: toRem(1) solid var(--dark-color);
+	color: var(--dark-color);
+	font-weight: 400;
+	line-height: 1.2;
+	@include adaptiveValue('font-size', 20, 16);
+}
+
+.password {
+	display: flex;
+	justify-content: space-between;
+	gap: toRem(15);
+	align-items: center;
+	color: #3c4242;
+	font-weight: 400;
+	line-height: 1.2;
+	letter-spacing: toRem(0.36);
+	@include adaptiveValue('font-size', 18, 16);
+}
+.button {
+	display: flex;
+	align-items: center;
+	gap: toRem(15);
+	justify-content: space-between;
+	min-width: toRem(76);
+
+	span {
+		color: var(--main-color);
+		font-weight: 400;
+		line-height: 1.2;
+		font-size: toRem(18);
+		transition: color 0.3s;
+	}
+
+	@media (any-hover: hover) {
+		&:hover span {
+			color: var(--purple-color);
+		}
+		&:hover svg {
+			fill: var(--purple-color);
+		}
+	}
+	svg {
+		fill: var(--main-color);
+		transition: fill 0.3s;
+	}
+}
+.forget {
+	display: inline-block;
+	color: #3c4242;
+	font-weight: 400;
+	line-height: 1.2;
+	font-size: toRem(16);
+	text-decoration: underline;
+	margin-left: auto;
+	transition: color 0.3s;
+
+	&:not(:last-child) {
+		margin-bottom: toRem(30);
+	}
+
+	@media (any-hover: hover) {
+		&:hover {
+			color: var(--purple-color);
+		}
+	}
+}
+.signup {
+	color: #3c4242;
+	font-weight: 400;
+	line-height: 1.2;
+	font-size: toRem(16);
+	transition: color 0.3s;
+
+	span {
+		text-decoration: underline;
+	}
+
+	@media (any-hover: hover) {
+		&:hover {
+			color: var(--purple-color);
+		}
+	}
+}
+
+.error {
+	color: red;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: toRem(16);
+	transform: translate(0, -100%);
+	@include adaptiveValue('font-size', 16, 14);
+}

@@ -1,12 +1,11 @@
-import { Link } from 'react-router-dom'
-
 import styles from './buttonPurple.module.scss'
+import { FaSpinner } from 'react-icons/fa'
 
-const ButtonPurple = ({ path, title, style }) => {
+const ButtonPurple = ({ onClick, title, style, isLoading, disabled }) => {
 	return (
-		<Link className={styles.button} to={path} style={style}>
-			{title}
-		</Link>
+		<button className={styles.button} type="submit" onClick={onClick} style={style} disabled={disabled}>
+			{isLoading ? <FaSpinner className={styles.spinner} /> : title}
+		</button>
 	)
 }
 
