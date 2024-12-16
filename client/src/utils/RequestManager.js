@@ -32,16 +32,8 @@ class RequestManager {
 		}
 	}
 
-	// static async handleResponse(response) {
-	// 	const data = await response.json()
-	// 	if (!response.ok) {
-	// 		throw data.errors
-	// 	}
-	// 	return data
-	// }
-
 	// Метод для виконання POST запиту
-	static async doPostRequest(url, data, redirectRoute, callback, addAuthorization = true) {
+	static async doPostRequest(url, data, callback, addAuthorization = true) {
 		const headers = { 'Content-Type': 'application/json' }
 		if (addAuthorization && this.isAuthenticated()) {
 			headers['Authorization'] = `Bearer ${localStorage.getItem('jwt_token')}`
@@ -59,9 +51,7 @@ class RequestManager {
 			if (callback) {
 				callback(result)
 			}
-			// window.location.href = redirectRoute
 		} else {
-			console.log(result.errors)
 			throw result.errors
 		}
 	}
@@ -165,6 +155,7 @@ class RequestManager {
 				headers['Authorization'] = `Bearer ${localStorage.getItem('jwt_token')}`
 			}
 
+			console.log(headers)
 			response = await fetch(this.getServerRoute(url), {
 				method: 'GET',
 				headers: headers,

@@ -10,24 +10,24 @@ import SliderInput from '../../components/inputs/SliderInput'
 import Accordion from '../../components/accordion/Accordion'
 
 import RequestManager from '../../utils/RequestManager'
+import useHttp from '../../hooks/useHttp'
 import './products.scss'
 import Product from '../../components/productCards/Product'
 import Preloader from '../../components/preloader'
 
 const Products = () => {
 	const [products, setProducts] = useState([])
-	const [loading, setLoading] = useState(true)
+	const { get, process } = useHttp()
+	console.log(process)
 
 	const fetchProducts = async () => {
 		try {
-			const data = await RequestManager.fetchData('/products')
+			const data = await get('/products')
 			if (data) {
 				setProducts(data.products || [])
 			}
 		} catch (error) {
 			console.error('Error fetching products:', error)
-		} finally {
-			setLoading(false)
 		}
 	}
 
@@ -111,15 +111,15 @@ const Products = () => {
 									</li>
 								</ul>
 							</div>
-							{loading && (
+							{process === 'loading' && (
 								<div className="message-block">
 									<Preloader />
 								</div>
 							)}
-							{!loading && products.length === 0 && (
+							{process !== 'loading' && products.length === 0 && (
 								<div className="message-block">No products available...</div>
 							)}
-							{!loading && products.length > 0 && (
+							{process !== 'loading' && products.length > 0 && (
 								<div className="catalog__items">
 									{products.map((product) => (
 										<Product

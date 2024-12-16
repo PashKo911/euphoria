@@ -222,6 +222,13 @@
 		@media (max-width: toEm(540)) {
 			width: auto;
 		}
+		&.active {
+			background-color: var(--purple-color);
+
+			svg {
+				fill: #fff;
+			}
+		}
 		svg {
 			width: toRem(20);
 			height: toRem(20);

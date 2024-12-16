@@ -1,17 +1,23 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
-import styles from './auth.module.scss'
+import useHttp from '../../hooks/useHttp'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
-import RequestManager from '../../utils/RequestManager'
+
+import styles from './auth.module.scss'
+import { useAuth } from '../../context/AuthContext'
 
 const Auth = () => {
-	const [isHide, setIsHide] = useState(false)
+	const [isPassHide, setIsPassHide] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
+	const { login } = useAuth()
+	const { post, process } = useHttp()
 
-	const login = async (e) => {
+	const navigate = useNavigate()
+
+	const handleLogin = async (e) => {
 		e.preventDefault()
 
 		const form = e.target
@@ -20,20 +26,13 @@ const Auth = () => {
 			password: form.password.value,
 		}
 
-		const callback = (data) => {
-			console.log(data)
-			localStorage.setItem('jwt_token', data.token)
-		}
-
-		setIsLoading(true)
-
 		try {
-			await RequestManager.doPostRequest('/auth/login', formData, '/products/men', callback, false)
+			const data = await post('/auth/login', formData, false)
+			login(data.token)
+			navigate('/products/men')
 		} catch (error) {
 			console.log(error)
 			setErrorMessage(error)
-		} finally {
-			setIsLoading(false)
 		}
 	}
 
@@ -56,7 +55,7 @@ const Auth = () => {
 						</Link>
 					</div>
 					<div className={styles.or}>OR</div>
-					<form className={styles.form} onSubmit={login}>
+					<form className={styles.form} onSubmit={handleLogin}>
 						{errorMessage.length > 0 && (
 							<div className={styles.error}>
 								{errorMessage.map((error, index) => (
@@ -80,15 +79,15 @@ const Auth = () => {
 						<div className={styles.body}>
 							<label className={styles.password} htmlFor="password">
 								<span>Password</span>
-								<button type="button" className={styles.button} onClick={() => setIsHide(!isHide)}>
-									{isHide ? <FaEyeSlash /> : <FaEye />}
-									<span> {isHide ? 'Hide' : 'Show'} </span>
+								<button type="button" className={styles.button} onClick={() => setIsPassHide(!isPassHide)}>
+									{isPassHide ? <FaEyeSlash /> : <FaEye />}
+									<span> {isPassHide ? 'Hide' : 'Show'} </span>
 								</button>
 							</label>
 							<input
 								className={styles.input}
 								id="password"
-								type={isHide ? 'text' : 'password'}
+								type={isPassHide ? 'text' : 'password'}
 								name="password"
 								required
 							/>
@@ -98,11 +97,11 @@ const Auth = () => {
 						</Link>
 						<ButtonPurple
 							style={{ width: 'max-content', minWidth: 167, marginBottom: 10 }}
-							title={isLoading ? 'Signing In...' : 'Sign In'}
-							isLoading={isLoading}
-							disabled={isLoading}
+							title={'Sign In'}
+							isLoading={process}
+							disabled={process === 'loading' ? true : false}
 						/>
-						<Link className={styles.signup} to={'/auth/login'}>
+						<Link className={styles.signup} to={'/auth/register'}>
 							Don’t have an account? <span>Sign up </span>
 						</Link>
 					</form>

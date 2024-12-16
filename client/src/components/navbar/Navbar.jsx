@@ -1,15 +1,20 @@
 import { Link, NavLink } from 'react-router-dom'
+import { useState } from 'react'
 
 import { HiOutlineSearch } from 'react-icons/hi'
 import { MdFavoriteBorder } from 'react-icons/md'
 import { LuUser2 } from 'react-icons/lu'
 import { FiShoppingCart } from 'react-icons/fi'
-import { useState } from 'react'
+import { IoMdLogIn } from 'react-icons/io'
+import { IoMdLogOut } from 'react-icons/io'
+
+import { useAuth } from '../../context/AuthContext'
 
 import './navbar.scss'
 
 const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
+	const { isAuthenticated, logout } = useAuth()
 
 	return (
 		<header className={`${showMenu ? 'header menu-open' : 'header'}`}>
@@ -53,16 +58,30 @@ const Navbar = () => {
 					</button>
 				</form>
 				<div className="header__action action-header">
-					<Link to={'/home'} className="action-header__item" aria-label="Favorite">
+					<NavLink to={'/home'} className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />
-					</Link>
-					<Link to={'/auth'} className="action-header__item" aria-label="Profile">
-						<LuUser2 />
-					</Link>
+					</NavLink>
+					{isAuthenticated ? (
+						<>
+							<NavLink to={'/profile'} className="action-header__item" aria-label="Profile">
+								<LuUser2 />
+							</NavLink>
+						</>
+					) : (
+						<NavLink to={'/auth'} className="action-header__item" aria-label="Login">
+							<IoMdLogIn />
+						</NavLink>
+					)}
 					<Link to={'/home'} className="action-header__item" aria-label="Cart">
 						<FiShoppingCart />
 					</Link>
+					{isAuthenticated && (
+						<button onClick={logout} type="button" className="action-header__item" aria-label="Logout">
+							<IoMdLogOut />
+						</button>
+					)}
 				</div>
+
 				<button className="icon-menu" onClick={() => setShowMenu(!showMenu)}>
 					<span></span>
 				</button>
