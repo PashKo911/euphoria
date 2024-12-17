@@ -7,6 +7,7 @@ import { LuUser2 } from 'react-icons/lu'
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoMdLogIn } from 'react-icons/io'
 import { IoMdLogOut } from 'react-icons/io'
+import { BsKey } from 'react-icons/bs'
 
 import { useAuth } from '../../context/AuthContext'
 
@@ -25,7 +26,7 @@ const Navbar = () => {
 						<ul className="menu__list">
 							<li className="menu__item">
 								<NavLink to={'/home'} className="menu__link">
-									Shop
+									Home
 								</NavLink>
 							</li>
 							<li className="menu__item">
@@ -36,16 +37,6 @@ const Navbar = () => {
 							<li className="menu__item">
 								<NavLink to={'/products/women'} className="menu__link">
 									Women
-								</NavLink>
-							</li>
-							<li className="menu__item">
-								<NavLink to={'/products/combos'} className="menu__link">
-									Combos
-								</NavLink>
-							</li>
-							<li className="menu__item">
-								<NavLink to={'/products/joggers'} className="menu__link">
-									Joggers
 								</NavLink>
 							</li>
 						</ul>
@@ -68,7 +59,7 @@ const Navbar = () => {
 							</NavLink>
 						</>
 					) : (
-						<NavLink to={'/auth'} className="action-header__item" aria-label="Login">
+						<NavLink to={'/auth/sign-in'} className="action-header__item" aria-label="Login">
 							<IoMdLogIn />
 						</NavLink>
 					)}
@@ -79,6 +70,11 @@ const Navbar = () => {
 						<button onClick={logout} type="button" className="action-header__item" aria-label="Logout">
 							<IoMdLogOut />
 						</button>
+					)}
+					{isAuthenticated && (
+						<Link to={'/dashboard'} className="action-header__item" aria-label="Cart">
+							<BsKey />
+						</Link>
 					)}
 				</div>
 

@@ -9,7 +9,20 @@ import ButtonPurple from '../../components/buttons/ButtonPurple'
 import styles from './auth.module.scss'
 import { useAuth } from '../../context/AuthContext'
 
-const Auth = () => {
+const Auth = (props) => {
+	const {
+		title,
+		subtitle,
+		route,
+		redirectRoute,
+		buttonText,
+		imgPath,
+		isSignIn,
+		subButtonText,
+		subButtonSpan,
+		subButtonRoute,
+	} = props
+
 	const [isPassHide, setIsPassHide] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
 	const { login } = useAuth()
@@ -27,11 +40,10 @@ const Auth = () => {
 		}
 
 		try {
-			const data = await post('/auth/login', formData, false)
+			const data = await post(`${route}`, formData, false)
 			login(data.token)
-			navigate('/products/men')
+			navigate(`${redirectRoute}`)
 		} catch (error) {
-			console.log(error)
 			setErrorMessage(error)
 		}
 	}
@@ -40,10 +52,13 @@ const Auth = () => {
 		<section className={styles.auth}>
 			<div className={styles.wrapper}>
 				<div className={styles.img}>
-					<img src="/assets/img/auth/signIn.png" alt="Sign in image" />
+					<img src={imgPath} alt="Sign in image" />
 				</div>
 				<div className={styles.content}>
-					<h1 className={styles.title}>Sign In Page</h1>
+					<div className={styles.header}>
+						<h1 className={styles.title}>{title}</h1>
+						{!isSignIn && <h2 className={styles.subtitle}>{subtitle}</h2>}
+					</div>
 					<div className={styles.links}>
 						<Link to={'#'} className={styles.link}>
 							<img src="/assets/img/icons/google.svg" alt="Google" />
@@ -92,17 +107,20 @@ const Auth = () => {
 								required
 							/>
 						</div>
-						<Link className={styles.forget} to={'#'}>
-							Forget your password
-						</Link>
+						{isSignIn && (
+							<Link className={styles.forget} to={'#'}>
+								Forget your password
+							</Link>
+						)}
+
 						<ButtonPurple
 							style={{ width: 'max-content', minWidth: 167, marginBottom: 10 }}
-							title={'Sign In'}
+							title={buttonText}
 							isLoading={process}
 							disabled={process === 'loading' ? true : false}
 						/>
-						<Link className={styles.signup} to={'/auth/register'}>
-							Don’t have an account? <span>Sign up </span>
+						<Link className={styles.signup} to={subButtonRoute}>
+							{subButtonText} <span>{subButtonSpan}</span>
 						</Link>
 					</form>
 				</div>

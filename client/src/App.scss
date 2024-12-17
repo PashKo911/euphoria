@@ -2,7 +2,8 @@
 @import './styles/mixins';
 
 // Container ======================================================================================================================================================================================================================
-[class*='__container'] {
+[class*='__container'],
+[class*='_container'] {
 	max-width: toRem($containerWidth);
 	margin: 0 auto;
 	padding: 0 toRem(math.div($containerPadding, 2));
@@ -23,6 +24,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
+
 	@media (max-width: toEm(540)) {
 		padding-bottom: toRem(75);
 	}

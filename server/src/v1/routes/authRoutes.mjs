@@ -6,7 +6,7 @@ import AuthController from '../controllers/authController.mjs'
 
 const router = express.Router()
 
-router.post('/signup', checkSchema(UserValidator.userSchema), AuthController.signup)
-router.post('/login', checkSchema(UserValidator.authSchema), AuthController.login)
+router.post('/sign-up', checkSchema(UserValidator.userSchema), AuthController.signup)
+router.post('/sign-in', checkSchema(UserValidator.authSchema), AuthController.login)
 
 export default router

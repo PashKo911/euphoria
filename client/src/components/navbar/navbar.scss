@@ -89,7 +89,7 @@
 	}
 }
 .menu {
-	flex-grow: 1;
+	// flex-grow: 1;
 	// .menu__icon
 	&__icon {
 	}
@@ -150,6 +150,7 @@
 	}
 }
 .search-form {
+	flex-grow: 1;
 	border-radius: toRem(8);
 	background-color: var(--lite-color);
 	position: relative;

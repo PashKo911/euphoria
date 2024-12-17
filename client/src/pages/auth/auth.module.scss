@@ -46,6 +46,12 @@
 		flex-basis: 50%;
 	}
 }
+
+.header {
+	&:not(:last-child) {
+		@include adaptiveValue('margin-bottom', 50, 30);
+	}
+}
 .title {
 	color: #333;
 	font-family: var(--core-sans);
@@ -54,8 +60,16 @@
 	letter-spacing: toRem(0.68);
 	@include adaptiveValue('font-size', 34, 24);
 	&:not(:last-child) {
-		@include adaptiveValue('margin-bottom', 50, 30);
+		margin-bottom: toRem(10);
 	}
+}
+.subtitle {
+	color: #666666cc;
+	font-family: var(--causten);
+	font-style: normal;
+	font-weight: 500;
+	line-height: 1.2;
+	font-size: toRem(16);
 }
 .link {
 	display: block;

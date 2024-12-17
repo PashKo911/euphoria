@@ -4,13 +4,13 @@ import bcrypt from 'bcryptjs'
 
 // Створення схеми користувача
 const userSchema = new Schema({
-	username: {
-		type: String,
-		required: [true, 'Full Name is required'],
-		minlength: [3, 'Full Name must be at least 3 characters long'],
-		maxlength: [50, 'Full Name must be at most 50 characters long'],
-		trim: true,
-	},
+	// username: {
+	// 	type: String,
+	// 	required: [true, 'Full Name is required'],
+	// 	minlength: [3, 'Full Name must be at least 3 characters long'],
+	// 	maxlength: [50, 'Full Name must be at most 50 characters long'],
+	// 	trim: true,
+	// },
 	email: {
 		type: String,
 		required: [true, 'email is required'],

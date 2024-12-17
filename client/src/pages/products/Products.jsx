@@ -9,16 +9,15 @@ import CategoryInput from '../../components/inputs/CategoryInput'
 import SliderInput from '../../components/inputs/SliderInput'
 import Accordion from '../../components/accordion/Accordion'
 
-import RequestManager from '../../utils/RequestManager'
 import useHttp from '../../hooks/useHttp'
-import './products.scss'
 import Product from '../../components/productCards/Product'
 import Preloader from '../../components/preloader'
+
+import './products.scss'
 
 const Products = () => {
 	const [products, setProducts] = useState([])
 	const { get, process } = useHttp()
-	console.log(process)
 
 	const fetchProducts = async () => {
 		try {

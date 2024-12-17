@@ -1,0 +1,27 @@
+@import '../styles/mixins';
+
+.title {
+	font-family: var(--core-sans);
+	font-weight: 600;
+	color: var(--dark-color);
+	letter-spacing: toRem(0.68);
+	line-height: 1.1;
+	display: flex;
+	align-items: center;
+	gap: toEm(15, 28);
+	// @include adaptiveValue('font-size', 36, 26);
+	@include adaptiveValue('font-size', 28, 18);
+	&:not(:last-child) {
+		margin-bottom: toRem(20);
+	}
+
+	&::before {
+		content: '';
+		border-radius: toRem(10);
+		background-color: var(--purple-color);
+		flex: 0 0 toRem(6);
+		margin-top: toEm(-6, 28);
+		width: toRem(6);
+		height: toEm(28, 28);
+	}
+}

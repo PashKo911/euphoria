@@ -1,16 +1,16 @@
 class UserValidator {
 	static userSchema = {
-		username: {
-			trim: true,
-			notEmpty: {
-				errorMessage: 'Full Name is required',
-			},
-			isLength: {
-				options: { min: 3, max: 50 },
-				errorMessage: 'Full Name must be between 3 and 50 characters long',
-			},
-			escape: true,
-		},
+		// username: {
+		// 	trim: true,
+		// 	notEmpty: {
+		// 		errorMessage: 'Full Name is required',
+		// 	},
+		// 	isLength: {
+		// 		options: { min: 3, max: 50 },
+		// 		errorMessage: 'Full Name must be between 3 and 50 characters long',
+		// 	},
+		// 	escape: true,
+		// },
 		email: {
 			isEmail: {
 				errorMessage: 'Invalid email address',
