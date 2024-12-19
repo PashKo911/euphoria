@@ -33,3 +33,14 @@ body {
 #root > main {
 	flex-grow: 1;
 }
+
+.message-block {
+	text-align: center;
+	color: var(--dark-color);
+	font-weight: 600;
+	font-size: toRem(22);
+	display: flex;
+	justify-content: center;
+	@include adaptiveValue('font-size', 22, 18);
+	@include adaptiveValue('padding-top', 140, 40);
+}

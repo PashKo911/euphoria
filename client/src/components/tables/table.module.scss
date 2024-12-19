@@ -1,0 +1,133 @@
+@import '../../styles/mixins';
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: auto;
+
+	thead {
+		background-color: var(--dark-color);
+
+		tr {
+			th {
+				color: #fff;
+				text-align: center;
+				font-weight: 600;
+				line-height: normal;
+				text-transform: uppercase;
+				padding-left: toRem(5);
+				padding-right: toRem(5);
+				@include adaptiveValue('font-size', 18, 12);
+				@include adaptiveValue('padding-top', 26, 15);
+				@include adaptiveValue('padding-bottom', 26, 15);
+				&:nth-child(1) {
+					min-width: toRem(120);
+					max-width: toRem(120);
+				}
+			}
+		}
+	}
+	tbody {
+		tr {
+			&:not(:last-child) {
+				border-bottom: toRem(1) solid #bebcbd;
+			}
+			td {
+				text-align: center;
+				padding-left: toRem(5);
+				padding-right: toRem(5);
+				@include adaptiveValue('font-size', 16, 14);
+				@include adaptiveValue('padding-top', 40, 20);
+				@include adaptiveValue('padding-bottom', 40, 20);
+
+				&.details {
+					text-align: left;
+				}
+				@media (max-width: $mobileSmall) {
+					&:nth-child(1) {
+						max-width: toRem(120);
+					}
+				}
+			}
+		}
+	}
+}
+
+.details {
+	display: flex;
+	column-gap: toRem(20);
+	align-items: flex-start;
+	@include adaptiveValue('column-gap', 20, 10);
+
+	@media (max-width: $mobileSmall) {
+		flex-direction: column;
+		row-gap: toRem(10);
+	}
+
+	img {
+		border-radius: toRem(12);
+		width: 100%;
+		max-width: toRem(105);
+		aspect-ratio: 105 / 120;
+		object-fit: cover;
+
+		@media (max-width: $mobileSmall) {
+			max-width: toRem(80);
+			border: toRem(6);
+		}
+	}
+}
+.detailsContent {
+}
+.detailsTitle {
+	color: var(--dark-color);
+	font-weight: 700;
+	line-height: normal;
+	letter-spacing: toRem(0.36);
+	@include adaptiveValue('font-size', 18, 14);
+	&:not(:last-child) {
+		margin-bottom: toRem(10);
+	}
+}
+.detailsSub {
+	color: var(--main-color);
+	font-weight: 500;
+	line-height: normal;
+	text-align: left;
+	@include adaptiveValue('font-size', 16, 14);
+}
+.actions {
+	display: flex;
+	flex-direction: column;
+	gap: toRem(10);
+	align-items: center;
+	justify-content: center;
+
+	a {
+		padding: toRem(5);
+
+		@media (any-hover: hover) {
+			&:hover svg {
+				transform: scale(1.2);
+			}
+		}
+		svg {
+			fill: rgb(27, 201, 27);
+			will-change: transform;
+			transition: transform 0.2s;
+		}
+	}
+	button {
+		padding: toRem(5);
+		@media (any-hover: hover) {
+			&:hover svg {
+				transform: scale(1.2);
+			}
+		}
+		svg {
+			fill: red;
+			will-change: transform;
+			transition: transform 0.2s;
+		}
+	}
+}

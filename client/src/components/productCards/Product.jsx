@@ -6,20 +6,20 @@ import constants from '../../utils/constants'
 const Product = ({ path, title, price }) => {
 	return (
 		<article className={styles.product}>
-			<button type="button" className={styles.favorite}>
-				<GrFavorite />
-			</button>
 			<Link to={'/products/id'} className={styles.link}>
-				<img src={`${constants.API_BASE}${path}`} alt={title} />
-			</Link>
-			<div className={styles.body}>
-				<Link to={'/products/id'} className={styles.linkTitle}>
+				<button type="button" className={styles.favorite}>
+					<GrFavorite />
+				</button>
+				<div className={styles.img}>
+					<img src={`${constants.API_BASE}${path}`} alt={title} />
+				</div>
+				<div className={styles.body}>
 					<h4 className={styles.title}>{title}</h4>
-				</Link>
 
-				<div className={styles.label}>Explore Now!</div>
-				<div className={styles.price}>${price}</div>
-			</div>
+					<div className={styles.label}>Explore Now!</div>
+					<div className={styles.price}>${price}</div>
+				</div>
+			</Link>
 		</article>
 	)
 }

@@ -1,27 +1,35 @@
-import { Link, NavLink } from 'react-router-dom'
-import constants from '../../utils/constants'
-import { RiDeleteBinLine } from 'react-icons/ri'
-import { RiEditLine } from 'react-icons/ri'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { SlHandbag } from 'react-icons/sl'
 import { FaUsers } from 'react-icons/fa'
+import { useState } from 'react'
 
-import styles from './dashboard.module.scss'
 import TitleDecor from '../../components/TitleDecor'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Filter from '../../components/filters/Filter'
+import FilterSort from '../../components/filters/FilterSort'
+
+import styles from './dashboard.module.scss'
 
 const Dashboard = () => {
+	const location = useLocation()
+	const isUsersPage = location.pathname.includes('users')
+	const title = isUsersPage ? 'Users' : 'Products'
+	const addPath = isUsersPage ? '/dashboard/users/add' : '/dashboard/products/add'
+	const isFormPage = location.pathname.includes('add')
+	const [isFilterOpen, setIsFilterOpen] = useState(false)
+
 	return (
 		<section className={styles.dashboard}>
 			<div className={styles.container}>
-				<aside className={styles.aside}>
-					<div className={styles.asideHeader}>
+				<div className={styles.top}>
+					<div className={styles.header}>
 						<TitleDecor title={'Hello Jhanvi'} />
-						<div className={styles.asideSubtitle}>Welcome to dashboard</div>
 					</div>
-					<ul className={styles.asideList}>
+					<ul className={styles.list}>
 						<li className={styles.asideItem}>
 							<NavLink
-								to={'/dashboard'}
+								to="/dashboard"
+								end
 								className={({ isActive }) =>
 									isActive ? `${styles.asideLink} ${styles.active}` : styles.asideLink
 								}>
@@ -31,7 +39,7 @@ const Dashboard = () => {
 						</li>
 						<li className={styles.asideItem}>
 							<NavLink
-								to={'/dashboard/users'}
+								to="/dashboard/users"
 								className={({ isActive }) =>
 									isActive ? `${styles.asideLink} ${styles.active}` : styles.asideLink
 								}>
@@ -40,71 +48,20 @@ const Dashboard = () => {
 							</NavLink>
 						</li>
 					</ul>
-				</aside>
-				<div className={styles.body}>
-					<div className={styles.bodyHeader}>
-						<h2 className={styles.title}>Products</h2>
-						<ButtonPurple to={'/products/add'} title={'Add'} />
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th>Product details</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
+				</div>
+				<div className={styles.content}>
+					{!isFormPage && <Filter isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />}
 
-						<tbody>
-							<tr>
-								<td className={styles.details}>
-									{/* <img src={`${constants.API_BASE}${path}`} alt={title} /> */}
-									<img src="/assets/img/auth/signIn.png" alt="image" />
-									<div className={styles.detailsContent}>
-										<h3 className={styles.detailsTitle}>Blue Flower Print Crop Top</h3>
-										<div className={styles.detailsSub}>Color : Yellow</div>
-										<div className={styles.detailsSub}>Size : M</div>
-									</div>
-								</td>
-								<td>$29.00</td>
-								<td>3</td>
-								<td>
-									<div className={styles.actions}>
-										<Link to={'/dashboard/edit'}>
-											<RiEditLine size={20} />
-										</Link>
-										<button type="button">
-											<RiDeleteBinLine size={20} />
-										</button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td className={styles.details}>
-									{/* <img src={`${constants.API_BASE}${path}`} alt={title} /> */}
-									<img src="/assets/img/auth/signIn.png" alt="image" />
-									<div className={styles.detailsContent}>
-										<h3 className={styles.detailsTitle}>Blue Flower Print Crop Top</h3>
-										<div className={styles.detailsSub}>Color : Yellow</div>
-										<div className={styles.detailsSub}>Size : M</div>
-									</div>
-								</td>
-								<td>$29.00</td>
-								<td>3</td>
-								<td>
-									<div className={styles.actions}>
-										<Link to={'/dashboard/edit'}>
-											<RiEditLine size={20} />
-										</Link>
-										<button type="button">
-											<RiDeleteBinLine size={20} />
-										</button>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					<div className={styles.body}>
+						<div className={styles.bodyHeader}>
+							<div className={styles.bodyHeaderTop}>
+								<h2 className={styles.title}>{title}</h2>
+								<ButtonPurple to={addPath} title="Add" />
+							</div>
+							{!isFormPage && <FilterSort isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />}
+						</div>
+						<Outlet />
+					</div>
 				</div>
 			</div>
 		</section>

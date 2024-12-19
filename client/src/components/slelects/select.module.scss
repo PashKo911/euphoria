@@ -1,0 +1,46 @@
+@import '../../styles/mixins';
+
+.select {
+	position: relative;
+	width: auto;
+	min-width: toRem(175);
+	user-select: none;
+	font-weight: 500;
+	line-height: 1.2;
+	font-size: toRem(16);
+}
+
+.selectHeader {
+	padding: toRem(5) toRem(10);
+	border: toRem(1) solid #bebcbd;
+	border-radius: toRem(5);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: toRem(10);
+	background: white;
+	color: var(--dark-color);
+	cursor: pointer;
+}
+
+.selectList {
+	position: absolute;
+	top: 0%;
+	left: 0;
+	width: 100%;
+	border: toRem(1) solid #bebcbd;
+	border-radius: toRem(5);
+	background: white;
+	overflow-y: auto;
+	z-index: 1000;
+}
+
+.selectItem {
+	padding: toRem(5);
+	cursor: pointer;
+	color: var(--main-color);
+}
+
+.selectItem:hover {
+	background: #f0f0f0;
+}

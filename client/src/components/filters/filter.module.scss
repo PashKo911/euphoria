@@ -1,0 +1,54 @@
+@import '../../styles/mixins';
+
+.filter {
+	background-color: #fff;
+	border-right: toRem(1) solid #bebcbd;
+	position: relative;
+	z-index: 10;
+	@include adaptiveValue('width', 295, 240, 2, $containerWidth, 767.98);
+
+	@media (max-width: $mobile) {
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: auto;
+		height: auto;
+		max-height: 100%;
+		overflow-y: scroll;
+		max-width: toRem(295);
+		transition: left 0.2s;
+
+		&.open {
+			left: 0;
+		}
+	}
+}
+
+.header {
+	border-bottom: toRem(1) solid #bebcbd;
+	padding: toRem(20) toRem(15);
+	gap: toRem(15);
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	@include adaptiveValue('padding-left', 30, 0, 2, $containerWidth, 767.98);
+	@include adaptiveValue('padding-right', 30, 15, 0, $containerWidth, 767.98);
+	@include adaptiveValue('padding-top', 20, 10, 0, $containerWidth, 767.98);
+	@include adaptiveValue('padding-bottom', 20, 10, 0, $containerWidth, 767.98);
+}
+
+.filterTitle {
+	font-size: toRem(22);
+	font-weight: 600;
+}
+.filterBody {
+	position: relative;
+}
+.filterButton {
+	padding: toRem(4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

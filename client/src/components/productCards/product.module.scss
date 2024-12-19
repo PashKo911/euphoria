@@ -1,9 +1,21 @@
 @import '../../styles/mixins';
 
 .product {
+}
+
+.link {
 	position: relative;
 	display: grid;
 	gap: toRem(30);
+
+	@media (any-hover: hover) {
+		&:hover img {
+			transform: scale(1.05);
+		}
+		&:hover .title {
+			text-decoration-color: var(--dark-color);
+		}
+	}
 }
 .favorite {
 	position: absolute;
@@ -28,7 +40,8 @@
 		}
 	}
 }
-.link {
+
+.img {
 	display: block;
 	img {
 		aspect-ratio: 282 / 370;
@@ -36,6 +49,12 @@
 		height: 100%;
 		object-fit: cover;
 		border-radius: toRem(10);
+		transition: transform 0.2s;
+		will-change: transform;
+
+		@media (max-width: toEm(419.98)) {
+			aspect-ratio: 282 / 340;
+		}
 	}
 }
 
@@ -43,7 +62,7 @@
 	display: grid;
 	grid-template: auto auto / 1fr auto;
 	row-gap: toRem(5);
-	column-gap: toRem(35);
+	column-gap: toRem(15);
 }
 .linkTitle {
 	font-weight: 600;
@@ -55,6 +74,13 @@
 	white-space: nowrap;
 	overflow: hidden;
 	display: block;
+	color: var(--dark-color);
+	font-size: toRem(16);
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration-line: underline;
+	text-decoration-color: transparent;
+	transition: text-decoration-color 0.2s;
 }
 .label {
 	grid-row: 2 / 3;

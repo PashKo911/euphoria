@@ -8,9 +8,8 @@
 	line-height: 1.1;
 	display: flex;
 	align-items: center;
-	gap: toEm(15, 28);
-	// @include adaptiveValue('font-size', 36, 26);
-	@include adaptiveValue('font-size', 28, 18);
+	gap: toEm(15, 36);
+	@include adaptiveValue('font-size', 36, 26);
 	&:not(:last-child) {
 		margin-bottom: toRem(20);
 	}
@@ -20,8 +19,8 @@
 		border-radius: toRem(10);
 		background-color: var(--purple-color);
 		flex: 0 0 toRem(6);
-		margin-top: toEm(-6, 28);
+		margin-top: toEm(-6, 36);
 		width: toRem(6);
-		height: toEm(28, 28);
+		height: toEm(28, 36);
 	}
 }
