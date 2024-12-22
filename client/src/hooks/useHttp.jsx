@@ -18,6 +18,7 @@ const useHttp = () => {
 			const options = {
 				method,
 				headers,
+				credentials: 'include',
 			}
 
 			if (body) {
@@ -34,17 +35,16 @@ const useHttp = () => {
 
 				if (!response.ok) {
 					const data = await response.json()
-					throw data.errors
+					throw new Error(data.errors || 'Something went wrong')
 				}
 
 				const data = await response.json()
-
 				setProcess('confirmed')
 				return data
 			} catch (error) {
 				setProcess('error')
 				console.error('HTTP Error:', error.message)
-				throw error
+				throw new Error(error.message || 'An error occurred while processing your request')
 			}
 		},
 		[baseUrl, isAuthenticated, token]

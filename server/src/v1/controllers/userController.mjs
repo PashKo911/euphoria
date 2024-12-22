@@ -2,6 +2,7 @@ import { validationResult } from 'express-validator'
 import FormatValidationErrors from '../../../validators/formatValidationErrors.mjs'
 
 import UsersDBService from '../models/user/UsersDBService.mjs'
+import TypesDBService from '../models/type/TypesDBService.mjs'
 
 class UserController {
 	static async usersList(req, res) {
@@ -11,10 +12,12 @@ class UserController {
 				if (req.query[key]) filters[key] = req.query[key]
 			}
 
+			const usersTypes = await TypesDBService.getList()
 			const dataList = await UsersDBService.getList(filters)
 			res.status(200).json({
 				users: dataList,
 				user: req.user,
+				types: usersTypes,
 			})
 		} catch (err) {
 			res.status(500).json({ error: err.message })

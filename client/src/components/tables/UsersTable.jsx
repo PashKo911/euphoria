@@ -14,6 +14,7 @@ const UsersTable = () => {
 	const fetchUsers = async () => {
 		try {
 			const data = await get('/users')
+			console.log(data)
 			if (data) {
 				setUsers(data.users || [])
 			}

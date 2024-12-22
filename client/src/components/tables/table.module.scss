@@ -36,6 +36,7 @@ table {
 				text-align: center;
 				padding-left: toRem(5);
 				padding-right: toRem(5);
+				word-break: break-all;
 				@include adaptiveValue('font-size', 16, 14);
 				@include adaptiveValue('padding-top', 40, 20);
 				@include adaptiveValue('padding-bottom', 40, 20);

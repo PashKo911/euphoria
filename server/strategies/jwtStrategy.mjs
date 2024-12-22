@@ -1,6 +1,6 @@
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt'
 import config from '../config/default.mjs'
-import UserManager from '../models/userManager'
+import UsersDBService from '../src/v1/models/user/UsersDBService.mjs'
 
 const options = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -9,7 +9,7 @@ const options = {
 
 export default new JWTStrategy(options, async (jwtPayload, done) => {
 	try {
-		const user = await UserManager.getById(jwtPayload._id, { password: 0 })
+		const user = await UsersDBService.getById(jwtPayload._id, { password: 0 })
 		if (!user) {
 			return done(null, false, { message: 'User not found' })
 		}

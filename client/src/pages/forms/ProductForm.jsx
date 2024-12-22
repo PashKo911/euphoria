@@ -1,4 +1,4 @@
-import React from 'react'
+import styles from './productForm.module.scss'
 
 const ProductForm = () => {
 	return <div>ProductForm</div>

@@ -10,12 +10,23 @@ import { IoMdLogOut } from 'react-icons/io'
 import { BsKey } from 'react-icons/bs'
 
 import { useAuth } from '../../context/AuthContext'
+import useHttp from '../../hooks/useHttp'
 
 import './navbar.scss'
 
 const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
 	const { isAuthenticated, logout } = useAuth()
+	const { post } = useHttp()
+
+	const handleLogout = async () => {
+		try {
+			await post('/auth/logout')
+			logout()
+		} catch (error) {
+			console.error('Error during logout:', error.message)
+		}
+	}
 
 	return (
 		<header className={`${showMenu ? 'header menu-open' : 'header'}`}>
@@ -67,7 +78,7 @@ const Navbar = () => {
 						<FiShoppingCart />
 					</Link>
 					{isAuthenticated && (
-						<button onClick={logout} type="button" className="action-header__item" aria-label="Logout">
+						<button onClick={handleLogout} type="button" className="action-header__item" aria-label="Logout">
 							<IoMdLogOut />
 						</button>
 					)}

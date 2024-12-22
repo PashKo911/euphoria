@@ -8,4 +8,5 @@ export default Object.freeze({
 	port: process.env.PORT,
 	secretKey: process.env.SECRET_KEY,
 	tokenKey: process.env.TOKEN_KEY,
+	frontendUrl: process.env.FRONTEND_URL,
 })

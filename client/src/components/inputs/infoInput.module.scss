@@ -1,0 +1,26 @@
+@import '../../styles/mixins';
+
+.wrapper {
+	display: grid;
+	gap: toRem(10);
+}
+.label {
+	color: var(--dark-color);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: toRem(0.36);
+	font-size: toRem(18);
+}
+.input {
+	border-radius: toRem(8);
+	background-color: var(--lite-color);
+	min-height: toRem(55);
+	font-size: toRem(16);
+	color: var(--dark-color);
+	@include adaptiveValue('padding-left', 22, 15);
+	@include adaptiveValue('padding-right', 22, 15);
+
+	&::placeholder {
+		color: var(--main-color);
+	}
+}

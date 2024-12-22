@@ -1,0 +1,18 @@
+@import '../../styles/mixins';
+
+.form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	max-width: toRem(895);
+	margin-left: auto;
+	margin-right: auto;
+	padding: toRem(20);
+	border-radius: toRem(10);
+	box-shadow: 0 0 toRem(15) rgba(0, 0, 0, 0.1), 0 0 toRem(30) rgba(0, 0, 0, 0.1);
+	@include adaptiveValue('column-gap', 42, 20);
+	@include adaptiveValue('row-gap', 30, 20);
+
+	@media (max-width: toEm(574.98)) {
+		grid-template-columns: 1fr;
+	}
+}

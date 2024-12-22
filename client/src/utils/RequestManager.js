@@ -155,7 +155,6 @@ class RequestManager {
 				headers['Authorization'] = `Bearer ${localStorage.getItem('jwt_token')}`
 			}
 
-			console.log(headers)
 			response = await fetch(this.getServerRoute(url), {
 				method: 'GET',
 				headers: headers,

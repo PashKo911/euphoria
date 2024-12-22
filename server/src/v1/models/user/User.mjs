@@ -2,26 +2,18 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 import bcrypt from 'bcryptjs'
 
-// Створення схеми користувача
 const userSchema = new Schema({
-	// username: {
-	// 	type: String,
-	// 	required: [true, 'Full Name is required'],
-	// 	minlength: [3, 'Full Name must be at least 3 characters long'],
-	// 	maxlength: [50, 'Full Name must be at most 50 characters long'],
-	// 	trim: true,
-	// },
 	email: {
 		type: String,
-		required: [true, 'email is required'],
-		unique: [true, 'Name is not allowed'],
-		minlength: [3, 'Name must be at least 3 characters long'],
-		maxlength: [50, 'Name must be at most 50 characters long'],
+		required: [true, 'Email is required'],
+		minlength: [3, 'Email must be at least 3 characters long'],
 		trim: true,
 	},
 	password: {
 		type: String,
-		required: [true, 'Password is required'],
+		required: function () {
+			return this.status !== 'guest'
+		},
 		// minlength: [6, 'Password must be at least 6 characters long'],
 		// maxlength: [8, 'Password must be at most 8 characters long'],
 		// validate: {
@@ -34,21 +26,41 @@ const userSchema = new Schema({
 		//     'Password must contain at least one letter, one number, and one special character',
 		// },
 	},
+	status: {
+		type: String,
+		enum: ['guest', 'registered'],
+		default: 'guest',
+	},
 	type: {
 		type: Schema.Types.ObjectId,
 		ref: 'Type',
+		default: new mongoose.Types.ObjectId('6768160abb7c11ca9aba653f'),
 	},
+	name: {
+		type: String,
+		default: 'Guest',
+	},
+	cart: [
+		{
+			productId: {
+				type: Schema.Types.ObjectId,
+				ref: 'Product',
+			},
+			quantity: {
+				type: Number,
+				default: 1,
+			},
+		},
+	],
 })
 
-// Хешування паролю перед збереженням
-userSchema.pre('save', async function (next) {
-	if (!this.isModified('password')) {
-		return next()
+userSchema.index(
+	{ email: 1 },
+	{
+		unique: true,
+		partialFilterExpression: { status: { $ne: 'guest' } },
 	}
-	const salt = await bcrypt.genSalt(10)
-	this.password = await bcrypt.hash(this.password, salt)
-	next()
-})
+)
 
 //---------------- Функція для перевірки правильності пароля ------------
 userSchema.methods.validPassword = async function (password) {
