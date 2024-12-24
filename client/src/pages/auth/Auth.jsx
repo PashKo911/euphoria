@@ -41,7 +41,8 @@ const Auth = (props) => {
 
 		try {
 			const data = await post(`${route}`, formData, false)
-			login(data.token)
+			console.log(data)
+			login(data.token, data.user)
 			navigate(`${redirectRoute}`)
 		} catch (error) {
 			setErrorMessage(error)

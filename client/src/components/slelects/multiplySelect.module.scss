@@ -42,8 +42,22 @@
 	padding: toRem(5);
 	cursor: pointer;
 	color: var(--main-color);
+	display: flex;
+	align-items: center;
+	gap: toRem(10);
 }
 
 .selectItem:hover {
 	background: #f0f0f0;
+}
+
+.selected {
+	background-color: #e0e0e0;
+}
+
+.colorIcon {
+	width: toRem(18);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: toRem(1) solid var(--main-color);
 }

@@ -16,7 +16,6 @@ class UserController {
 			const dataList = await UsersDBService.getList(filters)
 			res.status(200).json({
 				users: dataList,
-				user: req.user,
 				types: usersTypes,
 			})
 		} catch (err) {
@@ -24,6 +23,7 @@ class UserController {
 		}
 	}
 
+	// !! При необходимости del
 	static async getUser(req, res) {
 		try {
 			const id = req.params.id
@@ -34,6 +34,7 @@ class UserController {
 		}
 	}
 
+	// !! При необходимости del
 	static async registerUser(req, res) {
 		const expressErrors = validationResult(req)
 
@@ -55,6 +56,36 @@ class UserController {
 		} catch (error) {
 			const errors = FormatValidationErrors.formatMongooseErrors(error.message, 'User')
 			res.status(400).json({ errors })
+		}
+	}
+
+	static async updateUser(req, res) {
+		try {
+			const id = req.params.id
+
+			if (!id) {
+				return res.status(400).json({ error: 'User ID is required' })
+			}
+
+			const { typeId } = req.body
+
+			if (!typeId) {
+				return res.status(400).json({ error: 'typeId is required' })
+			}
+
+			const updatedUser = await UsersDBService.update(id, { type: typeId })
+
+			if (!updatedUser) {
+				return res.status(404).json({ error: 'User not found' })
+			}
+
+			res.status(200).json({
+				message: 'User updated successfully',
+				user: updatedUser,
+			})
+		} catch (error) {
+			console.error('Error updating user:', error.message)
+			res.status(500).json({ error: 'Failed to update user' })
 		}
 	}
 

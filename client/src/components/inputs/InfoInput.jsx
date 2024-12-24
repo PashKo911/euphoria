@@ -8,6 +8,10 @@ const InfoInput = ({
 	required = false,
 	placeholder = '',
 	value = '',
+	step,
+	min,
+	max,
+
 	onChange = () => {},
 }) => {
 	return (
@@ -24,6 +28,9 @@ const InfoInput = ({
 				placeholder={placeholder}
 				value={value}
 				onChange={onChange}
+				step={step}
+				min={min}
+				max={max}
 			/>
 		</div>
 	)

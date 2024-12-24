@@ -34,7 +34,7 @@ const userSchema = new Schema({
 	type: {
 		type: Schema.Types.ObjectId,
 		ref: 'Type',
-		default: new mongoose.Types.ObjectId('6768160abb7c11ca9aba653f'),
+		default: new mongoose.Types.ObjectId('67434ecae0c00366f89f7189'),
 	},
 	name: {
 		type: String,

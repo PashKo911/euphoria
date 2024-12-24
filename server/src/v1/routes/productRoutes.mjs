@@ -13,7 +13,7 @@ router.get('/', ProductController.getAllProducts)
 router.get('/edit/:id', ProductController.getProduct)
 
 router.post(
-	'/add/:id?',
+	'/add',
 	upload.single('image'),
 	checkSchema(ProductValidator.productSchema),
 	ProductController.registerProduct

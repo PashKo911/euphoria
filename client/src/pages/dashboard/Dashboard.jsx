@@ -7,6 +7,7 @@ import TitleDecor from '../../components/TitleDecor'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
 import Filter from '../../components/filters/Filter'
 import FilterSort from '../../components/filters/FilterSort'
+import { useAuth } from '../../context/AuthContext'
 
 import styles from './dashboard.module.scss'
 
@@ -17,13 +18,14 @@ const Dashboard = () => {
 	const addPath = isUsersPage ? '/dashboard/users/add' : '/dashboard/products/add'
 	const isFormPage = location.pathname.includes('add')
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
+	const { user } = useAuth()
 
 	return (
 		<section className={styles.dashboard}>
 			<div className={styles.container}>
 				<div className={styles.top}>
 					<div className={styles.header}>
-						<TitleDecor title={'Hello Jhanvi'} />
+						<TitleDecor title={`Hello ${user?.name} `} />
 					</div>
 					<ul className={styles.list}>
 						<li className={styles.asideItem}>

@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import { HiOutlineSearch } from 'react-icons/hi'
@@ -18,11 +18,13 @@ const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
 	const { isAuthenticated, logout } = useAuth()
 	const { post } = useHttp()
+	const navigate = useNavigate()
 
 	const handleLogout = async () => {
 		try {
 			await post('/auth/logout')
 			logout()
+			navigate('/products/men')
 		} catch (error) {
 			console.error('Error during logout:', error.message)
 		}

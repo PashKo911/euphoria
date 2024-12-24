@@ -32,19 +32,18 @@ const useHttp = () => {
 				setProcess('loading')
 				const endpointUrl = `${baseUrl}${endpoint}`
 				const response = await fetch(endpointUrl, options)
+				const data = await response.json()
 
 				if (!response.ok) {
-					const data = await response.json()
-					throw new Error(data.errors || 'Something went wrong')
+					throw data.errors
 				}
 
-				const data = await response.json()
 				setProcess('confirmed')
 				return data
 			} catch (error) {
 				setProcess('error')
 				console.error('HTTP Error:', error.message)
-				throw new Error(error.message || 'An error occurred while processing your request')
+				throw error
 			}
 		},
 		[baseUrl, isAuthenticated, token]
@@ -56,8 +55,8 @@ const useHttp = () => {
 		request('POST', endpoint, body, addAuthorization, headers)
 	const put = (endpoint, body, addAuthorization = true, headers = {}) =>
 		request('PUT', endpoint, body, addAuthorization, headers)
-	const del = (endpoint, body, addAuthorization = true, headers = {}) =>
-		request('DELETE', endpoint, body, addAuthorization, headers)
+	const del = (endpoint, id, addAuthorization = true, headers = {}) =>
+		request('DELETE', endpoint, { id }, addAuthorization, headers)
 
 	const clearError = () => setProcess('waiting')
 

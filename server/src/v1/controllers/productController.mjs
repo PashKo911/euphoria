@@ -33,6 +33,7 @@ class ProductController {
 	}
 
 	static async registerProduct(req, res) {
+		console.log(req.body)
 		const expressErrors = validationResult(req)
 
 		if (!req.user) {

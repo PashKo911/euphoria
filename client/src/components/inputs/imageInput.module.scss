@@ -1,0 +1,83 @@
+@import '../../styles/mixins';
+
+.inputWrapper {
+	position: relative;
+	border: toRem(2) dashed var(--main-color);
+	transition: border-color 0.3s ease-in-out;
+	aspect-ratio: 4 / 3;
+	transition: border-color 0.2s;
+
+	@media (any-hover: hover) {
+		&:hover {
+			border-color: #44b644;
+		}
+		&:hover .placeholder {
+			color: #44b644;
+		}
+	}
+}
+
+.fileInput {
+	display: none;
+}
+
+.label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	cursor: pointer;
+	&:focus {
+		outline: toRem(2) solid #007bff;
+	}
+}
+
+.previewWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+.previewImage {
+	max-width: 100%;
+	object-fit: cover;
+}
+
+.removeButton {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: red;
+	border: none;
+	padding: toRem(5);
+	cursor: pointer;
+	font-size: toRem(18);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	@media (any-hover: hover) {
+		&:hover svg {
+			transform: scale(1.2);
+		}
+	}
+	svg {
+		will-change: transform;
+		transition: transform 0.2s;
+	}
+}
+
+.placeholder {
+	color: var(--main-color);
+	transition: color 0.2s;
+	font-size: toRem(36);
+}

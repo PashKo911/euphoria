@@ -39,13 +39,14 @@ class MongooseCRUDManager {
 	}
 
 	// Пошук за id з використанням populateFields
-	async getById(id, populateFields = []) {
+	async getById(id, projection = null, populateFields = []) {
 		try {
-			let query = this.model.findById(id)
+			let query = this.model.findById(id, projection)
 			populateFields.forEach((field) => {
 				query = query.populate(field)
 			})
-			return await query.exec()
+			const res = await query.exec()
+			return res
 		} catch (error) {
 			throw new Error('Error finding data by id: ' + error.message)
 		}

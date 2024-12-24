@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs'
 import FormatValidationErrors from '../../../validators/formatValidationErrors.mjs'
 import UsersDBService from '../models/user/UsersDBService.mjs'
 import { prepareToken } from '../../../utils/jwtHelpers.mjs'
-import { v4 as uuidv4 } from 'uuid'
 
 class AuthController {
 	static async signup(req, res) {
@@ -12,7 +11,6 @@ class AuthController {
 
 		if (!expressErrors.isEmpty()) {
 			const errors = FormatValidationErrors.formatExpressErrors(expressErrors)
-			console.error(errors)
 			return res.status(400).json({ errors })
 		}
 
@@ -43,6 +41,7 @@ class AuthController {
 				return res.status(201).json({
 					result: 'Signed up successfully',
 					token,
+					user: req.user,
 				})
 			}
 		} catch (error) {
@@ -72,14 +71,12 @@ class AuthController {
 				return res.status(401).json({ errors: [{ message: 'Invalid email or password' }] })
 			}
 
-			req.session.userId = user._id
-
 			if (req.session.guestId) {
 				const guest = await UsersDBService.getById(req.session.guestId)
 				if (guest) {
 					await UsersDBService.deleteById(guest._id)
 				}
-				delete req.session.guestId
+				// delete req.session.guestId
 			}
 
 			const token = prepareToken(
@@ -93,6 +90,7 @@ class AuthController {
 			res.json({
 				result: 'Authorized',
 				token,
+				user: req.user,
 			})
 		} catch (error) {
 			const errors = FormatValidationErrors.formatMongooseErrors(error.message, 'User')
