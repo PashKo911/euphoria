@@ -14,7 +14,6 @@ const UsersTable = () => {
 	const [types, setTypes] = useState([])
 	const { isAuthenticated, user } = useAuth()
 	const { get, del, put, process } = useHttp()
-	console.log(user)
 
 	const fetchUsers = async () => {
 		try {

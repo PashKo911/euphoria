@@ -16,9 +16,11 @@
 .textarea {
 	border-radius: toRem(8);
 	background-color: var(--lite-color);
-	min-height: toRem(55);
+	min-height: toRem(155);
 	font-size: toRem(16);
 	color: var(--dark-color);
+	resize: vertical;
+
 	@include adaptiveValue('padding', 22, 15);
 }
 

@@ -256,13 +256,3 @@
 		}
 	}
 }
-
-.error {
-	color: red;
-	position: absolute;
-	top: 0;
-	left: 0;
-	font-size: toRem(16);
-	transform: translate(0, -100%);
-	@include adaptiveValue('font-size', 16, 14);
-}

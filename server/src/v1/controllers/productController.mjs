@@ -1,7 +1,13 @@
 import { validationResult } from 'express-validator'
-import FormatValidationErrors from '../../../validators/formatValidationErrors.mjs'
 
+import { deleteUploadedFiles } from '../../../utils/fileUtils.mjs'
+import ColorsDBService from '../models/colors/ColorsDBService.mjs'
+import DressStyleDBService from '../models/dressStyle/DressStyleDBService.mjs'
+import SizeDBService from '../models/size/SizeDBService.mjs'
+import GenderDBService from '../models/gender/GenderDBService.mjs'
 import ProductsDBService from '../models/product/ProductsDBService.mjs'
+
+import FormatValidationErrors from '../../../validators/formatValidationErrors.mjs'
 
 class ProductController {
 	// Метод для отримання всіх товарів
@@ -33,40 +39,32 @@ class ProductController {
 	}
 
 	static async registerProduct(req, res) {
-		console.log(req.body)
 		const expressErrors = validationResult(req)
-
 		if (!req.user) {
 			return res.status(403).json({ error: 'Access denied' })
 		}
 
 		if (!expressErrors.isEmpty()) {
 			const errors = FormatValidationErrors.formatExpressErrors(expressErrors)
+			console.log(errors)
+			deleteUploadedFiles(req.files, req.uploadFolderPath)
 			return res.status(400).json({ errors })
 		}
-
 		try {
-			const productData = {
-				...req.body,
-			}
-			if (req.file?.buffer) {
-				productData.image = req.file.buffer.toString('base64')
-			}
-
 			if (req.params.id) {
-				await ProductsDBService.update(req.params.id, productData)
+				await ProductsDBService.update(req.params.id, req.body)
 			} else {
-				await ProductsDBService.create(productData)
+				await ProductsDBService.create(req.body)
 			}
 
 			res.status(200).json({ message: 'Product registered successfully' })
 		} catch (error) {
+			deleteUploadedFiles(req.files, req.uploadFolderPath)
 			const errors = FormatValidationErrors.formatMongooseErrors(error.message, 'Product')
 			res.status(400).json({ errors })
 		}
 	}
 
-	// Метод для видалення товару (доступний тільки для адміністратора)
 	static async deleteProduct(req, res) {
 		if (!req.user) {
 			return res.status(403).json({ error: 'Access denied' })
@@ -77,6 +75,25 @@ class ProductController {
 			res.status(200).json({ message: 'Product deleted' })
 		} catch (error) {
 			res.status(500).json({ error: 'Error deleting product' })
+		}
+	}
+
+	static async getOptions(req, res) {
+		try {
+			const colors = await ColorsDBService.getList({})
+			const sizes = await SizeDBService.getList({})
+			const dressStyles = await DressStyleDBService.getList({})
+			const genders = await GenderDBService.getList({})
+
+			res.status(200).json({
+				genders,
+				dressStyles,
+				colors,
+				sizes,
+			})
+		} catch (error) {
+			console.error(error)
+			res.status(500).json({ message: 'Server error' })
 		}
 	}
 }

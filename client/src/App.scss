@@ -44,3 +44,8 @@ body {
 	@include adaptiveValue('font-size', 22, 18);
 	@include adaptiveValue('padding-top', 140, 40);
 }
+
+.error-block {
+	color: red;
+	@include adaptiveValue('font-size', 16, 14);
+}

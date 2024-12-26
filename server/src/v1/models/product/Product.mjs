@@ -1,35 +1,71 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose
 
-// Створення схеми товару
-const productSchema = new Schema({
-	title: {
-		type: String,
-		required: true,
-		minlength: 3, // мінімальна довжина 3 символи
-		maxlength: 100, // максимальна довжина 100 символів
+const productSchema = new Schema(
+	{
+		title: {
+			type: String,
+			required: [true, 'Title is required'],
+			minlength: [3, 'Title must be at least 3 characters long'],
+			maxlength: [50, 'Title must be at most 50 characters long'],
+			trim: true,
+		},
+		price: {
+			type: Number,
+			required: [true, 'Price is required'],
+			min: [0, 'Price must be a positive number'],
+		},
+		description: {
+			type: String,
+			required: [true, 'Description is required'],
+			minlength: [3, 'Description must be at least 3 characters long'],
+			maxlength: [500, 'Description must be at most 50 characters long'],
+		},
+		paths: {
+			type: [String],
+			required: [true, 'Images are required'],
+			validate: {
+				validator: function (v) {
+					return v && v.length === 4
+				},
+				message: 'Exactly 4 images are required',
+			},
+		},
+		colors: {
+			type: [{ type: Schema.Types.ObjectId, ref: 'Color' }],
+			required: [true, 'Colors are required'],
+			validate: {
+				validator: function (v) {
+					return v && v.length > 0
+				},
+				message: 'At least one color is required',
+			},
+		},
+		sizes: {
+			type: [{ type: Schema.Types.ObjectId, ref: 'Size' }],
+			required: [true, 'Sizes are required'],
+			validate: {
+				validator: function (v) {
+					return v && v.length > 0
+				},
+				message: 'At least one size is required',
+			},
+		},
+		dressStyle: {
+			type: Schema.Types.ObjectId,
+			ref: 'Style',
+			required: [true, 'Dress style is required'],
+		},
+		gender: {
+			type: Schema.Types.ObjectId,
+			ref: 'Gender',
+			required: [true, 'Gender is required'],
+		},
 	},
-	price: {
-		type: Number,
-		required: true,
-		min: 0, // ціна не може бути меншою за 0
-	},
-	description: {
-		type: String,
-		maxlength: 500, // максимальна довжина опису 500 символів
-	},
-	image: {
-		type: String,
-		required: [true, 'Image is required'],
-		// validate: {
-		//   validator: function (v) {
-		//     return /^data:image\/(jpeg|png|gif|bmp);base64,/.test(v)
-		//   },
-		//   message:
-		//     'Image must be a valid base64 string in JPEG, PNG, GIF, or BMP format',
-		// },
-	},
-})
+	{
+		timestamps: true,
+	}
+)
 
 const Product = mongoose.model('Product', productSchema)
 export default Product

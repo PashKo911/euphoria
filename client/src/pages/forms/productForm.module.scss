@@ -1,29 +1,41 @@
 @import '../../styles/mixins';
 
 .form {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	position: relative;
+	display: flex;
+	flex-direction: column;
 	max-width: toRem(895);
 	margin-left: auto;
 	margin-right: auto;
+	padding-top: toRem(10);
 	padding: toRem(20);
 	border-radius: toRem(10);
 	box-shadow: 0 0 toRem(15) rgba(0, 0, 0, 0.1), 0 0 toRem(30) rgba(0, 0, 0, 0.1);
+	@include adaptiveValue('row-gap', 30, 20);
+}
+
+.infoInputs {
+	display: grid;
 	@include adaptiveValue('column-gap', 42, 20);
 	@include adaptiveValue('row-gap', 30, 20);
 
-	@media (max-width: toEm(574.98)) {
-		grid-template-columns: 1fr;
+	& div:first-child {
+		@media (min-width: $mobileSmall) {
+			grid-column: span 2;
+		}
 	}
 
-	& > div:nth-child(1) {
-		grid-column: 1 / -1;
-		grid-row: 1;
+	@media (min-width: $mobileSmall) {
+		grid-template-columns: repeat(2, 1fr);
 	}
-	& > div:nth-child(4) {
-		grid-column: span 2;
-	}
-	& > div:nth-child(7) {
-		grid-column: span 2;
+}
+
+.selects {
+	display: grid;
+	@include adaptiveValue('column-gap', 42, 20);
+	@include adaptiveValue('row-gap', 30, 20);
+
+	@media (min-width: toEm(510)) {
+		grid-template-columns: repeat(2, 1fr);
 	}
 }

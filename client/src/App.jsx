@@ -24,7 +24,7 @@ function App() {
 						<Route path="auth/sign-in" element={<SignIn />} />
 						<Route path="auth/sign-up" element={<SignUp />} />
 						<Route path="dashboard" element={<Dashboard />}>
-							<Route index element={<ProductsTable />} />
+							<Route path="products" element={<ProductsTable />} />
 							<Route path="users" element={<UsersTable />} />
 							<Route path="users/add" element={<UserForm />} />
 							<Route path="products/add" element={<ProductForm />} />

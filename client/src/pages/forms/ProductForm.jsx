@@ -1,17 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useHttp from '../../hooks/useHttp'
+import { useErrorMessage } from '../../hooks/useErrorMessage'
+import ErrorMessage from '../../components/ErrorMessage'
 
 import InfoInput from '../../components/inputs/InfoInput'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
 import MultiplySelect from '../../components/slelects/MultiplySelect'
 import Textarea from '../../components/textareas/Textarea'
 import ImageInputWrapper from '../../components/inputs/ImageInputWrapper'
+import Select from '../../components/slelects/Select'
+
+import transformOptions from '../../utils/transformDataForSelect'
 
 import styles from './productForm.module.scss'
 
 const ProductForm = () => {
-	const { post, process } = useHttp()
+	const { post, get, process } = useHttp()
+	const { errorMessage, addError, clearError } = useErrorMessage()
+	const [resetValues, setResetValues] = useState(false)
 	const [formData, setFormData] = useState({
+		gender: '',
 		title: '',
 		rating: 5,
 		price: '',
@@ -19,7 +27,32 @@ const ProductForm = () => {
 		colors: [],
 		sizes: [],
 		images: [],
+		dressStyle: '',
 	})
+	const [options, setOptions] = useState({
+		colors: [],
+		sizes: [],
+		genders: [],
+		dressStyles: [],
+	})
+	const fetchOptions = async () => {
+		try {
+			const response = await get('/products/options')
+			const transformedOptions = {}
+
+			Object.keys(response).forEach((key) => {
+				transformedOptions[key] = transformOptions(response[key])
+			})
+
+			setOptions(transformedOptions)
+		} catch (error) {
+			console.error('Error fetching options:', error)
+		}
+	}
+
+	useEffect(() => {
+		fetchOptions()
+	}, [])
 
 	const handleInputChange = (e) => {
 		const { name, value, type, checked } = e.target
@@ -29,110 +62,154 @@ const ProductForm = () => {
 		}))
 	}
 
-	const handleColorChange = (colors) => {
+	const handleSelectChange = (key, value) => {
 		setFormData((prevData) => ({
 			...prevData,
-			colors,
+			[key]: value,
 		}))
 	}
-
-	const handleSizeChange = (sizes) => {
-		setFormData((prevData) => ({
-			...prevData,
-			sizes,
-		}))
-	}
-
-	const handleImageChange = (imageURL, index) => {
+	const handleImageChange = (imageFile, index) => {
 		setFormData((prevData) => {
 			const updatedImages = [...prevData.images]
-			updatedImages[index] = imageURL
+			updatedImages[index] = imageFile
 			return { ...prevData, images: updatedImages }
 		})
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		clearError()
 
-		const formDataToSend = new FormData()
+		try {
+			const formDataToSend = new FormData()
 
-		Object.keys(formData).forEach((key) => {
-			if (Array.isArray(formData[key])) {
-				formData[key].forEach((value) => formDataToSend.append(key, value))
-			} else {
-				formDataToSend.append(key, formData[key])
-			}
-		})
+			Object.keys(formData).forEach((key) => {
+				const value = formData[key]
 
-		formData.images.forEach((imageFile, index) => {
-			formDataToSend.append('images', imageFile)
-		})
+				if (!Array.isArray(value)) {
+					formDataToSend.append(key, value)
+				} else if (key === 'images') {
+					value.forEach((imageFile) => {
+						formDataToSend.append('images', imageFile)
+					})
+				} else {
+					formDataToSend.append(key, JSON.stringify(value))
+				}
+			})
 
-		await post('/products/add', formDataToSend, true)
+			await post('/products/add', formDataToSend, true)
+			setFormData({
+				gender: '',
+				title: '',
+				rating: 5,
+				price: '',
+				description: '',
+				colors: [],
+				sizes: [],
+				images: [],
+				dressStyle: '',
+			})
+			setResetValues(true)
+			setTimeout(() => setResetValues(false), 0)
+		} catch (error) {
+			addError(error)
+		}
 	}
 
 	const fields = [
-		{ id: 'title', label: 'Title*', type: 'text', placeholder: 'Title' },
-		{ id: 'rating', label: 'Rating', type: 'number', placeholder: 'Rating', step: '0.5', min: '2', max: '5' },
-		{ id: 'price', label: 'Price', type: 'number', placeholder: 'Price', min: '0', step: '0.1' },
-	]
-
-	const colorOptions = [
-		{ value: 'red', label: 'Red' },
-		{ value: 'green', label: 'Green' },
-		{ value: 'blue', label: 'Blue' },
-		{ value: 'yellow', label: 'Yellow' },
-		{ value: 'black', label: 'Black' },
-		{ value: 'white', label: 'White' },
-	]
-
-	const sizeOptions = [
-		{ value: 'xs', label: 'XS' },
-		{ value: 's', label: 'S' },
-		{ value: 'm', label: 'M' },
-		{ value: 'l', label: 'L' },
-		{ value: 'xl', label: 'XL' },
-		{ value: 'xxl', label: 'XXL' },
+		{ id: 'title', label: 'Title*', type: 'text', placeholder: 'Title', required: true },
+		{
+			id: 'rating',
+			label: 'Rating',
+			type: 'number',
+			placeholder: 'Rating',
+			required: true,
+			step: '0.5',
+			min: '2',
+			max: '5',
+		},
+		{
+			id: 'price',
+			label: 'Price',
+			type: 'number',
+			placeholder: 'Price',
+			required: true,
+			min: '0',
+			step: '0.1',
+		},
 	]
 
 	return (
-		<form onSubmit={handleSubmit} className={styles.form}>
-			{fields.map((field) => (
-				<InfoInput
-					key={field.id}
-					{...field}
-					name={field.id}
-					value={formData[field.id]}
+		<>
+			<form onSubmit={handleSubmit} className={styles.form}>
+				<ErrorMessage errors={errorMessage} />
+				<div className={styles.infoInputs}>
+					{fields.map((field) => (
+						<InfoInput
+							key={field.id}
+							{...field}
+							name={field.id}
+							value={formData[field.id]}
+							onChange={handleInputChange}
+						/>
+					))}
+				</div>
+				<ImageInputWrapper onImageChange={handleImageChange} resetValues={resetValues} />
+
+				<div className={styles.selects}>
+					<MultiplySelect
+						options={options.colors}
+						placeholder="Select product colors"
+						onChange={(value) => handleSelectChange('colors', value)}
+						multiple={true}
+						colors={true}
+						isLoading={process}
+						resetValues={resetValues}
+					/>
+					<MultiplySelect
+						options={options.sizes}
+						placeholder="Select product sizes"
+						onChange={(value) => handleSelectChange('sizes', value)}
+						multiple={true}
+						isLoading={process}
+						resetValues={resetValues}
+					/>
+					<Select
+						options={options.genders}
+						placeholder="Select product gender"
+						onChange={(value) => handleSelectChange('gender', value.value)}
+						isLoading={process}
+						resetValues={resetValues}
+					/>
+					<Select
+						options={options.dressStyles}
+						placeholder="Select product style"
+						onChange={(value) => handleSelectChange('dressStyle', value.value)}
+						isLoading={process}
+						resetValues={resetValues}
+					/>
+				</div>
+				<Textarea
+					id="description"
+					label="Product Description"
+					value={formData.description}
 					onChange={handleInputChange}
+					placeholder="Enter product description"
+					required
 				/>
-			))}
-			<ImageInputWrapper onImageChange={handleImageChange} />
-			<MultiplySelect
-				options={colorOptions}
-				placeholder="Select product colors"
-				onChange={handleColorChange}
-				multiple={true}
-				colors={true}
-			/>
-			<MultiplySelect
-				options={sizeOptions}
-				placeholder="Select product sizes"
-				onChange={handleSizeChange}
-				multiple={true}
-			/>
-			<Textarea
-				id="description"
-				label="Product Description"
-				value={formData.description}
-				onChange={handleInputChange}
-				placeholder="Enter product description"
-				required
-			/>
-			<ButtonPurple
-				title={'Add New Product'}
-				style={{ gridColumn: 'span 2', width: 'max-content', justifySelf: 'center' }}
-			/>
-		</form>
+				<ButtonPurple
+					title={'Add New Product'}
+					style={{
+						gridColumn: 'span 2',
+						width: 'max-content',
+						alignSelf: 'center',
+						minWidth: '175px',
+						minHeight: '42px',
+					}}
+					isLoading={process}
+				/>
+			</form>
+		</>
 	)
 }
 

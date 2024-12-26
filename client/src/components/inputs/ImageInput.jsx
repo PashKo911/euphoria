@@ -1,18 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { IoIosCloseCircle } from 'react-icons/io'
 
 import styles from './imageInput.module.scss'
 
-const ImageInput = ({ index, onChange }) => {
+const ImageInput = ({ index, onChange, resetValues }) => {
 	const [image, setImage] = useState(null)
+
+	useEffect(() => {
+		if (resetValues) {
+			setImage(null)
+		}
+	}, [resetValues])
 
 	const handleImageChange = (e) => {
 		const file = e.target.files[0]
 		if (file) {
-			const imageURL = URL.createObjectURL(file)
-			setImage(imageURL)
-			onChange(imageURL, index)
+			setImage(URL.createObjectURL(file))
+			onChange(file, index)
 		}
 	}
 

@@ -85,7 +85,7 @@ const Navbar = () => {
 						</button>
 					)}
 					{isAuthenticated && (
-						<Link to={'/dashboard'} className="action-header__item" aria-label="Cart">
+						<Link to={'/dashboard/products'} className="action-header__item" aria-label="Cart">
 							<BsKey />
 						</Link>
 					)}

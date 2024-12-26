@@ -14,6 +14,7 @@ import styles from './dashboard.module.scss'
 const Dashboard = () => {
 	const location = useLocation()
 	const isUsersPage = location.pathname.includes('users')
+	const isAddPath = location.pathname.includes('add')
 	const title = isUsersPage ? 'Users' : 'Products'
 	const addPath = isUsersPage ? '/dashboard/users/add' : '/dashboard/products/add'
 	const isFormPage = location.pathname.includes('add')
@@ -30,8 +31,7 @@ const Dashboard = () => {
 					<ul className={styles.list}>
 						<li className={styles.asideItem}>
 							<NavLink
-								to="/dashboard"
-								end
+								to="/dashboard/products"
 								className={({ isActive }) =>
 									isActive ? `${styles.asideLink} ${styles.active}` : styles.asideLink
 								}>
@@ -58,7 +58,7 @@ const Dashboard = () => {
 						<div className={styles.bodyHeader}>
 							<div className={styles.bodyHeaderTop}>
 								<h2 className={styles.title}>{title}</h2>
-								<ButtonPurple to={addPath} title="Add" />
+								{!isAddPath && <ButtonPurple to={addPath} title="Add" />}
 							</div>
 							{!isFormPage && <FilterSort isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />}
 						</div>

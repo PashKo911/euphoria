@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
+import { useErrorMessage } from '../../hooks/useErrorMessage'
+import ErrorMessage from '../../components/ErrorMessage'
 import useHttp from '../../hooks/useHttp'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
 
@@ -23,8 +25,8 @@ const Auth = (props) => {
 		subButtonRoute,
 	} = props
 
+	const { errorMessage, addError, clearError } = useErrorMessage()
 	const [isPassHide, setIsPassHide] = useState(false)
-	const [errorMessage, setErrorMessage] = useState('')
 	const { login } = useAuth()
 	const { post, process } = useHttp()
 
@@ -32,6 +34,7 @@ const Auth = (props) => {
 
 	const handleLogin = async (e) => {
 		e.preventDefault()
+		clearError()
 
 		const form = e.target
 		const formData = {
@@ -41,11 +44,10 @@ const Auth = (props) => {
 
 		try {
 			const data = await post(`${route}`, formData, false)
-			console.log(data)
 			login(data.token, data.user)
 			navigate(`${redirectRoute}`)
 		} catch (error) {
-			setErrorMessage(error)
+			addError(error)
 		}
 	}
 
@@ -72,13 +74,7 @@ const Auth = (props) => {
 					</div>
 					<div className={styles.or}>OR</div>
 					<form className={styles.form} onSubmit={handleLogin}>
-						{errorMessage.length > 0 && (
-							<div className={styles.error}>
-								{errorMessage.map((error, index) => (
-									<p key={index}>{error.message}</p>
-								))}
-							</div>
-						)}
+						<ErrorMessage errors={errorMessage} />
 						<div className={styles.body}>
 							<label className={styles.label} htmlFor="email">
 								Email
@@ -118,7 +114,6 @@ const Auth = (props) => {
 							style={{ width: 'max-content', minWidth: 167, marginBottom: 10 }}
 							title={buttonText}
 							isLoading={process}
-							disabled={process === 'loading' ? true : false}
 						/>
 						<Link className={styles.signup} to={subButtonRoute}>
 							{subButtonText} <span>{subButtonSpan}</span>

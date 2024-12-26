@@ -1,7 +1,8 @@
 @import '../../styles/mixins';
 
 .wrapper {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: toRem(10);
 }
 
@@ -16,4 +17,9 @@
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: toRem(15);
+	justify-content: center;
+
+	@media (max-width: $mobile) {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }

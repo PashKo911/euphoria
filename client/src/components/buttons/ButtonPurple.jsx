@@ -2,7 +2,7 @@ import styles from './buttonPurple.module.scss'
 import { FaSpinner } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const ButtonPurple = ({ onClick, title, style, isLoading, disabled, to }) => {
+const ButtonPurple = ({ onClick, title, style, isLoading, to }) => {
 	if (to) {
 		return (
 			<Link to={to} className={styles.button} style={style}>
@@ -12,7 +12,12 @@ const ButtonPurple = ({ onClick, title, style, isLoading, disabled, to }) => {
 	}
 
 	return (
-		<button className={styles.button} type="submit" onClick={onClick} style={style} disabled={disabled}>
+		<button
+			className={styles.button}
+			type="submit"
+			onClick={onClick}
+			style={style}
+			disabled={isLoading === 'loading'}>
 			{isLoading === 'loading' ? <FaSpinner className={styles.spinner} /> : title}
 		</button>
 	)

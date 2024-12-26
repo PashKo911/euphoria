@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
-import styles from './product.module.scss'
 import { GrFavorite } from 'react-icons/gr'
 import constants from '../../utils/constants'
 
+import styles from './product.module.scss'
+
 const Product = ({ path, title, price }) => {
+	console.log(path)
 	return (
 		<article className={styles.product}>
 			<Link to={'/products/id'} className={styles.link}>

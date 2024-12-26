@@ -43,8 +43,9 @@
 
 .img {
 	display: block;
+	aspect-ratio: 282 / 370;
+
 	img {
-		aspect-ratio: 282 / 370;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;

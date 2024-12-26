@@ -7,11 +7,14 @@
 	font-weight: 500;
 	line-height: 1.2;
 	font-size: toRem(16);
+	min-height: toRem(31.5);
+	min-width: toRem(171);
 }
 
 .selectHeader {
 	padding: toRem(5) toRem(10);
 	border: toRem(1) solid #bebcbd;
+	min-height: toRem(31.2);
 	border-radius: toRem(5);
 	display: flex;
 	align-items: center;
@@ -46,4 +49,18 @@
 
 .selectItem:hover {
 	background: #f0f0f0;
+}
+
+.spinner {
+	margin-left: auto;
+	margin-right: auto;
+	animation: spin 1s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

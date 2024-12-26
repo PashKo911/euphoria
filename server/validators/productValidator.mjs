@@ -1,5 +1,3 @@
-import { checkSchema } from 'express-validator'
-
 class ProductValidator {
 	static productSchema = {
 		title: {
@@ -32,16 +30,42 @@ class ProductValidator {
 			},
 			escape: true,
 		},
-		// image: {
-		// 	optional: true, // Поле не обязательно
-		// 	isString: {
-		// 		errorMessage: 'Image must be a valid string',
-		// 	},
-		// 	matches: {
-		// 		options: [/^data:image\/(jpeg|png|gif|bmp);base64,/],
-		// 		errorMessage: 'Image must be a valid base64 string in JPEG, PNG, GIF, or BMP format',
-		// 	},
-		// },
+		colors: {
+			isArray: {
+				errorMessage: 'Colors must be an array',
+			},
+			// Валидация для элементов массива (если необходимо)
+			custom: {
+				options: (value) => Array.isArray(value) && value.length > 0,
+				errorMessage: 'At least one color is required',
+			},
+		},
+		sizes: {
+			isArray: {
+				errorMessage: 'Sizes must be an array',
+			},
+			// Валидация для элементов массива (если необходимо)
+			custom: {
+				options: (value) => Array.isArray(value) && value.length > 0,
+				errorMessage: 'At least one size is required',
+			},
+		},
+		dressStyle: {
+			notEmpty: {
+				errorMessage: 'Dress style is required',
+			},
+			isMongoId: {
+				errorMessage: 'Invalid dress style ID',
+			},
+		},
+		gender: {
+			notEmpty: {
+				errorMessage: 'Gender is required',
+			},
+			isMongoId: {
+				errorMessage: 'Invalid gender ID',
+			},
+		},
 	}
 }
 

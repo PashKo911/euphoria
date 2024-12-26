@@ -7,6 +7,7 @@
 	font-weight: 500;
 	line-height: 1.2;
 	font-size: toRem(16);
+	min-height: toRem(31.5);
 }
 
 .selectHeader {
@@ -60,4 +61,17 @@
 	aspect-ratio: 1;
 	border-radius: 50%;
 	border: toRem(1) solid var(--main-color);
+}
+.spinner {
+	margin-left: auto;
+	margin-right: auto;
+	animation: spin 1s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

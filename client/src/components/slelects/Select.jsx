@@ -1,13 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
+import { FaSpinner } from 'react-icons/fa'
+
 import styles from './select.module.scss'
 
-const Select = ({ options, placeholder = 'Select an option', onChange }) => {
+const Select = ({
+	options,
+	placeholder = 'Select an option',
+	onChange,
+	isLoading = false,
+	resetValues = false,
+}) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedOption, setSelectedOption] = useState(null)
 	const selectRef = useRef(null)
 
 	useEffect(() => {
+		if (resetValues) {
+			setSelectedOption(null)
+		}
 		const handleClickOutside = (event) => {
 			if (selectRef.current && !selectRef.current.contains(event.target)) {
 				setIsOpen(false)
@@ -19,7 +30,7 @@ const Select = ({ options, placeholder = 'Select an option', onChange }) => {
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [])
+	}, [resetValues])
 
 	const selectOption = (option) => {
 		setSelectedOption(option)
@@ -30,8 +41,14 @@ const Select = ({ options, placeholder = 'Select an option', onChange }) => {
 	return (
 		<div className={styles.select} ref={selectRef}>
 			<div className={styles.selectHeader} onClick={() => setIsOpen(!isOpen)}>
-				{selectedOption ? selectedOption.label : placeholder}
-				<MdOutlineKeyboardArrowDown />
+				{isLoading === 'loading' ? (
+					<FaSpinner className={styles.spinner} />
+				) : (
+					<>
+						{selectedOption ? selectedOption.label : placeholder}
+						<MdOutlineKeyboardArrowDown />
+					</>
+				)}
 			</div>
 
 			{isOpen && (

@@ -61,6 +61,7 @@
 	display: flex;
 	align-items: center;
 	border-bottom: toRem(2) solid transparent;
+	transition: color 0.2s;
 	@include adaptiveValue('column-gap', 15, 8);
 	@include adaptiveValue('padding-bottom', 8, 5);
 	@include adaptiveValue('font-size', 18, 16);
@@ -68,6 +69,11 @@
 	&.active {
 		border-color: var(--dark-color);
 		color: var(--dark-color);
+	}
+	@media (any-hover: hover) {
+		&:hover {
+			color: var(--dark-color);
+		}
 	}
 
 	svg {
