@@ -3,13 +3,14 @@ import mongoose from 'mongoose'
 class RequestNormalizer {
 	static normalizeStringField(field) {
 		if (!field) return null
+		console.log(field)
 
 		if (field.startsWith('[')) {
 			try {
 				const parsedArray = JSON.parse(field)
 				return RequestNormalizer.normalizeArrayField(parsedArray)
 			} catch (error) {
-				console.error('Error parsing JSON string:', error)
+				console.error('Error parsing JSON string:', error.message)
 				return null
 			}
 		}
@@ -24,9 +25,13 @@ class RequestNormalizer {
 	static normalizeArrayField(field) {
 		if (!Array.isArray(field)) return field
 
+		const isValidArray = field.every((item) => mongoose.Types.ObjectId.isValid(item))
+
+		if (isValidArray) {
+			return field.map((item) => new mongoose.Types.ObjectId(item))
+		}
+
 		return field
-			.map((item) => (mongoose.Types.ObjectId.isValid(item) ? new mongoose.Types.ObjectId(item) : null))
-			.filter((item) => item !== null)
 	}
 
 	static normalizeField(field) {
@@ -41,22 +46,17 @@ class RequestNormalizer {
 		return field
 	}
 
-	static middleware(req, res, next) {
-		req.category
+	static normalize(req, res, next) {
 		try {
 			for (const [key, value] of Object.entries(req.body)) {
 				req.body[key] = RequestNormalizer.normalizeField(value)
 			}
 
-			if (req.files && req.files.length > 0) {
-				req.body.paths = req.files.map((file) => `/images/products/${req.category}/${file.filename}`)
-			} else {
-				req.body.paths = []
-			}
+			req.body.paths = req.files?.map((file) => `/images/products/${req.category}/${file.filename}`) || []
 
 			next()
 		} catch (error) {
-			console.error('Error in request normalization middleware:', error)
+			console.error('Error in request normalization middleware:', error.message)
 			res.status(400).json({ error: 'Invalid request data' })
 		}
 	}

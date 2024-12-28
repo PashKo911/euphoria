@@ -27,7 +27,7 @@ function App() {
 							<Route path="products" element={<ProductsTable />} />
 							<Route path="users" element={<UsersTable />} />
 							<Route path="users/add" element={<UserForm />} />
-							<Route path="products/add" element={<ProductForm />} />
+							<Route path="products/add/:id?" element={<ProductForm />} />
 						</Route>
 					</Route>
 				</Routes>

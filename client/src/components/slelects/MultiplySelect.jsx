@@ -7,10 +7,10 @@ const MultiplySelect = ({
 	options,
 	placeholder = 'Select an option',
 	onChange,
-	multiple = false,
 	colors = false,
 	isLoading = false,
 	resetValues = false,
+	value = [],
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedOptions, setSelectedOptions] = useState([])
@@ -19,6 +19,9 @@ const MultiplySelect = ({
 	useEffect(() => {
 		if (resetValues) {
 			setSelectedOptions([])
+		}
+		if (value.length) {
+			setSelectedOptions(value)
 		}
 		const handleClickOutside = (event) => {
 			if (selectRef.current && !selectRef.current.contains(event.target)) {
@@ -31,19 +34,14 @@ const MultiplySelect = ({
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [resetValues])
+	}, [value, resetValues])
 
 	const selectOption = (option) => {
 		let newSelectedOptions
-		if (multiple) {
-			if (selectedOptions.some((item) => item.value === option.value)) {
-				newSelectedOptions = selectedOptions.filter((item) => item.value !== option.value)
-			} else {
-				newSelectedOptions = [...selectedOptions, option]
-			}
+		if (selectedOptions.some((item) => item.value === option.value)) {
+			newSelectedOptions = selectedOptions.filter((item) => item.value !== option.value)
 		} else {
-			newSelectedOptions = [option]
-			setIsOpen(false)
+			newSelectedOptions = [...selectedOptions, option]
 		}
 
 		setSelectedOptions(newSelectedOptions)

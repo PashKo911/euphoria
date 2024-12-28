@@ -9,6 +9,15 @@ table {
 	thead {
 		background-color: var(--dark-color);
 
+		th:first-child,
+		td:first-child {
+			width: auto;
+			white-space: nowrap;
+		}
+		th:not(:first-child),
+		td:not(:first-child) {
+			width: 20%;
+		}
 		tr {
 			th {
 				color: #fff;
@@ -16,8 +25,6 @@ table {
 				font-weight: 600;
 				line-height: normal;
 				text-transform: uppercase;
-				padding-left: toRem(5);
-				padding-right: toRem(5);
 				@include adaptiveValue('font-size', 18, 12);
 				@include adaptiveValue('padding-top', 26, 15);
 				@include adaptiveValue('padding-bottom', 26, 15);
@@ -44,10 +51,11 @@ table {
 
 				&.details {
 					text-align: left;
+					align-items: center;
 				}
 				@media (max-width: $mobileSmall) {
 					&:nth-child(1) {
-						max-width: toRem(120);
+						// max-width: toRem(120);
 					}
 				}
 
@@ -58,11 +66,11 @@ table {
 				}
 
 				&.name {
-					max-width: toRem(100);
+					// max-width: toRem(100);
 				}
 
 				& div {
-					width: toRem(110);
+					// width: toRem(110);
 					margin-left: auto;
 					margin-right: auto;
 				}

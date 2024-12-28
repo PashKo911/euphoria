@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator'
 
-import { deleteUploadedFiles } from '../../../utils/fileUtils.mjs'
+import { deleteUploadedFiles, deleteEditedFiles } from '../../../utils/fileUtils.mjs'
 import ColorsDBService from '../models/colors/ColorsDBService.mjs'
 import DressStyleDBService from '../models/dressStyle/DressStyleDBService.mjs'
 import SizeDBService from '../models/size/SizeDBService.mjs'
@@ -31,6 +31,7 @@ class ProductController {
 	static async getProduct(req, res) {
 		try {
 			const id = req.params.id
+			console.log(id)
 			const product = await ProductsDBService.getById(id)
 			res.status(200).json(product)
 		} catch (error) {
@@ -40,6 +41,7 @@ class ProductController {
 
 	static async registerProduct(req, res) {
 		const expressErrors = validationResult(req)
+
 		if (!req.user) {
 			return res.status(403).json({ error: 'Access denied' })
 		}
@@ -51,16 +53,43 @@ class ProductController {
 			return res.status(400).json({ errors })
 		}
 		try {
-			if (req.params.id) {
-				await ProductsDBService.update(req.params.id, req.body)
-			} else {
-				await ProductsDBService.create(req.body)
-			}
+			await ProductsDBService.create(req.body)
 
 			res.status(200).json({ message: 'Product registered successfully' })
 		} catch (error) {
 			deleteUploadedFiles(req.files, req.uploadFolderPath)
 			const errors = FormatValidationErrors.formatMongooseErrors(error.message, 'Product')
+			res.status(400).json({ errors })
+		}
+	}
+
+	static async updateProduct(req, res) {
+		const expressErrors = validationResult(req)
+		if (!req.user) {
+			return res.status(403).json({ error: 'Access denied' })
+		}
+
+		if (!expressErrors.isEmpty()) {
+			const errors = FormatValidationErrors.formatExpressErrors(expressErrors)
+			deleteUploadedFiles(req.files, req.uploadFolderPath)
+			return res.status(400).json({ errors })
+		}
+		try {
+			const images = Array.isArray(req.body.images) ? req.body.images : [req.body.images]
+
+			const productData = {
+				...req.body,
+				paths: [...images, ...req.body.paths],
+			}
+
+			if (req.params.id) {
+				await ProductsDBService.update(req.params.id, productData)
+				deleteEditedFiles(req.body.pathsToDelete, req.uploadFolderPath)
+				res.status(200).json({ message: 'Product registered successfully' })
+			}
+		} catch (error) {
+			deleteUploadedFiles(req.files, req.uploadFolderPath)
+			const errors = FormatValidationErrors.formatMongooseUpdateErrors(error.message)
 			res.status(400).json({ errors })
 		}
 	}

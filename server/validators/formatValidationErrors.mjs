@@ -25,6 +25,20 @@ class FormatValidationErrors {
 			return { message }
 		})
 	}
+	static formatMongooseUpdateErrors(errorString) {
+		console.log(errorString)
+		const errorMessagesPart = errorString.split('Validation failed: ')[1]
+		if (!errorMessagesPart) return []
+
+		const errorMessages = errorMessagesPart.split(', ')
+
+		return errorMessages.map((error) => {
+			const parts = error.split(': ')
+			const field = parts[0].trim()
+			const message = parts.slice(1).join(': ').trim()
+			return { field, message }
+		})
+	}
 }
 
 export default FormatValidationErrors

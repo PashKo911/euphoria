@@ -21,8 +21,33 @@ class ProductValidator {
 			},
 			toFloat: true,
 		},
+		rating: {
+			notEmpty: {
+				errorMessage: 'Rating is required',
+			},
+			isInt: {
+				options: {
+					min: 2,
+					max: 5,
+				},
+				errorMessage: 'Rating must be an integer between 2 and 5',
+			},
+			toInt: true,
+		},
+		count: {
+			notEmpty: {
+				errorMessage: 'Count is required',
+			},
+			isInt: {
+				options: {
+					min: 1,
+				},
+				errorMessage: 'Count must be at least 1',
+			},
+			toInt: true,
+		},
 		description: {
-			optional: true, // Поле не обязательно
+			optional: true,
 			trim: true,
 			isLength: {
 				options: { max: 500 },
@@ -34,7 +59,6 @@ class ProductValidator {
 			isArray: {
 				errorMessage: 'Colors must be an array',
 			},
-			// Валидация для элементов массива (если необходимо)
 			custom: {
 				options: (value) => Array.isArray(value) && value.length > 0,
 				errorMessage: 'At least one color is required',
@@ -44,7 +68,6 @@ class ProductValidator {
 			isArray: {
 				errorMessage: 'Sizes must be an array',
 			},
-			// Валидация для элементов массива (если необходимо)
 			custom: {
 				options: (value) => Array.isArray(value) && value.length > 0,
 				errorMessage: 'At least one size is required',

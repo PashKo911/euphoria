@@ -15,6 +15,16 @@ const productSchema = new Schema(
 			required: [true, 'Price is required'],
 			min: [0, 'Price must be a positive number'],
 		},
+		count: {
+			type: Number,
+			required: [true, 'Count is required'],
+			min: [1, 'Count must be at least 1'],
+		},
+		rating: {
+			type: Number,
+			required: [true, 'Rating is required'],
+			min: [2, 'Rating must be at least 2'],
+		},
 		description: {
 			type: String,
 			required: [true, 'Description is required'],

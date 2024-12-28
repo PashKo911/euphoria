@@ -10,6 +10,7 @@ const Select = ({
 	onChange,
 	isLoading = false,
 	resetValues = false,
+	value = null,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedOption, setSelectedOption] = useState(null)
@@ -18,6 +19,9 @@ const Select = ({
 	useEffect(() => {
 		if (resetValues) {
 			setSelectedOption(null)
+		}
+		if (value?.value) {
+			setSelectedOption(value)
 		}
 		const handleClickOutside = (event) => {
 			if (selectRef.current && !selectRef.current.contains(event.target)) {
@@ -30,7 +34,7 @@ const Select = ({
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [resetValues])
+	}, [value, resetValues])
 
 	const selectOption = (option) => {
 		setSelectedOption(option)

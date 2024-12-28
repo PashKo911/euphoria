@@ -1,29 +1,20 @@
 import { useState, useEffect } from 'react'
 
 import { IoIosCloseCircle } from 'react-icons/io'
+import constants from '../../utils/constants'
 
 import styles from './imageInput.module.scss'
 
-const ImageInput = ({ index, onChange, resetValues }) => {
-	const [image, setImage] = useState(null)
-
+const ImageInput = ({ index, onChange, resetValues, initialImage }) => {
 	useEffect(() => {
 		if (resetValues) {
-			setImage(null)
+			onChange(initialImage || null, index)
 		}
-	}, [resetValues])
+	}, [resetValues, initialImage, index, onChange])
 
 	const handleImageChange = (e) => {
 		const file = e.target.files[0]
-		if (file) {
-			setImage(URL.createObjectURL(file))
-			onChange(file, index)
-		}
-	}
-
-	const handleRemoveImage = () => {
-		setImage(null)
-		onChange(null, index)
+		onChange(file || null, index)
 	}
 
 	return (
@@ -36,10 +27,18 @@ const ImageInput = ({ index, onChange, resetValues }) => {
 				id={`image-input-${index}`}
 			/>
 			<label htmlFor={`image-input-${index}`} className={styles.label}>
-				{image ? (
+				{initialImage ? (
 					<div className={styles.previewWrapper}>
-						<img src={image} alt={`Preview ${index + 1}`} className={styles.previewImage} />
-						<button type="button" className={styles.removeButton} onClick={handleRemoveImage}>
+						<img
+							src={
+								typeof initialImage === 'string'
+									? `${constants.API_BASE}${initialImage}`
+									: URL.createObjectURL(initialImage)
+							}
+							alt={`Preview ${index + 1}`}
+							className={styles.previewImage}
+						/>
+						<button type="button" className={styles.removeButton} onClick={() => onChange(null, index)}>
 							<IoIosCloseCircle size={25} />
 						</button>
 					</div>

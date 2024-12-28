@@ -42,7 +42,7 @@ const useHttp = () => {
 				return data
 			} catch (error) {
 				setProcess('error')
-				console.error('HTTP Error:', error.message)
+				console.error('HTTP Error:', error)
 				throw error
 			}
 		},
