@@ -11,6 +11,7 @@ import ProductForm from './pages/forms/ProductForm'
 import UserForm from './pages/forms/UserForm'
 
 import { AuthProvider } from './context/AuthContext'
+import ProductDetail from './pages/products/ProductDetail'
 import './App.scss'
 
 function App() {
@@ -20,9 +21,13 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route path="home" element={<Home />} />
-						<Route path="products/men" element={<Products />} />
+
+						<Route path="products" element={<Products />} />
+						<Route path="products/:id" element={<ProductDetail />} />
+
 						<Route path="auth/sign-in" element={<SignIn />} />
 						<Route path="auth/sign-up" element={<SignUp />} />
+
 						<Route path="dashboard" element={<Dashboard />}>
 							<Route path="products" element={<ProductsTable />} />
 							<Route path="users" element={<UsersTable />} />

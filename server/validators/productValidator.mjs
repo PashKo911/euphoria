@@ -25,14 +25,14 @@ class ProductValidator {
 			notEmpty: {
 				errorMessage: 'Rating is required',
 			},
-			isInt: {
+			isFloat: {
 				options: {
 					min: 2,
 					max: 5,
 				},
 				errorMessage: 'Rating must be an integer between 2 and 5',
 			},
-			toInt: true,
+			toFloat: true,
 		},
 		count: {
 			notEmpty: {

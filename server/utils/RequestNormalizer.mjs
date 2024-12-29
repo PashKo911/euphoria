@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 class RequestNormalizer {
 	static normalizeStringField(field) {
 		if (!field) return null
-		console.log(field)
 
 		if (field.startsWith('[')) {
 			try {

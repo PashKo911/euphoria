@@ -12,7 +12,6 @@ const Products = () => {
 	const [products, setProducts] = useState([])
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 	const { get, process } = useHttp()
-	console.log(products)
 
 	const fetchProducts = async () => {
 		try {
@@ -44,12 +43,7 @@ const Products = () => {
 
 							<div className="catalog__items">
 								{products.map((product) => (
-									<Product
-										key={product._id}
-										title={product.title}
-										price={product.price}
-										path={product.paths[0]}
-									/>
+									<Product key={product._id} product={product} />
 								))}
 							</div>
 						</div>

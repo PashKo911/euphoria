@@ -2,11 +2,24 @@ import styles from './buttonPurple.module.scss'
 import { FaSpinner } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const ButtonPurple = ({ onClick, title, style, isLoading, to }) => {
+const ButtonPurple = ({ onClick, title, style, isLoading, to, icon = false }) => {
+	const renderContent = () => (
+		<>
+			{isLoading === 'loading' ? (
+				<FaSpinner className={styles.spinner} />
+			) : (
+				<>
+					{icon}
+					{title}
+				</>
+			)}
+		</>
+	)
+
 	if (to) {
 		return (
 			<Link to={to} className={styles.button} style={style}>
-				{isLoading === 'loading' ? <FaSpinner className={styles.spinner} /> : title}
+				{renderContent()}
 			</Link>
 		)
 	}
@@ -18,7 +31,7 @@ const ButtonPurple = ({ onClick, title, style, isLoading, to }) => {
 			onClick={onClick}
 			style={style}
 			disabled={isLoading === 'loading'}>
-			{isLoading === 'loading' ? <FaSpinner className={styles.spinner} /> : title}
+			{renderContent()}
 		</button>
 	)
 }

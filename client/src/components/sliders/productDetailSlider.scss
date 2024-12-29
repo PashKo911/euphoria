@@ -1,0 +1,97 @@
+@import '../../styles/mixins';
+
+.wrapper {
+	flex: 0 1 50%;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	position: relative;
+	@include adaptiveValue('column-gap', 34, 15);
+
+	&::before {
+		content: '';
+		width: 100vw;
+		height: 100%;
+		background-color: #f6f6f6;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+.sliderMain {
+	flex: 1 1 auto;
+	@media (max-width: toEm(991.98)) {
+		margin-right: toRem(-15);
+	}
+}
+
+.image {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.thumbSlider {
+	display: grid;
+	justify-items: center;
+	gap: toRem(20);
+	@include adaptiveValue('padding-top', 25, 15);
+	@include adaptiveValue('padding-bottom', 25, 15);
+
+	& .swiper-wrapper {
+		flex: 0 0 toRem(75);
+		aspect-ratio: 75 / 262;
+		@include adaptiveValue('width', 75, 55);
+	}
+}
+
+.thumbSlide.swiper-slide {
+	border-radius: toRem(10);
+	padding: toRem(5);
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: toRem(1) solid transparent;
+
+	&.swiper-slide-thumb-active {
+		border: toRem(1) solid #000;
+	}
+}
+
+.thumbImage {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: contain;
+	border-radius: toRem(10);
+}
+
+.thumbArrows {
+	position: relative;
+	display: grid;
+	justify-items: center;
+	gap: toRem(10);
+}
+.prevButton,
+.nextButton {
+	width: toRem(21);
+	height: toRem(21);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: toRem(6);
+	box-shadow: toRem(0.75) toRem(0.75) toRem(3) 0 rgba(0, 0, 0, 0.4);
+	color: var(--dark-color);
+	transition: all 0.3s;
+	background-color: #fff;
+	cursor: pointer;
+
+	@media (any-hover: hover) {
+		&:hover {
+			background-color: var(--dark-color);
+			color: #fff;
+		}
+	}
+}

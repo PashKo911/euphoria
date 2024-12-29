@@ -81,10 +81,18 @@ const ProductForm = () => {
 	}, [])
 
 	const handleInputChange = (e) => {
-		const { name, value } = e.target
+		const { name, value, type } = e.target
+
+		let processedValue
+		if (type === 'number') {
+			processedValue = value.includes('.') ? parseFloat(value) : parseInt(value, 10)
+		} else {
+			processedValue = value
+		}
+
 		setFormData((prevData) => ({
 			...prevData,
-			[name]: value,
+			[name]: processedValue,
 		}))
 	}
 
@@ -163,7 +171,7 @@ const ProductForm = () => {
 			type: 'number',
 			placeholder: 'Rating',
 			required: true,
-			step: '0.5',
+			step: '0.1',
 			min: '2',
 			max: '5',
 		},
@@ -180,7 +188,7 @@ const ProductForm = () => {
 			id: 'count',
 			label: 'Count',
 			type: 'number',
-			placeholder: 'Price',
+			placeholder: 'Count',
 			required: true,
 			min: '1',
 		},

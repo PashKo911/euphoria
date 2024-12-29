@@ -4,20 +4,19 @@ import constants from '../../utils/constants'
 
 import styles from './product.module.scss'
 
-const Product = ({ path, title, price }) => {
-	console.log(path)
+const Product = ({ product }) => {
+	const { paths, title, price, _id } = product
 	return (
 		<article className={styles.product}>
-			<Link to={'/products/id'} className={styles.link}>
+			<Link to={`/products/${_id}`} className={styles.link}>
 				<button type="button" className={styles.favorite}>
 					<GrFavorite />
 				</button>
 				<div className={styles.img}>
-					<img src={`${constants.API_BASE}${path}`} alt={title} />
+					<img src={`${constants.API_BASE}${paths[0]}`} alt={title} />
 				</div>
 				<div className={styles.body}>
 					<h4 className={styles.title}>{title}</h4>
-
 					<div className={styles.label}>Explore Now!</div>
 					<div className={styles.price}>${price}</div>
 				</div>

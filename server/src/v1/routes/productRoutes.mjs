@@ -11,6 +11,7 @@ const router = express.Router()
 
 router.get('/', ProductController.getAllProducts)
 
+router.get('/options', ProductController.getOptions)
 router.get('/edit/:id', ProductController.getProduct)
 
 router.post(
@@ -29,7 +30,5 @@ router.put(
 )
 
 router.delete('/delete', ProductController.deleteProduct)
-
-router.get('/options', ProductController.getOptions)
 
 export default router

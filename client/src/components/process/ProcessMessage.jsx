@@ -10,8 +10,10 @@ const ProcessMessage = ({ process, items }) => {
 		)
 	}
 
-	if (process !== 'loading' && items.length === 0) {
-		return <div className="message-block">{'No items available...'}</div>
+	if (items) {
+		if (process !== 'loading' && items.length === 0) {
+			return <div className="message-block">{'No items available...'}</div>
+		}
 	}
 
 	return null

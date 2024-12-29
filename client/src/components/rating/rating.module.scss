@@ -1,0 +1,74 @@
+@import '../../styles/mixins';
+
+.rating {
+	display: inline-flex;
+	gap: toRem(15);
+	align-items: center;
+}
+.items {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: toRem(7);
+	height: toRem(20);
+
+	.ratingSet & {
+		@media (any-hover: hover) {
+			&:hover {
+				.item {
+					background: url('/assets/img/icons/star-active.svg') 0 0 / toRem(20) no-repeat;
+				}
+			}
+		}
+	}
+}
+.item {
+	flex: 0 0 toRem(20);
+	width: toRem(20);
+	position: relative;
+	background: url('/assets/img/icons/star.svg') 0 0 / toRem(20) no-repeat;
+
+	span {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 0%;
+		height: toRem(20);
+		background: url('/assets/img/icons/star-active.svg') 0 0 / toRem(20) no-repeat;
+	}
+	&:not(:last-child) {
+		&::after {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: 100%;
+			width: toRem(7);
+			transform: translateX(100%);
+		}
+	}
+
+	.ratingSet & {
+		@media (any-hover: hover) {
+			&:hover {
+				~ .item {
+					background: url('/assets/img/icons/star.svg') 0 0 / toRem(20) no-repeat;
+					span {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}
+.input {
+	aspect-ratio: 1 / 1;
+	width: 100%;
+	opacity: 0;
+	.ratingSet & {
+		cursor: pointer;
+	}
+}
+.value {
+	font-weight: 500;
+	font-size: toRem(18);
+}

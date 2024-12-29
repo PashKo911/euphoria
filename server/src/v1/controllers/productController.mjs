@@ -31,24 +31,23 @@ class ProductController {
 	static async getProduct(req, res) {
 		try {
 			const id = req.params.id
-			console.log(id)
+
 			const product = await ProductsDBService.getById(id)
 			res.status(200).json(product)
 		} catch (error) {
+			console.error(error)
 			res.status(500).json({ error: 'Error fetching products' })
 		}
 	}
 
 	static async registerProduct(req, res) {
 		const expressErrors = validationResult(req)
-
 		if (!req.user) {
 			return res.status(403).json({ error: 'Access denied' })
 		}
 
 		if (!expressErrors.isEmpty()) {
 			const errors = FormatValidationErrors.formatExpressErrors(expressErrors)
-			console.log(errors)
 			deleteUploadedFiles(req.files, req.uploadFolderPath)
 			return res.status(400).json({ errors })
 		}
@@ -57,6 +56,7 @@ class ProductController {
 
 			res.status(200).json({ message: 'Product registered successfully' })
 		} catch (error) {
+			console.error(error)
 			deleteUploadedFiles(req.files, req.uploadFolderPath)
 			const errors = FormatValidationErrors.formatMongooseErrors(error.message, 'Product')
 			res.status(400).json({ errors })
