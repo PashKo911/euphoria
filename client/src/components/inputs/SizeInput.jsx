@@ -1,10 +1,19 @@
+import useFilterChange from '../../hooks/useFilterChange'
 import styles from './sizeInput.module.scss'
 
-const SizeInput = ({ title, type = 'checkbox' }) => {
+const SizeInput = ({ label, _id, onChange, type = 'checkbox', filterType }) => {
+	const { handleChange, state } = useFilterChange(filterType, _id)
 	return (
-		<label className={styles.label}>
-			<input type={type} name="size" className={styles.input} />
-			{title}
+		<label className={styles.label} onClick={onChange}>
+			<input
+				type={type}
+				name="size"
+				value={_id}
+				className={styles.input}
+				onChange={handleChange}
+				checked={state[filterType].includes(_id)}
+			/>
+			{label}
 		</label>
 	)
 }

@@ -37,9 +37,10 @@ const Select = ({
 	}, [value, resetValues])
 
 	const selectOption = (option) => {
+		console.log(option)
 		setSelectedOption(option)
 		setIsOpen(false)
-		onChange && onChange(option)
+		onChange && onChange(option.value)
 	}
 
 	return (

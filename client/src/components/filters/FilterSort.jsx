@@ -1,17 +1,20 @@
 import { useState } from 'react'
-
+import { useFilter } from '../../context/FilterProvider'
 import { GiSettingsKnobs } from 'react-icons/gi'
 import styles from './filterSort.module.scss'
 import Select from '../slelects/Select'
 
 const FilterSort = ({ isFilterOpen, callback }) => {
+	const { state, dispatch } = useFilter()
+
 	const options = [
-		{ value: 'price-asc', label: 'Price: Lowest first' },
-		{ value: 'price-desc', label: 'Price: Highest first' },
+		{ value: 'asc', label: 'Price: Lowest first' },
+		{ value: 'desc', label: 'Price: Highest first' },
 		{ value: 'newest', label: 'Newest' },
 	]
-
-	const [selected, setSelected] = useState(null)
+	const handleChange = (value) => {
+		dispatch({ type: 'SET_SORT', payload: value })
+	}
 
 	return (
 		<div className={styles.wrapper}>
@@ -19,7 +22,12 @@ const FilterSort = ({ isFilterOpen, callback }) => {
 				Filters
 				<GiSettingsKnobs />
 			</button>
-			<Select options={options} placeholder="Sort by:" onChange={(option) => setSelected(option)} />
+			<Select
+				options={options}
+				placeholder="Sort by:"
+				value={options.find((option) => option.value === state.sort)}
+				onChange={handleChange}
+			/>
 		</div>
 	)
 }

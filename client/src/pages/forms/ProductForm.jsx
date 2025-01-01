@@ -30,14 +30,14 @@ const ProductForm = () => {
 		colors: [],
 		sizes: [],
 		images: [],
-		dressStyle: '',
+		styles: '',
 		pathsToDelete: [],
 	})
 	const [options, setOptions] = useState({
 		colors: [],
 		sizes: [],
 		genders: [],
-		dressStyles: [],
+		styles: [],
 	})
 
 	const fetchOptions = async () => {
@@ -46,8 +46,11 @@ const ProductForm = () => {
 			const transformedOptions = {}
 
 			Object.keys(response).forEach((key) => {
-				transformedOptions[key] = transformOptions(response[key])
+				if (key !== 'priceRange') {
+					transformedOptions[key] = transformOptions(response[key])
+				}
 			})
+			console.log(transformedOptions)
 
 			setOptions(transformedOptions)
 		} catch (error) {
@@ -67,7 +70,7 @@ const ProductForm = () => {
 			sizes: productData.sizes.map((size) => size._id),
 			count: productData.count,
 			images: productData.paths,
-			dressStyle: productData.dressStyle._id,
+			styles: productData.styles._id,
 			pathsToDelete: [],
 		})
 	}
@@ -152,7 +155,7 @@ const ProductForm = () => {
 				colors: [],
 				sizes: [],
 				images: [],
-				dressStyle: '',
+				styles: '',
 				count: '',
 				pathsToDelete: [],
 			})
@@ -241,12 +244,12 @@ const ProductForm = () => {
 						value={options.genders.find((el) => el.value === formData.gender)}
 					/>
 					<Select
-						options={options.dressStyles}
+						options={options.styles}
 						placeholder="Select product style"
-						onChange={(value) => handleSelectChange('dressStyle', value.value)}
+						onChange={(value) => handleSelectChange('styles', value.value)}
 						isLoading={process}
 						resetValues={resetValues}
-						value={options.dressStyles.find((el) => el.value === formData.dressStyle)}
+						value={options.styles.find((el) => el.value === formData.styles)}
 					/>
 				</div>
 				<Textarea

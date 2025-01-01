@@ -1,7 +1,8 @@
 export const transformOptions = (options) => {
 	return options.map((option) => ({
 		value: option._id,
-		label: option.name,
+		label: option.label,
+		color: option?.value,
 	}))
 }
 

@@ -1,53 +1,20 @@
-import { v4 as uuid } from 'uuid'
-
-import ColorsInput from '../../components/inputs/ColorsInput'
-import SizeInput from '../../components/inputs/SizeInput'
-import CategoryInput from '../../components/inputs/CategoryInput'
-import SliderInput from '../../components/inputs/SliderInput'
+import React from 'react'
 import Accordion from '../accordion/Accordion'
-
+import { useFilter } from '../../context/FilterProvider'
+import styles from './filter.module.scss'
+import { filterConfig } from '../../data/data'
 import { GiSettingsKnobs } from 'react-icons/gi'
 import { RiCloseLargeFill } from 'react-icons/ri'
 
-import styles from './filter.module.scss'
-import { useState } from 'react'
+const Filter = ({ options, isFilterOpen, callback }) => {
+	const { state, dispatch } = useFilter()
 
-const data = {
-	price: {
-		title: 'Price',
-		items: [<SliderInput key={uuid()} min={20} max={1000} />],
-	},
-	colors: {
-		title: 'Colors',
-		items: [
-			<ColorsInput title={'Purple'} color={'#8434e1'} key={'#8434e1'} />,
-			<ColorsInput title={'Black'} color={'#000000'} key={'#000000'} />,
-			<ColorsInput title={'Red'} color={'#F35528'} key={'#F35528'} />,
-			<ColorsInput title={'Orange'} color={'#F16F2B'} key={'#F16F2B'} />,
-			<ColorsInput title={'Navy'} color={'#345EFF'} key={'#345EFF'} />,
-		],
-	},
-	size: {
-		title: 'Size',
-		items: [
-			<SizeInput title={'XXS'} key={'XXS'} />,
-			<SizeInput title={'XS'} key={'XS'} />,
-			<SizeInput title={'S'} key={'S'} />,
-			<SizeInput title={'M'} key={'M'} />,
-			<SizeInput title={'L'} key={'L'} />,
-		],
-	},
-	style: {
-		title: 'Dress Style',
-		items: [
-			<CategoryInput title={'Classic'} key={'Classic'} />,
-			<CategoryInput title={'Casual'} key={'Casual'} />,
-			<CategoryInput title={'Business'} key={'Business'} />,
-		],
-	},
-}
+	if (!options || Object.keys(options).length === 0) return null
 
-const Filter = ({ isFilterOpen, callback }) => {
+	const handleChange = (name, value) => {
+		dispatch({ type: `SET_${name.toUpperCase()}`, payload: value })
+	}
+
 	return (
 		<aside className={`${styles.filter} ${isFilterOpen ? styles.open : ''}`}>
 			<div className={styles.header}>
@@ -61,11 +28,24 @@ const Filter = ({ isFilterOpen, callback }) => {
 					<GiSettingsKnobs />
 				)}
 			</div>
-			<form action="#" className={styles.filterBody}>
-				<Accordion title={data.style.title} items={data.style.items} colCount={1} />
-				<Accordion title={data.price.title} items={data.price.items} colCount={1} />
-				<Accordion title={data.colors.title} items={data.colors.items} colCount={4} />
-				<Accordion title={data.size.title} items={data.size.items} colCount={3} />
+			<form className={styles.filterBody}>
+				{filterConfig.map(({ title, key, colCount }) => {
+					const filterItems =
+						key === 'price'
+							? { minPrice: options.priceRange.minPrice, maxPrice: options.priceRange.maxPrice }
+							: options[key]
+
+					return (
+						<Accordion
+							key={key}
+							title={title}
+							items={filterItems}
+							colCount={colCount}
+							filterType={key}
+							onChange={(value) => handleChange(key, value)}
+						/>
+					)
+				})}
 			</form>
 		</aside>
 	)

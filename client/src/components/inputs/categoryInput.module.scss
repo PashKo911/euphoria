@@ -8,6 +8,7 @@
 	justify-content: space-between;
 	gap: toRem(10);
 	transition: all 0.3s;
+	text-transform: capitalize;
 	cursor: pointer;
 
 	&.active {

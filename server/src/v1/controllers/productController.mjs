@@ -111,14 +111,17 @@ class ProductController {
 		try {
 			const colors = await ColorsDBService.getList({})
 			const sizes = await SizeDBService.getList({})
-			const dressStyles = await DressStyleDBService.getList({})
+			const styles = await DressStyleDBService.getList({})
 			const genders = await GenderDBService.getList({})
+
+			const priceRange = await ProductsDBService.getPriceRange()
 
 			res.status(200).json({
 				genders,
-				dressStyles,
+				styles,
 				colors,
 				sizes,
+				priceRange,
 			})
 		} catch (error) {
 			console.error(error)

@@ -72,7 +72,7 @@ const MultiplySelect = ({
 								selectedOptions.some((item) => item.value === option.value) ? styles.selected : ''
 							}`}
 							onClick={() => selectOption(option)}>
-							{colors && <span className={styles.colorIcon} style={{ backgroundColor: option.label }} />}
+							{colors && <span className={styles.colorIcon} style={{ backgroundColor: option.color }} />}
 							{option.label}
 						</li>
 					))}

@@ -73,7 +73,7 @@ class ProductValidator {
 				errorMessage: 'At least one size is required',
 			},
 		},
-		dressStyle: {
+		styles: {
 			notEmpty: {
 				errorMessage: 'Dress style is required',
 			},

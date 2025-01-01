@@ -13,10 +13,34 @@ class ProductsDBService extends MongooseCRUDManager {
 	}
 	async getById(id) {
 		try {
-			const res = await super.getById(id, {}, ['colors', 'dressStyle', 'gender', 'sizes'])
+			const res = await super.getById(id, {}, ['colors', 'styles', 'gender', 'sizes'])
 			return res
 		} catch (error) {
 			throw new Error('Error finding data by id: ' + error.message)
+		}
+	}
+	async getPriceRange() {
+		try {
+			const result = await this.model.aggregate([
+				{
+					$group: {
+						_id: null,
+						minPrice: { $min: '$price' },
+						maxPrice: { $max: '$price' },
+					},
+				},
+			])
+
+			if (result.length === 0) {
+				return { minPrice: 0, maxPrice: 0 }
+			}
+
+			return {
+				minPrice: result[0].minPrice,
+				maxPrice: result[0].maxPrice,
+			}
+		} catch (error) {
+			throw new Error('Error retrieving price range: ' + error.message)
 		}
 	}
 }

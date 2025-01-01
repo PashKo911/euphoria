@@ -13,30 +13,33 @@ import UserForm from './pages/forms/UserForm'
 import { AuthProvider } from './context/AuthContext'
 import ProductDetail from './pages/products/ProductDetail'
 import './App.scss'
+import { FilterProvider } from './context/FilterProvider'
 
 function App() {
 	return (
 		<AuthProvider>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Layout />}>
-						<Route path="home" element={<Home />} />
+			<FilterProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<Layout />}>
+							<Route path="home" element={<Home />} />
 
-						<Route path="products" element={<Products />} />
-						<Route path="products/:id" element={<ProductDetail />} />
+							<Route path="products" element={<Products />} />
+							<Route path="products/:id" element={<ProductDetail />} />
 
-						<Route path="auth/sign-in" element={<SignIn />} />
-						<Route path="auth/sign-up" element={<SignUp />} />
+							<Route path="auth/sign-in" element={<SignIn />} />
+							<Route path="auth/sign-up" element={<SignUp />} />
 
-						<Route path="dashboard" element={<Dashboard />}>
-							<Route path="products" element={<ProductsTable />} />
-							<Route path="users" element={<UsersTable />} />
-							<Route path="users/add" element={<UserForm />} />
-							<Route path="products/add/:id?" element={<ProductForm />} />
+							<Route path="dashboard" element={<Dashboard />}>
+								<Route path="products" element={<ProductsTable />} />
+								<Route path="users" element={<UsersTable />} />
+								<Route path="users/add" element={<UserForm />} />
+								<Route path="products/add/:id?" element={<ProductForm />} />
+							</Route>
 						</Route>
-					</Route>
-				</Routes>
-			</BrowserRouter>
+					</Routes>
+				</BrowserRouter>
+			</FilterProvider>
 		</AuthProvider>
 	)
 }

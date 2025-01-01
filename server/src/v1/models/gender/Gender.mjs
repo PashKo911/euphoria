@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const genderSchema = new Schema({
-	name: {
+	label: {
 		type: String,
 		enum: ['women', 'men'],
 		required: [true, 'Gender is required'],

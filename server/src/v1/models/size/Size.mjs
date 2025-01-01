@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const sizeSchema = new Schema({
-	value: {
+	label: {
 		type: String,
 		required: [true, 'Size value is required'],
 		unique: true,

@@ -1,7 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import { HiOutlineSearch } from 'react-icons/hi'
 import { MdFavoriteBorder } from 'react-icons/md'
 import { LuUser2 } from 'react-icons/lu'
 import { FiShoppingCart } from 'react-icons/fi'
@@ -13,6 +12,7 @@ import { useAuth } from '../../context/AuthContext'
 import useHttp from '../../hooks/useHttp'
 
 import './navbar.scss'
+import SearchForm from '../searchForm/SearchForm'
 
 const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
@@ -24,7 +24,7 @@ const Navbar = () => {
 		try {
 			await post('/auth/logout')
 			logout()
-			navigate('/products/men')
+			navigate('/products')
 		} catch (error) {
 			console.error('Error during logout:', error.message)
 		}
@@ -55,12 +55,7 @@ const Navbar = () => {
 						</ul>
 					</nav>
 				</div>
-				<form action="#" className="header__search search-form">
-					<input className="search-form__input" placeholder="Search" type="text" />
-					<button className="search-form__button" aria-label="Search Form">
-						<HiOutlineSearch />
-					</button>
-				</form>
+				<SearchForm />
 				<div className="header__action action-header">
 					<NavLink to={'/home'} className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />

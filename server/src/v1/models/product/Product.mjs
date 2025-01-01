@@ -61,7 +61,7 @@ const productSchema = new Schema(
 				message: 'At least one size is required',
 			},
 		},
-		dressStyle: {
+		styles: {
 			type: Schema.Types.ObjectId,
 			ref: 'Style',
 			required: [true, 'Dress style is required'],

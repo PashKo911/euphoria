@@ -4,7 +4,7 @@ import FilterItem from '../filters/FilterItem'
 
 import styles from './accordion.module.scss'
 
-const Accordion = ({ title, items, colCount }) => {
+const Accordion = ({ title, items, colCount, filterType, onChange }) => {
 	const [open, setOpen] = useState(true)
 
 	return (
@@ -16,7 +16,7 @@ const Accordion = ({ title, items, colCount }) => {
 				</button>
 			</h5>
 			<div className={styles.body}>
-				<FilterItem items={items} colCount={colCount} />
+				<FilterItem items={items} colCount={colCount} filterType={filterType} onChange={onChange} />
 			</div>
 		</div>
 	)
