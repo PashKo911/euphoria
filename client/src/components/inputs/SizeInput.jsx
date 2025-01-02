@@ -11,7 +11,7 @@ const SizeInput = ({ label, _id, onChange, type = 'checkbox', filterType }) => {
 				value={_id}
 				className={styles.input}
 				onChange={handleChange}
-				checked={state[filterType].includes(_id)}
+				checked={state[filterType]?.includes(_id)}
 			/>
 			{label}
 		</label>

@@ -9,6 +9,8 @@
 	background-color: var(--lite-color);
 	position: relative;
 	padding-left: toRem(44);
+	display: flex;
+	align-items: center;
 
 	@media (max-width: toEm(767.98)) {
 		flex-grow: 1;
@@ -44,11 +46,24 @@
 
 	@media (any-hover: hover) {
 		&:hover {
-			color: #000;
+			color: var(--purple-color);
 		}
 	}
 	svg {
 		width: toRem(20);
 		height: toRem(20);
+	}
+}
+
+.close {
+	padding: toRem(5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: color 0.2s;
+	@media (any-hover: hover) {
+		&:hover {
+			color: var(--purple-color);
+		}
 	}
 }

@@ -52,7 +52,7 @@ const ProductDetail = () => {
 								</div>
 								<div className="sizes-product__items">
 									{productData.sizes?.map((size, index) => (
-										<SizeInput key={index} title={size.name} type="radio" />
+										<SizeInput key={index} label={size.label} type="radio" />
 									))}
 								</div>
 							</div>

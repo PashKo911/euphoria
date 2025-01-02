@@ -8,9 +8,9 @@ const FilterSort = ({ isFilterOpen, callback }) => {
 	const { state, dispatch } = useFilter()
 
 	const options = [
-		{ value: 'asc', label: 'Price: Lowest first' },
-		{ value: 'desc', label: 'Price: Highest first' },
-		{ value: 'newest', label: 'Newest' },
+		{ value: 'price:asc', label: 'Price: Lowest first' },
+		{ value: 'price:desc', label: 'Price: Highest first' },
+		{ value: 'createdAt:desc', label: 'Newest' },
 	]
 	const handleChange = (value) => {
 		dispatch({ type: 'SET_SORT', payload: value })

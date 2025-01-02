@@ -2,9 +2,41 @@ import Product from './Product.mjs'
 import MongooseCRUDManager from '../MongooseCRUDManager.mjs'
 
 class ProductsDBService extends MongooseCRUDManager {
-	async getList(filters) {
+	static fieldsConfigurations = [
+		{
+			fieldName: 'title',
+			filterCategory: 'search',
+		},
+		{
+			fieldName: 'price',
+			filterCategory: 'range',
+		},
+		{
+			fieldName: 'colors',
+			filterCategory: 'list',
+		},
+		{
+			fieldName: 'sizes',
+			filterCategory: 'list',
+		},
+		{
+			fieldName: 'styles',
+			filterCategory: 'list',
+		},
+	]
+
+	async getList(reqQuery) {
 		try {
-			const res = await super.getList(filters, { title: 1, price: 1, count: 1, paths: 1 })
+			// const res = await super.getList(filters, { title: 1, price: 1, count: 1, paths: 1 })
+
+			const res = await this.findManyWithSearchOptions(reqQuery, ProductsDBService.fieldsConfigurations, {
+				title: 1,
+				price: 1,
+				count: 1,
+				paths: 1,
+			})
+			console.log(res)
+
 			return res
 		} catch (error) {
 			console.error(error)

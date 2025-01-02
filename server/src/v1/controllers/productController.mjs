@@ -10,18 +10,17 @@ import ProductsDBService from '../models/product/ProductsDBService.mjs'
 import FormatValidationErrors from '../../../validators/formatValidationErrors.mjs'
 
 class ProductController {
-	// Метод для отримання всіх товарів
 	static async getAllProducts(req, res) {
 		try {
 			const filters = {}
+
 			for (const key in req.query) {
 				if (req.query[key]) filters[key] = req.query[key]
 			}
-
+			console.log(filters)
 			const productsList = await ProductsDBService.getList(filters)
 			res.status(200).json({
 				products: productsList,
-				user: req.user,
 			})
 		} catch (error) {
 			res.status(500).json({ error: 'Error fetching products' })

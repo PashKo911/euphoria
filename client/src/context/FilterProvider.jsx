@@ -3,9 +3,11 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react'
 const FilterContext = createContext()
 
 const initialState = JSON.parse(localStorage.getItem('filters')) || {
-	search: '',
+	page: 0,
+	perPage: 9,
+	title: '',
 	category: '',
-	priceRange: [],
+	price: [],
 	colors: [],
 	sizes: [],
 	styles: [],
@@ -14,11 +16,13 @@ const initialState = JSON.parse(localStorage.getItem('filters')) || {
 function filterReducer(state, action) {
 	switch (action.type) {
 		case 'SET_SEARCH':
-			return { ...state, search: action.payload }
+			return { ...state, title: action.payload }
+		case 'SET_PAGE':
+			return { ...state, page: action.payload }
 		case 'SET_CATEGORY':
 			return { ...state, category: action.payload }
 		case 'SET_PRICE':
-			return { ...state, priceRange: action.payload }
+			return { ...state, price: action.payload }
 		case 'SET_COLORS':
 			return { ...state, colors: action.payload }
 		case 'SET_STYLES':

@@ -1,42 +1,44 @@
+import { useFilter } from '../../context/FilterProvider'
+import PaginationButton from './PaginationButton'
+import { IoIosArrowBack } from 'react-icons/io'
+import { IoIosArrowForward } from 'react-icons/io'
 import styles from './pagination.module.scss'
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-	const handlePageClick = (page) => {
-		if (page >= 1 && page <= totalPages) {
-			onPageChange(page)
-		}
-	}
+const Pagination = ({ productsCount }) => {
+	const { state, dispatch } = useFilter()
+	const currentPage = state.page
+	const perPage = state.perPage
+	const totalPages = Math.ceil(productsCount / perPage)
 
-	const renderPageNumbers = () => {
-		const pages = []
-		for (let i = 1; i <= totalPages; i++) {
-			pages.push(
-				<button
-					key={i}
-					className={`${styles.button} ${i === currentPage ? styles.active : ''}`}
-					onClick={() => handlePageClick(i)}>
-					{i}
-				</button>
-			)
+	const handlePageClick = (page) => {
+		if (page >= 0 && page < totalPages) {
+			dispatch({ type: 'SET_PAGE', payload: page })
 		}
-		return pages
 	}
 
 	return (
-		<div className={styles.pagination}>
-			<button
-				className={styles.button}
-				onClick={() => handlePageClick(currentPage - 1)}
-				disabled={currentPage === 1}>
-				&lt; Prev
-			</button>
-			{renderPageNumbers()}
-			<button
-				className={styles.button}
-				onClick={() => handlePageClick(currentPage + 1)}
-				disabled={currentPage === totalPages}>
-				Next &gt;
-			</button>
+		<div style={{ display: totalPages < 2 ? 'none' : 'flex' }} className={styles.pagination}>
+			<PaginationButton disabled={currentPage === 0} onClick={() => handlePageClick(currentPage - 1)}>
+				<IoIosArrowBack size={20} /> Prev
+			</PaginationButton>
+			<div className={styles.pagesInfo}>{`Page ${currentPage + 1} of ${totalPages}`}</div>
+			<div className={styles.buttonsWrapper}>
+				{Array.from({ length: totalPages }, (_, i) => (
+					<PaginationButton
+						key={i}
+						isActive={i === currentPage}
+						onClick={() => handlePageClick(i)}
+						aria-label={`Page ${i + 1}`}
+						aria-current={i === currentPage ? 'page' : undefined}>
+						{i + 1}
+					</PaginationButton>
+				))}
+			</div>
+			<PaginationButton
+				disabled={currentPage === totalPages - 1}
+				onClick={() => handlePageClick(currentPage + 1)}>
+				Next <IoIosArrowForward size={20} />
+			</PaginationButton>
 		</div>
 	)
 }

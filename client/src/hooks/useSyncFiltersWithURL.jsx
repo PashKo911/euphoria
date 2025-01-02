@@ -13,9 +13,9 @@ export const useSyncFiltersWithURL = () => {
 			let parsedValue
 
 			if (value.includes(',')) {
-				parsedValue = value.split(',')
+				parsedValue = value.split(',').map((item) => (isNaN(item) ? item : Number(item)))
 			} else {
-				parsedValue = value
+				parsedValue = isNaN(value) ? value : Number(value)
 			}
 
 			const finalValue = Array.isArray(state[key])

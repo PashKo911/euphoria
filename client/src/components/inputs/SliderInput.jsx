@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
+import { useFilter } from '../../context/FilterProvider'
 import { Range } from 'react-range'
 import { v4 as uuidv4 } from 'uuid'
 
 import styles from './sliderInput.module.scss'
 
 const SliderInput = ({ min, max }) => {
-	const [values, setValues] = useState([min, max])
+	const { state, dispatch } = useFilter()
+	const initialMin = state.price[0] ?? min
+	const initialMax = state.price[1] ?? max
+	const [values, setValues] = useState([initialMin, initialMax])
+
+	const handleFinalChange = (values) => {
+		dispatch({ type: 'SET_PRICE', payload: [...values] })
+	}
 
 	const handleInputChange = (index, event) => {
 		let value = event.target.value.slice(1)
@@ -28,6 +36,7 @@ const SliderInput = ({ min, max }) => {
 				onChange={(values) => {
 					setValues(values)
 				}}
+				onFinalChange={handleFinalChange}
 				allowOverlap={false}
 				renderTrack={({ props, children }) => {
 					const { key, ...restProps } = props

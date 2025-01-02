@@ -1,3 +1,5 @@
+import FiltersHelper from '../../../utils/searchHelpers/FiltersHelper.mjs'
+
 class MongooseCRUDManager {
 	constructor(model) {
 		this.model = model
@@ -51,6 +53,7 @@ class MongooseCRUDManager {
 
 			// Виконання запиту та повернення знайдених документів разом з їхньою кількістю
 			const documents = await query.exec()
+			console.log(documents)
 
 			return { documents, count }
 		} catch (error) {

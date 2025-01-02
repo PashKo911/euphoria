@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useFilter } from '../../context/FilterProvider'
 
 import useHttp from '../../hooks/useHttp'
 import Product from '../../components/productCards/Product'
@@ -11,11 +11,11 @@ import Filter from '../../components/filters/Filter'
 import './products.scss'
 
 const Products = () => {
+	const { state, dispatch } = useFilter()
 	const [products, setProducts] = useState([])
-	const [filters, setFilters] = useState({})
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 	const [filterOptions, setFilterOptions] = useState({})
-	const [searchParams, setSearchParams] = useSearchParams()
+	const [productsCount, setProductsCount] = useState(null)
 	const { get, process } = useHttp()
 
 	useEffect(() => {
@@ -33,22 +33,17 @@ const Products = () => {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const query = new URLSearchParams(filters).toString()
+				const query = new URLSearchParams(state).toString()
 				const data = await get(`/products?${query}`)
-				setProducts(data.products || [])
+				const { documents, count } = data?.products
+				setProducts(documents || [])
+				setProductsCount(Number(count) || null)
 			} catch (error) {
 				console.error('Error fetching products:', error)
 			}
 		}
 		fetchProducts()
-	}, [filters])
-
-	const totalPages = Math.ceil(products.length / 10)
-	const currentPage = Number(searchParams.get('page') || 1)
-
-	const handlePageChange = (page) => {
-		setSearchParams({ ...Object.fromEntries(searchParams.entries()), page })
-	}
+	}, [state])
 
 	return (
 		<div className="page__catalog catalog">
@@ -67,7 +62,7 @@ const Products = () => {
 								<Product key={product._id} product={product} />
 							))}
 						</div>
-						<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+						<Pagination productsCount={productsCount} />
 					</div>
 				</div>
 			</section>
