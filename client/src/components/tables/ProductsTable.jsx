@@ -2,26 +2,37 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { RiEditLine, RiDeleteBinLine } from 'react-icons/ri'
 import ProcessMessage from '../process/ProcessMessage'
+import Pagination from '../pagination/Pagination'
 
 import constants from '../../utils/constants'
 import useHttp from '../../hooks/useHttp'
+import { useFilter } from '../../context/FilterProvider'
+import { useSyncFiltersWithURL } from '../../hooks/useSyncFiltersWithURL'
 
 import styles from './table.module.scss'
 
-const ProductsTable = () => {
+const ProductsTable = ({ filterOptions }) => {
+	useSyncFiltersWithURL()
+	const { state, dispatch } = useFilter()
 	const [products, setProducts] = useState([])
 	const { get, del, process } = useHttp()
+	const [productsCount, setProductsCount] = useState(null)
 
-	const fetchProducts = async () => {
-		try {
-			const data = await get('/products')
-			if (data) {
-				setProducts(data.products || [])
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const query = new URLSearchParams(state).toString()
+
+				const data = await get(`/products?${query.toString()}`)
+				const { documents, count } = data?.products
+				setProducts(documents || [])
+				setProductsCount(Number(count) || null)
+			} catch (error) {
+				console.error('Error fetching products:', error)
 			}
-		} catch (error) {
-			console.error('Error fetching products:', error)
 		}
-	}
+		fetchProducts()
+	}, [state, filterOptions])
 
 	const deleteHandler = async (id) => {
 		const previousProducts = [...products]
@@ -35,10 +46,6 @@ const ProductsTable = () => {
 			setProducts(previousProducts)
 		}
 	}
-
-	useEffect(() => {
-		fetchProducts()
-	}, [])
 
 	return (
 		<>
@@ -76,6 +83,7 @@ const ProductsTable = () => {
 					))}
 				</tbody>
 			</table>
+			<Pagination productsCount={productsCount} />
 			<ProcessMessage process={process} items={products} />
 		</>
 	)

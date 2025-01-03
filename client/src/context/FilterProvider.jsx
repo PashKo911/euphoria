@@ -19,8 +19,8 @@ function filterReducer(state, action) {
 			return { ...state, title: action.payload }
 		case 'SET_PAGE':
 			return { ...state, page: action.payload }
-		case 'SET_CATEGORY':
-			return { ...state, category: action.payload }
+		case 'SET_GENDER':
+			return { ...state, gender: action.payload }
 		case 'SET_PRICE':
 			return { ...state, price: action.payload }
 		case 'SET_COLORS':
@@ -31,6 +31,20 @@ function filterReducer(state, action) {
 			return { ...state, sizes: action.payload }
 		case 'SET_SORT':
 			return { ...state, sort: action.payload }
+		case 'CLEAR_FILTER':
+			return { ...state, [action.payload.key]: Array.isArray(state[action.payload.key]) ? [] : '' }
+		case 'CLEAR_ALL_FILTERS':
+			return {
+				page: state.page,
+				perPage: state.perPage,
+				gender: state.gender,
+				title: '',
+				price: [],
+				colors: [],
+				sizes: [],
+				styles: [],
+				sort: '',
+			}
 		default:
 			return state
 	}

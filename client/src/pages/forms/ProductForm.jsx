@@ -50,7 +50,6 @@ const ProductForm = () => {
 					transformedOptions[key] = transformOptions(response[key])
 				}
 			})
-			console.log(transformedOptions)
 
 			setOptions(transformedOptions)
 		} catch (error) {
@@ -100,6 +99,8 @@ const ProductForm = () => {
 	}
 
 	const handleSelectChange = (key, value) => {
+		console.log(key)
+		console.log(value)
 		setFormData((prevData) => ({
 			...prevData,
 			[key]: value,

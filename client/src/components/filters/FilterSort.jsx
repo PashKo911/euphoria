@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useFilter } from '../../context/FilterProvider'
 import { GiSettingsKnobs } from 'react-icons/gi'
 import styles from './filterSort.module.scss'
@@ -12,6 +11,7 @@ const FilterSort = ({ isFilterOpen, callback }) => {
 		{ value: 'price:desc', label: 'Price: Highest first' },
 		{ value: 'createdAt:desc', label: 'Newest' },
 	]
+
 	const handleChange = (value) => {
 		dispatch({ type: 'SET_SORT', payload: value })
 	}

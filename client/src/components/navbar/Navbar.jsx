@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
 import { MdFavoriteBorder } from 'react-icons/md'
@@ -19,6 +19,7 @@ const Navbar = () => {
 	const { isAuthenticated, logout } = useAuth()
 	const { post } = useHttp()
 	const navigate = useNavigate()
+	const location = useLocation()
 
 	const handleLogout = async () => {
 		try {
@@ -28,6 +29,11 @@ const Navbar = () => {
 		} catch (error) {
 			console.error('Error during logout:', error.message)
 		}
+	}
+
+	const isActive = (gender) => {
+		const params = new URLSearchParams(location.search)
+		return params.get('gender') === gender
 	}
 
 	return (
@@ -43,14 +49,16 @@ const Navbar = () => {
 								</NavLink>
 							</li>
 							<li className="menu__item">
-								<NavLink to={'/products'} className="menu__link">
+								<Link to={'/products?gender=men'} className={`menu__link ${isActive('men') ? 'active' : ''}`}>
 									Men
-								</NavLink>
+								</Link>
 							</li>
 							<li className="menu__item">
-								<NavLink to={'/products/women'} className="menu__link">
+								<Link
+									to={'/products?gender=women'}
+									className={`menu__link ${isActive('women') ? 'active' : ''}`}>
 									Women
-								</NavLink>
+								</Link>
 							</li>
 						</ul>
 					</nav>

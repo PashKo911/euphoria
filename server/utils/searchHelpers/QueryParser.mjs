@@ -64,7 +64,8 @@ class QueryParser {
 		fieldsConfigurations.forEach(({ fieldName, filterCategory }) => {
 			if (query[fieldName]) filters.push(...this[filterCategory](fieldName, query[fieldName]))
 		})
-
+		console.log('=======>>>>  filters')
+		console.log(filters)
 		return filters
 	}
 

@@ -1,13 +1,14 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { SlHandbag } from 'react-icons/sl'
 import { FaUsers } from 'react-icons/fa'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import TitleDecor from '../../components/TitleDecor'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
 import Filter from '../../components/filters/Filter'
 import FilterSort from '../../components/filters/FilterSort'
 import { useAuth } from '../../context/AuthContext'
+import useHttp from '../../hooks/useHttp'
 
 import styles from './dashboard.module.scss'
 
@@ -20,6 +21,21 @@ const Dashboard = () => {
 	const isFormPage = location.pathname.includes('add')
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 	const { user } = useAuth()
+	const { get } = useHttp()
+
+	const [filterOptions, setFilterOptions] = useState({})
+
+	useEffect(() => {
+		const fetchFilterOptions = async () => {
+			try {
+				const data = await get('/products/options')
+				setFilterOptions(data)
+			} catch (error) {
+				console.error('Error fetching filters:', error)
+			}
+		}
+		fetchFilterOptions()
+	}, [])
 
 	return (
 		<section className={styles.dashboard}>
@@ -52,7 +68,9 @@ const Dashboard = () => {
 					</ul>
 				</div>
 				<div className={styles.content}>
-					{!isFormPage && <Filter isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />}
+					{!isFormPage && (
+						<Filter options={filterOptions} isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />
+					)}
 
 					<div className={styles.body}>
 						<div className={styles.bodyHeader}>

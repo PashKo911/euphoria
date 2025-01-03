@@ -8,6 +8,10 @@ class ProductsDBService extends MongooseCRUDManager {
 			filterCategory: 'search',
 		},
 		{
+			fieldName: 'gender',
+			filterCategory: 'list',
+		},
+		{
 			fieldName: 'price',
 			filterCategory: 'range',
 		},
@@ -34,6 +38,7 @@ class ProductsDBService extends MongooseCRUDManager {
 				price: 1,
 				count: 1,
 				paths: 1,
+				gender: 1,
 			})
 			console.log(res)
 
