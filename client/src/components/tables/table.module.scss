@@ -25,6 +25,8 @@ table {
 				font-weight: 600;
 				line-height: normal;
 				text-transform: uppercase;
+				padding-left: toRem(5);
+				padding-right: toRem(5);
 				@include adaptiveValue('font-size', 18, 12);
 				@include adaptiveValue('padding-top', 26, 15);
 				@include adaptiveValue('padding-bottom', 26, 15);
@@ -44,25 +46,15 @@ table {
 				text-align: center;
 				padding-left: toRem(5);
 				padding-right: toRem(5);
-				// word-break: break-all;
 				@include adaptiveValue('font-size', 16, 14);
 				@include adaptiveValue('padding-top', 40, 20);
 				@include adaptiveValue('padding-bottom', 40, 20);
 
-				&.details {
-					text-align: left;
-					align-items: center;
-				}
-				@media (max-width: $mobileSmall) {
-					&:nth-child(1) {
-						// max-width: toRem(120);
-					}
-				}
-
 				&.email {
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
+					// overflow: hidden;
+					// text-overflow: ellipsis;
+					// white-space: nowrap;
+					word-break: break-all;
 				}
 
 				&.name {
@@ -83,11 +75,34 @@ table {
 	}
 }
 
+.tableUsers {
+	table-layout: auto;
+	thead {
+		th {
+			&:nth-child(1) {
+				min-width: auto;
+			}
+		}
+		tr {
+			th,
+			td {
+				width: auto;
+			}
+		}
+	}
+}
+
 .details {
 	display: flex;
 	column-gap: toRem(20);
-	align-items: flex-start;
+	align-items: center;
 	@include adaptiveValue('column-gap', 20, 10);
+
+	@media (any-hover: hover) {
+		&:hover .detailsTitle {
+			text-decoration: underline;
+		}
+	}
 
 	@media (max-width: $mobileSmall) {
 		flex-direction: column;

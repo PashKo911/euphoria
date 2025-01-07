@@ -21,7 +21,6 @@ const Products = () => {
 	const [productsCount, setProductsCount] = useState(null)
 	const location = useLocation()
 	const { get, process } = useHttp()
-
 	useEffect(() => {
 		const fetchFilterOptions = async () => {
 			try {
@@ -71,7 +70,7 @@ const Products = () => {
 					<div className="catalog__body">
 						<div className="catalog__header">
 							<div className="catalog__top">
-								<h1 className="catalog__title">Men’s Clothing</h1>
+								<h1 className="catalog__title">{`${state.gender}'s`} Clothing</h1>
 								<FilterSort isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />
 							</div>
 							<ClearFilterBlock state={state} filterOptions={filterOptions} dispatch={dispatch} />

@@ -8,7 +8,8 @@ const router = express.Router()
 
 router.post('/sign-up', checkSchema(UserValidator.userSchema), AuthController.signup)
 router.post('/sign-in', checkSchema(UserValidator.authSchema), AuthController.login)
+router.post('/set-guest', AuthController.setGuest)
 
-router.post('/logout', AuthController.logout)
+// router.post('/logout', AuthController.logout)
 
 export default router

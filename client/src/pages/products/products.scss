@@ -49,6 +49,7 @@
 		color: var(--dark-color);
 		font-size: toRem(22);
 		font-weight: 600;
+		text-transform: capitalize;
 	}
 	// .catalog__type
 	&__type {

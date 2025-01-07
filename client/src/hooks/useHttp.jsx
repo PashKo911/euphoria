@@ -5,7 +5,7 @@ import constants from '../utils/constants'
 const useHttp = () => {
 	const [process, setProcess] = useState('')
 	const baseUrl = constants.API_URL
-	const { token, isAuthenticated } = useAuth()
+	const { token, isAuthenticated, user } = useAuth()
 
 	const request = useCallback(
 		async (method, endpoint, body = null, addAuthorization = true, customHeaders = {}) => {
@@ -15,10 +15,13 @@ const useHttp = () => {
 				headers['Authorization'] = `Bearer ${token}`
 			}
 
+			if (!isAuthenticated && user?.id) {
+				headers['x-guest-id'] = user.id
+			}
+
 			const options = {
 				method,
 				headers,
-				credentials: 'include',
 			}
 
 			if (body) {
@@ -46,7 +49,7 @@ const useHttp = () => {
 				throw error
 			}
 		},
-		[baseUrl, isAuthenticated, token]
+		[baseUrl, isAuthenticated, token, user]
 	)
 
 	const get = (endpoint, addAuthorization = true, headers = {}) =>

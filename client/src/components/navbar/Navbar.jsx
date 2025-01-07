@@ -9,7 +9,8 @@ import { IoMdLogOut } from 'react-icons/io'
 import { BsKey } from 'react-icons/bs'
 
 import { useAuth } from '../../context/AuthContext'
-import useHttp from '../../hooks/useHttp'
+import { useFilter } from '../../context/FilterProvider'
+import useRouteAccessSwitcher from '../../hooks/useRouteAccessSwitcher'
 
 import './navbar.scss'
 import SearchForm from '../searchForm/SearchForm'
@@ -17,15 +18,16 @@ import SearchForm from '../searchForm/SearchForm'
 const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
 	const { isAuthenticated, logout } = useAuth()
-	const { post } = useHttp()
 	const navigate = useNavigate()
 	const location = useLocation()
+	const { dispatch } = useFilter()
+	const hasAccess = useRouteAccessSwitcher(['admin', 'manager'])
 
 	const handleLogout = async () => {
 		try {
-			await post('/auth/logout')
 			logout()
 			navigate('/products')
+			dispatch({ type: 'SET_GENDER', payload: 'men' })
 		} catch (error) {
 			console.error('Error during logout:', error.message)
 		}
@@ -87,7 +89,7 @@ const Navbar = () => {
 							<IoMdLogOut />
 						</button>
 					)}
-					{isAuthenticated && (
+					{hasAccess && (
 						<Link to={'/dashboard/products'} className="action-header__item" aria-label="Cart">
 							<BsKey />
 						</Link>

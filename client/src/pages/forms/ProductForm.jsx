@@ -42,7 +42,7 @@ const ProductForm = () => {
 
 	const fetchOptions = async () => {
 		try {
-			const response = await get('/products/options')
+			const response = await get('/dashboard/products/options')
 			const transformedOptions = {}
 
 			Object.keys(response).forEach((key) => {
@@ -58,7 +58,7 @@ const ProductForm = () => {
 	}
 
 	const getProductById = async () => {
-		const productData = await get(`/products/edit/${id}`)
+		const productData = await get(`/dashboard/products/detail/${id}`)
 		setFormData({
 			gender: productData.gender._id,
 			title: productData.title,
@@ -99,8 +99,6 @@ const ProductForm = () => {
 	}
 
 	const handleSelectChange = (key, value) => {
-		console.log(key)
-		console.log(value)
 		setFormData((prevData) => ({
 			...prevData,
 			[key]: value,
@@ -142,10 +140,10 @@ const ProductForm = () => {
 				}
 			})
 			if (id) {
-				await put(`/products/edit/${id}`, formDataToSend, true)
+				await put(`/dashboard/products/edit/${id}`, formDataToSend, true)
 				navigate('/dashboard/products')
 			} else {
-				await post('/products/add', formDataToSend, true)
+				await post('/dashboard/products/add', formDataToSend, true)
 			}
 			setFormData({
 				gender: '',

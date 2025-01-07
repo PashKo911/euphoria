@@ -35,7 +35,7 @@ function filterReducer(state, action) {
 			return { ...state, [action.payload.key]: Array.isArray(state[action.payload.key]) ? [] : '' }
 		case 'CLEAR_ALL_FILTERS':
 			return {
-				page: state.page,
+				page: 0,
 				perPage: state.perPage,
 				gender: state.gender,
 				title: '',

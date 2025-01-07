@@ -11,6 +11,7 @@ const Select = ({
 	isLoading = false,
 	resetValues = false,
 	value = null,
+	styles: customStyles,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedOption, setSelectedOption] = useState(null)
@@ -37,14 +38,13 @@ const Select = ({
 	}, [value, resetValues])
 
 	const selectOption = (option) => {
-		console.log(option)
 		setSelectedOption(option)
 		setIsOpen(false)
 		onChange && onChange(option)
 	}
 
 	return (
-		<div className={styles.select} ref={selectRef}>
+		<div className={styles.select} ref={selectRef} style={customStyles}>
 			<div className={styles.selectHeader} onClick={() => setIsOpen(!isOpen)}>
 				{isLoading === 'loading' ? (
 					<FaSpinner className={styles.spinner} />

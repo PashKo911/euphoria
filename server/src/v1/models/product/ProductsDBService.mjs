@@ -40,7 +40,6 @@ class ProductsDBService extends MongooseCRUDManager {
 				paths: 1,
 				gender: 1,
 			})
-			console.log(res)
 
 			return res
 		} catch (error) {

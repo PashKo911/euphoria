@@ -9,11 +9,12 @@ import ProductsTable from './components/tables/ProductsTable'
 import UsersTable from './components/tables/UsersTable'
 import ProductForm from './pages/forms/ProductForm'
 import UserForm from './pages/forms/UserForm'
-
 import { AuthProvider } from './context/AuthContext'
 import ProductDetail from './pages/products/ProductDetail'
-import './App.scss'
 import { FilterProvider } from './context/FilterProvider'
+import NotFound from './pages/notFound/NotFound'
+
+import './App.scss'
 
 function App() {
 	return (
@@ -36,6 +37,7 @@ function App() {
 								<Route path="users/add" element={<UserForm />} />
 								<Route path="products/add/:id?" element={<ProductForm />} />
 							</Route>
+							<Route path="*" element={<NotFound />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>

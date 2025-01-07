@@ -23,7 +23,7 @@ const ProductsTable = ({ filterOptions }) => {
 			try {
 				const query = new URLSearchParams(state).toString()
 
-				const data = await get(`/products?${query.toString()}`)
+				const data = await get(`/dashboard/products?${query.toString()}`)
 				const { documents, count } = data?.products
 				setProducts(documents || [])
 				setProductsCount(Number(count) || null)
@@ -40,7 +40,7 @@ const ProductsTable = ({ filterOptions }) => {
 		setProducts((prevProducts) => prevProducts.filter((product) => product._id !== id))
 
 		try {
-			await del('/products/delete', id)
+			await del('/dashboard/products/delete', id)
 		} catch (error) {
 			console.error('Error deleting user:', error)
 			setProducts(previousProducts)
@@ -61,11 +61,13 @@ const ProductsTable = ({ filterOptions }) => {
 				<tbody>
 					{products.map((product) => (
 						<tr key={product._id}>
-							<td className={styles.details}>
-								<img src={`${constants.API_BASE}${product.paths[0]}`} alt={product.title} />
-								<div className={styles.detailsContent}>
-									<h3 className={styles.detailsTitle}>{product.title}</h3>
-								</div>
+							<td>
+								<Link to={`/products/detail/${product._id}`} className={styles.details}>
+									<img src={`${constants.API_BASE}${product.paths[0]}`} alt={product.title} />
+									<div className={styles.detailsContent}>
+										<h3 className={styles.detailsTitle}>{product.title}</h3>
+									</div>
+								</Link>
 							</td>
 							<td>{product.price}</td>
 							<td>{product.count || 3}</td>

@@ -1,16 +1,21 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { SlHandbag } from 'react-icons/sl'
-import { FaUsers } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
+import { useAuth } from '../../context/AuthContext'
+import useHttp from '../../hooks/useHttp'
+import { useFilter } from '../../context/FilterProvider'
+import useRouteAccessSwitcher from '../../hooks/useRouteAccessSwitcher'
 
 import TitleDecor from '../../components/TitleDecor'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
+import ClearFilterBlock from '../../components/filters/ClearFilterBlock'
 import Filter from '../../components/filters/Filter'
 import FilterSort from '../../components/filters/FilterSort'
-import { useAuth } from '../../context/AuthContext'
-import useHttp from '../../hooks/useHttp'
+
+import { SlHandbag } from 'react-icons/sl'
+import { FaUsers } from 'react-icons/fa'
 
 import styles from './dashboard.module.scss'
+import NotFound from '../notFound/NotFound'
 
 const Dashboard = () => {
 	const location = useLocation()
@@ -22,8 +27,9 @@ const Dashboard = () => {
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 	const { user } = useAuth()
 	const { get } = useHttp()
-
 	const [filterOptions, setFilterOptions] = useState({})
+	const { state, dispatch } = useFilter()
+	const hasAccess = useRouteAccessSwitcher(['admin', 'manager'])
 
 	useEffect(() => {
 		const fetchFilterOptions = async () => {
@@ -36,6 +42,10 @@ const Dashboard = () => {
 		}
 		fetchFilterOptions()
 	}, [])
+
+	if (!hasAccess) {
+		return <NotFound />
+	}
 
 	return (
 		<section className={styles.dashboard}>
@@ -68,7 +78,7 @@ const Dashboard = () => {
 					</ul>
 				</div>
 				<div className={styles.content}>
-					{!isFormPage && (
+					{!isFormPage && !isUsersPage && (
 						<Filter options={filterOptions} isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />
 					)}
 
@@ -78,7 +88,16 @@ const Dashboard = () => {
 								<h2 className={styles.title}>{title}</h2>
 								{!isAddPath && <ButtonPurple to={addPath} title="Add" />}
 							</div>
-							{!isFormPage && <FilterSort isFilterOpen={isFilterOpen} callback={setIsFilterOpen} />}
+							{!isFormPage && !isUsersPage && (
+								<FilterSort
+									styles={{ marginBottom: 20 }}
+									isFilterOpen={isFilterOpen}
+									callback={setIsFilterOpen}
+								/>
+							)}
+							{!isFormPage && (
+								<ClearFilterBlock state={state} filterOptions={filterOptions} dispatch={dispatch} />
+							)}
 						</div>
 						<Outlet />
 					</div>

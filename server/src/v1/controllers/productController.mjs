@@ -17,7 +17,6 @@ class ProductController {
 			for (const key in req.query) {
 				if (req.query[key]) filters[key] = req.query[key]
 			}
-			console.log(filters)
 			const productsList = await ProductsDBService.getList(filters)
 			res.status(200).json({
 				products: productsList,
