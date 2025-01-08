@@ -16,7 +16,7 @@ const Accordion = ({ title, items, colCount, filterType, onChange }) => {
 				</button>
 			</h5>
 			<div className={styles.body}>
-				<FilterItem items={items} colCount={colCount} filterType={filterType} onChange={onChange} />
+				<FilterItem items={items} colCount={colCount} filterType={filterType} />
 			</div>
 		</div>
 	)

@@ -15,7 +15,6 @@ const userSchema = new Schema({
 			return this.type.toString() !== '677c1233e3da04adc6ade35e'
 		},
 		// minlength: [6, 'Password must be at least 6 characters long'],
-		// maxlength: [8, 'Password must be at most 8 characters long'],
 		// validate: {
 		//   validator: function (v) {
 		//     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
@@ -36,18 +35,6 @@ const userSchema = new Schema({
 		type: String,
 		default: 'Guest',
 	},
-	cart: [
-		{
-			productId: {
-				type: Schema.Types.ObjectId,
-				ref: 'Product',
-			},
-			quantity: {
-				type: Number,
-				default: 1,
-			},
-		},
-	],
 })
 
 // Хешування паролю перед збереженням

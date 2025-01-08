@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import useHttp from '../../hooks/useHttp'
+import { useAuth } from '../../context/AuthContext'
 
 import { LuArrowRight } from 'react-icons/lu'
 import { FiShoppingCart } from 'react-icons/fi'
@@ -17,15 +18,32 @@ import ProcessMessage from '../../components/process/ProcessMessage'
 
 const ProductDetail = () => {
 	const [productData, setProductData] = useState({})
-	const { get, process } = useHttp()
+	const { get, post, process } = useHttp()
 	const { id } = useParams()
+	const { isAuthenticated } = useAuth()
 
 	const fetchProduct = async () => {
 		try {
-			const product = await get(`/products/edit/${id}`)
+			const product = await get(`/products/detail/${id}`)
 			setProductData(product)
 		} catch (error) {
 			console.error(error)
+		}
+	}
+	const addProductHandler = async (e) => {
+		e.preventDefault()
+
+		const formElements = e.target.elements
+
+		const data = {
+			productId: id,
+			size: formElements.size?.value || null,
+			color: formElements.color?.value || null,
+		}
+		try {
+			const res = await post('/cart', data, isAuthenticated)
+		} catch (error) {
+			console.error('Error adding product to cart:', error)
 		}
 	}
 
@@ -39,7 +57,7 @@ const ProductDetail = () => {
 			<div className="page__product product">
 				<section className="product__main main-product">
 					<div className="main-product__container">
-						<form action="#" className="main-product__body">
+						<form onSubmit={addProductHandler} action="#" className="main-product__body">
 							<h1 className="main-product__title">{productData.title}</h1>
 							<Rating initialRating={productData.rating} />
 							<div className="main-product__sizes sizes-product">
@@ -52,7 +70,14 @@ const ProductDetail = () => {
 								</div>
 								<div className="sizes-product__items">
 									{productData.sizes?.map((size, index) => (
-										<SizeInput key={index} label={size.label} type="radio" />
+										<SizeInput
+											key={index}
+											required={true}
+											index={index}
+											label={size.label}
+											_id={size._id}
+											type="radio"
+										/>
 									))}
 								</div>
 							</div>
@@ -60,7 +85,7 @@ const ProductDetail = () => {
 								<h5 className="colors-product__title">Colours Available</h5>
 								<div className="colors-product__items">
 									{productData.colors?.map((color, index) => (
-										<ColorsInputRound key={index} props={color} />
+										<ColorsInputRound required={true} key={index} index={index} props={color} />
 									))}
 								</div>
 							</div>

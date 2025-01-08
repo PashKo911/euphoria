@@ -12,11 +12,14 @@ const checkUserPermissions = async (userId, path) => {
 
 	const closedForManagerPaths = ['/dashboard/users/update/', '/dashboard/users/delete']
 
-	if (type === 'manager' && closedForManagerPaths.some((restrictedPath) => path.includes(restrictedPath))) {
-		return false
+	if (type === 'manager' && !closedForManagerPaths.some((restrictedPath) => path.includes(restrictedPath))) {
+		return true
+	}
+	if (type === 'admin') {
+		return true
 	}
 
-	return true
+	return false
 }
 
 export default checkUserPermissions

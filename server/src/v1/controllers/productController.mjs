@@ -40,9 +40,6 @@ class ProductController {
 
 	static async registerProduct(req, res) {
 		const expressErrors = validationResult(req)
-		if (!req.user) {
-			return res.status(403).json({ error: 'Access denied' })
-		}
 
 		if (!expressErrors.isEmpty()) {
 			const errors = FormatValidationErrors.formatExpressErrors(expressErrors)
@@ -63,9 +60,6 @@ class ProductController {
 
 	static async updateProduct(req, res) {
 		const expressErrors = validationResult(req)
-		if (!req.user) {
-			return res.status(403).json({ error: 'Access denied' })
-		}
 
 		if (!expressErrors.isEmpty()) {
 			const errors = FormatValidationErrors.formatExpressErrors(expressErrors)
@@ -93,10 +87,6 @@ class ProductController {
 	}
 
 	static async deleteProduct(req, res) {
-		if (!req.user) {
-			return res.status(403).json({ error: 'Access denied' })
-		}
-
 		try {
 			await ProductsDBService.deleteById(req.body.id)
 			res.status(200).json({ message: 'Product deleted' })

@@ -36,14 +36,7 @@ const Filter = ({ options, isFilterOpen, callback }) => {
 							: options[key]
 
 					return (
-						<Accordion
-							key={key}
-							title={title}
-							items={filterItems}
-							colCount={colCount}
-							filterType={key}
-							onChange={(value) => handleChange(key, value)}
-						/>
+						<Accordion key={key} title={title} items={filterItems} colCount={colCount} filterType={key} />
 					)
 				})}
 			</form>

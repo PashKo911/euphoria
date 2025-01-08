@@ -26,7 +26,10 @@ const middleware = (app) => {
 	app.use(loggerConfig)
 
 	// Middleware для парсингу JSON запитів
-	app.use(express.json())
+	app.use(express.json({ limit: '10mb' }))
+
+	// Middleware для парсингу URL-кодованих даних
+	app.use(express.urlencoded({ extended: false, limit: '10mb' }))
 
 	// Middleware для обробки статичних файлів
 	app.use(express.static(path.join(__dirname, '../public')))

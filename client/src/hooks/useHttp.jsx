@@ -30,7 +30,6 @@ const useHttp = () => {
 					delete headers['Content-Type']
 				}
 			}
-
 			try {
 				setProcess('loading')
 				const endpointUrl = `${baseUrl}${endpoint}`

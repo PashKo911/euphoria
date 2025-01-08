@@ -4,19 +4,9 @@ import FormatValidationErrors from '../../../validators/formatValidationErrors.m
 import UsersDBService from '../models/user/UsersDBService.mjs'
 import TypesDBService from '../models/type/TypesDBService.mjs'
 import { prepareToken } from '../../../utils/jwtHelpers.mjs'
+import CartDBService from '../models/cart/CartDBService.mjs'
 
 class AuthController {
-	static async transferGuestCartToUser(req, user) {
-		const guestId = req.headers['x-guest-id']
-		if (guestId) {
-			const guest = await UsersDBService.getById(guestId)
-			if (guest) {
-				user.cart = guest.cart
-				await UsersDBService.deleteById(guest._id)
-			}
-		}
-	}
-
 	static async signup(req, res) {
 		const newUser = req.body
 		const expressErrors = validationResult(req)
@@ -64,8 +54,17 @@ class AuthController {
 			if (!user || !(await user.validPassword(req.body.password))) {
 				return res.status(401).json({ errors: [{ message: 'Invalid email or password' }] })
 			}
+			const guestId = req.headers['x-guest-id']
 
-			await AuthController.transferGuestCartToUser(req, user)
+			console.log('==================== guest id Auth Controller')
+			console.log(guestId)
+			console.log('==================== user id  Auth Controller')
+			console.log(user._id.toString())
+
+			const cart = await CartDBService.transferGuestCartToUser(guestId, user._id.toString())
+
+			console.log('==================== cart')
+			console.log(cart)
 
 			const { token, expireInMs } = prepareToken({ id: user._id, username: user.username }, req.headers)
 
@@ -76,7 +75,7 @@ class AuthController {
 				user: {
 					name: user.name,
 					type: user.type,
-					cart: user.cart,
+					cart,
 				},
 			})
 		} catch (error) {
@@ -91,7 +90,7 @@ class AuthController {
 			let guest
 			let isNewGuest = false
 
-			const guestId = req.body.guestId || req.headers['x-guest-id']
+			const guestId = req.headers['x-guest-id']
 
 			if (!guestId) {
 				guest = await UsersDBService.create({

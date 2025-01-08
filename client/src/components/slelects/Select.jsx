@@ -7,7 +7,7 @@ import styles from './select.module.scss'
 const Select = ({
 	options,
 	placeholder = 'Select an option',
-	onChange,
+	onChange = null,
 	isLoading = false,
 	resetValues = false,
 	value = null,

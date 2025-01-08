@@ -16,26 +16,28 @@ const auth = (app) => {
 
 	// Middleware для перевірки аутентифікації та авторизації
 	app.use(async (req, res, next) => {
-		// Відкриті шляхи, які не потребують авторизації
+		// Закриті шляхи
 		const closedPathes = ['/dashboard']
+		const guestId = req.headers['x-guest-id']
 
-		console.log(closedPathes.some((path) => req.path.includes(path)))
+		let user
+		if (guestId) {
+			req.user = {}
+			req.user.id = guestId
+		}
 
-		// Перевірка, чи шлях потребує авторизації
+		if (!guestId && req.headers.authorization) {
+			// Парсинг токена та додавання користувача до запиту
+			user = parseBearer(req.headers.authorization, req.headers)
+			req.user = user
+		}
+
 		if (closedPathes.some((path) => req.path.includes(path))) {
 			try {
-				// Парсинг токена та додавання користувача до запиту
-				const user = parseBearer(req.headers.authorization, req.headers)
-				if (!user) {
-					return res.status(401).json({ result: 'Access Denied' })
-				}
-
 				const hasAccess = await checkUserPermissions(user.id, req.path)
 				if (!hasAccess) {
 					return res.status(403).json({ result: 'Forbidden' })
 				}
-
-				req.user = user
 			} catch (err) {
 				return res.status(401).json({ result: 'Access Denied' })
 			}
