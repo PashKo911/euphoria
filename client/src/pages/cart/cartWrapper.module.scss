@@ -1,0 +1,92 @@
+@import '../../styles/mixins';
+
+.bottom {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	column-gap: toRem(20);
+
+	@media (max-width: toEm(574.98)) {
+		flex-direction: column-reverse;
+		padding-bottom: toRem(50);
+	}
+
+	@media (min-width: toEm(574.98)) {
+		align-items: center;
+	}
+
+	&::before {
+		content: '';
+		background-color: var(--lite-color);
+		position: absolute;
+		width: 100vw;
+		height: 100%;
+		top: 0%;
+		left: 50%;
+		pointer-events: none;
+		transform: translate(-50%, 0);
+	}
+}
+.buttonTransparent {
+	border-radius: toRem(8);
+	border: toRem(1) solid #bebcbd;
+	background: #fff;
+	padding: toRem(12) toRem(20);
+	min-width: toRem(232);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--dark-color);
+	font-weight: 600;
+	line-height: normal;
+	font-size: toRem(16);
+	position: relative;
+	transition: background-color 0.3s, color 0.3s;
+	@include adaptiveValue('min-width', 232, 180, 0, $containerWidth, 574.98);
+
+	@media (any-hover: hover) {
+		&:hover {
+			background-color: var(--purple-color);
+			color: #fff;
+		}
+	}
+	@media (max-width: toEm(574.98)) {
+		align-self: center;
+	}
+}
+.totalWrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: toRem(30) 0;
+	background-color: #f3f3f3;
+	@include adaptiveValue('padding-top', 40, 30);
+	@include adaptiveValue('min-width', 465, 290, 2, $containerWidth, 574.98);
+
+	@media (min-width: toEm(574.98)) {
+		padding-bottom: toRem(50);
+	}
+}
+.priceWrapper {
+	display: flex;
+	justify-content: center;
+	&:not(:last-child) {
+		border-bottom: toRem(1) solid #bebcbd;
+		@include adaptiveValue('padding-bottom', 50, 20, 0, $containerWidth, 574.98);
+		@include adaptiveValue('margin-bottom', 50, 20, 0, $containerWidth, 574.98);
+	}
+}
+.totalTop {
+	display: flex;
+	justify-content: space-between;
+	gap: toRem(10);
+	@include adaptiveValue('column-gap', 83, 20);
+}
+.total {
+	color: var(--dark-color);
+	font-weight: 700;
+	line-height: normal;
+	letter-spacing: toRem(0.44);
+	font-size: toRem(22);
+	@include adaptiveValue('font-size', 22, 20);
+}

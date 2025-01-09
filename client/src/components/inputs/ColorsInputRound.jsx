@@ -1,8 +1,12 @@
-// colorsInputRound.jsx
+import { useState } from 'react'
 import styles from './colorsInputRound.module.scss'
 
-const ColorsInputRound = ({ props, required, index }) => {
+const ColorsInputRound = ({ props, required }) => {
 	const { _id, value } = props
+	const [selectedColor, setSelectedColor] = useState(_id)
+	const handleChange = (event) => {
+		setSelectedColor(event.target.value)
+	}
 
 	return (
 		<label style={{ backgroundColor: `${value}` }} className={styles.item}>
@@ -12,8 +16,8 @@ const ColorsInputRound = ({ props, required, index }) => {
 				required={required}
 				name="color"
 				value={_id}
-				checked={index === 0}
-				onChange={() => {}}
+				checked={selectedColor === _id}
+				onChange={handleChange}
 			/>
 			<span style={{ borderColor: `${value}` }}></span>
 		</label>

@@ -5,7 +5,7 @@ const data = {
 	imgPath: '/assets/img/auth/signUp.png',
 	subtitle: 'Sign up for free to access to in any of our products ',
 	isSignIn: false,
-	redirectRoute: '/products?gender=men',
+	redirectRoute: '/home/products?gender=men',
 	buttonText: 'Sign Up',
 	subButtonText: 'Already have an  account?',
 	subButtonSpan: 'Log in',

@@ -1,0 +1,35 @@
+@import '../../styles/mixins';
+
+.cart {
+	padding-top: toRem(50);
+}
+
+.container {
+	&::before {
+		content: '';
+		display: none;
+	}
+}
+
+.text {
+	&:not(:last-child) {
+		@include adaptiveValue('margin-bottom', 50, 30);
+	}
+	p {
+		font-weight: 400;
+		line-height: normal;
+		letter-spacing: toRem(0.28);
+		font-size: toRem(14);
+	}
+
+	.navLink {
+		font-weight: 600;
+		color: var(--purple-color);
+
+		@media (any-hover: hover) {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}

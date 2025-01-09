@@ -63,11 +63,11 @@ const Auth = (props) => {
 						{!isSignIn && <h2 className={styles.subtitle}>{subtitle}</h2>}
 					</div>
 					<div className={styles.links}>
-						<Link to={'#'} className={styles.link}>
+						<Link className={styles.link}>
 							<img src="/assets/img/icons/google.svg" alt="Google" />
 							<span>Continue With Google</span>
 						</Link>
-						<Link to={'#'} className={styles.link}>
+						<Link className={styles.link}>
 							<img src="/assets/img/icons/twitter.svg" alt="Twitter" />
 							<span>Continue With Twitter</span>
 						</Link>
@@ -104,11 +104,7 @@ const Auth = (props) => {
 								required
 							/>
 						</div>
-						{isSignIn && (
-							<Link className={styles.forget} to={'#'}>
-								Forget your password
-							</Link>
-						)}
+						{isSignIn && <Link className={styles.forget}>Forget your password</Link>}
 
 						<ButtonPurple
 							style={{ width: 'max-content', minWidth: 167, marginBottom: 10 }}

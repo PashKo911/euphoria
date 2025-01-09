@@ -8,7 +8,7 @@ const Product = ({ product }) => {
 	const { paths, title, price, _id } = product
 	return (
 		<article className={styles.product}>
-			<Link to={`/products/detail/${_id}`} className={styles.link}>
+			<Link to={`/home/products/detail/${_id}`} className={styles.link}>
 				<button type="button" className={styles.favorite}>
 					<GrFavorite />
 				</button>

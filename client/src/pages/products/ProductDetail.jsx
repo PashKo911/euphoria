@@ -15,6 +15,7 @@ import ButtonPurple from '../../components/buttons/ButtonPurple'
 import ProductDetailSlider from '../../components/sliders/ProductDetailSlider'
 import TitleDecor from '../../components/TitleDecor'
 import ProcessMessage from '../../components/process/ProcessMessage'
+import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs'
 
 const ProductDetail = () => {
 	const [productData, setProductData] = useState({})

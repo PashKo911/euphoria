@@ -141,7 +141,7 @@ const ProductForm = () => {
 			})
 			if (id) {
 				await put(`/dashboard/products/edit/${id}`, formDataToSend, true)
-				navigate('/dashboard/products')
+				navigate('/home/dashboard/products')
 			} else {
 				await post('/dashboard/products/add', formDataToSend, true)
 			}

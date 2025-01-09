@@ -4,11 +4,11 @@ const data = {
 	title: 'Sign In Page',
 	imgPath: '/assets/img/auth/signIn.png',
 	isSignIn: true,
-	redirectRoute: '/products?gender=men',
+	redirectRoute: '/home/products?gender=men',
 	buttonText: 'Sign In',
 	subButtonText: 'Don’t have an account?',
 	subButtonSpan: 'Sign up',
-	subButtonRoute: '/auth/sign-up',
+	subButtonRoute: '/home/auth/sign-up',
 	route: '/auth/sign-in',
 }
 

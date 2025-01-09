@@ -170,11 +170,9 @@
 		}
 		&.active {
 			background-color: var(--purple-color);
-
-			svg {
-				fill: #fff;
-			}
+			color: #fff;
 		}
+
 		svg {
 			width: toRem(20);
 			height: toRem(20);

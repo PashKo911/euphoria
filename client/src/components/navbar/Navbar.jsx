@@ -26,7 +26,7 @@ const Navbar = () => {
 	const handleLogout = async () => {
 		try {
 			logout()
-			navigate('/products')
+			navigate('/home/products')
 			dispatch({ type: 'SET_GENDER', payload: 'men' })
 		} catch (error) {
 			console.error('Error during logout:', error.message)
@@ -46,18 +46,20 @@ const Navbar = () => {
 					<nav className="menu__body">
 						<ul className="menu__list">
 							<li className="menu__item">
-								<NavLink to={'/home'} className="menu__link">
+								<NavLink to={'/home/shop'} className="menu__link">
 									Home
 								</NavLink>
 							</li>
 							<li className="menu__item">
-								<Link to={'/products?gender=men'} className={`menu__link ${isActive('men') ? 'active' : ''}`}>
+								<Link
+									to={'/home/products?gender=men'}
+									className={`menu__link ${isActive('men') ? 'active' : ''}`}>
 									Men
 								</Link>
 							</li>
 							<li className="menu__item">
 								<Link
-									to={'/products?gender=women'}
+									to={'/home/products?gender=women'}
 									className={`menu__link ${isActive('women') ? 'active' : ''}`}>
 									Women
 								</Link>
@@ -67,32 +69,32 @@ const Navbar = () => {
 				</div>
 				<SearchForm />
 				<div className="header__action action-header">
-					<NavLink to={'/home'} className="action-header__item" aria-label="Favorite">
+					<NavLink to={'/home/favorite'} className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />
 					</NavLink>
 					{isAuthenticated ? (
 						<>
-							<NavLink to={'/profile'} className="action-header__item" aria-label="Profile">
+							<NavLink to={'/home/profile'} className="action-header__item" aria-label="Profile">
 								<LuUser2 />
 							</NavLink>
 						</>
 					) : (
-						<NavLink to={'/auth/sign-in'} className="action-header__item" aria-label="Login">
+						<NavLink to={'/home/auth/sign-in'} className="action-header__item" aria-label="Login">
 							<IoMdLogIn />
 						</NavLink>
 					)}
-					<Link to={'/home'} className="action-header__item" aria-label="Cart">
+					<NavLink to={'/home/cart'} className="action-header__item" aria-label="Cart">
 						<FiShoppingCart />
-					</Link>
+					</NavLink>
 					{isAuthenticated && (
 						<button onClick={handleLogout} type="button" className="action-header__item" aria-label="Logout">
 							<IoMdLogOut />
 						</button>
 					)}
 					{hasAccess && (
-						<Link to={'/dashboard/products'} className="action-header__item" aria-label="Cart">
+						<NavLink to={'/home/dashboard/products'} className="action-header__item" aria-label="Cart">
 							<BsKey />
-						</Link>
+						</NavLink>
 					)}
 				</div>
 

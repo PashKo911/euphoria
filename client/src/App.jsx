@@ -15,6 +15,7 @@ import { FilterProvider } from './context/FilterProvider'
 import NotFound from './pages/notFound/NotFound'
 
 import './App.scss'
+import Cart from './pages/cart/Cart'
 
 function App() {
 	return (
@@ -22,11 +23,13 @@ function App() {
 			<FilterProvider>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/" element={<Layout />}>
-							<Route path="home" element={<Home />} />
+						<Route path="/home" element={<Layout />}>
+							<Route path="shop" element={<Home />} />
 
 							<Route path="products" element={<Products />} />
 							<Route path="products/detail/:id" element={<ProductDetail />} />
+
+							<Route path="cart" element={<Cart />} />
 
 							<Route path="auth/sign-in" element={<SignIn />} />
 							<Route path="auth/sign-up" element={<SignUp />} />
