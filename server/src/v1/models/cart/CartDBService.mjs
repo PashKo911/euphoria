@@ -56,7 +56,6 @@ class CartDBService extends MongooseCRUDManager {
 
 				total = products.reduce((total, item) => total + item.totalProductsPrice, 0)
 			}
-			console.log('Cart products', products)
 
 			return {
 				customer,
@@ -124,8 +123,6 @@ class CartDBService extends MongooseCRUDManager {
 	}
 	//--- видаленя проудкту з корзини
 	async deleteProduct({ userId, productId }) {
-		console.log('User Id', userId)
-		console.log('Product Id', productId)
 		try {
 			// Оновлення корзини або додавання нового продукту
 			const cart = await Cart.findOneAndUpdate(

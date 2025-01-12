@@ -13,7 +13,7 @@ import styles from './table.module.scss'
 
 const ProductsTable = ({ filterOptions }) => {
 	useSyncFiltersWithURL()
-	const { state, dispatch } = useFilter()
+	const { state } = useFilter()
 	const [products, setProducts] = useState([])
 	const { get, del, processes } = useHttp()
 	const [productsCount, setProductsCount] = useState(null)

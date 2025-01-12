@@ -4,7 +4,6 @@ import ProductsDBService from '../models/product/ProductsDBService.mjs'
 class CartController {
 	static async getCartDetails(req, res) {
 		try {
-			console.log(req.user)
 			const userId = req.user.id // Отримання id користувача
 
 			const cartDetails = await CartDBService.getCartDetails(userId)
@@ -70,7 +69,6 @@ class CartController {
 		try {
 			const { id } = req.body
 			const cart = await CartDBService.deleteProduct({ userId, productId: id })
-			console.log(cart)
 			res.status(200).json({ message: 'Product deleted', cart })
 		} catch (error) {
 			res.status(500).json({ error: 'Error deleting product' })

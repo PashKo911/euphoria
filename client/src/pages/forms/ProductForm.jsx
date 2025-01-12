@@ -123,8 +123,6 @@ const ProductForm = () => {
 		e.preventDefault()
 		clearError()
 
-		console.log(processes)
-
 		try {
 			const formDataToSend = new FormData()
 

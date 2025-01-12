@@ -16,6 +16,7 @@ const FilterSort = ({ isFilterOpen, callback, styles: customStyles }) => {
 
 	const handleChange = (value) => {
 		dispatch({ type: 'SET_SORT', payload: value.value })
+		dispatch({ type: 'SET_PAGE', payload: 0 })
 	}
 
 	useEffect(() => {

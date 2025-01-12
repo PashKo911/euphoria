@@ -50,8 +50,8 @@ class ProductValidator {
 			optional: true,
 			trim: true,
 			isLength: {
-				options: { max: 500 },
-				errorMessage: 'Description must not exceed 500 characters',
+				options: { min: 10 },
+				errorMessage: 'Description must be at least 10 characters long',
 			},
 			escape: true,
 		},

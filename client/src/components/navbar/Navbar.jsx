@@ -30,6 +30,7 @@ const Navbar = () => {
 			logout()
 			navigate('/home/products')
 			dispatch({ type: 'SET_GENDER', payload: 'men' })
+			dispatch({ type: 'SET_PAGE', payload: 0 })
 		} catch (error) {
 			console.error('Error during logout:', error.message)
 		}

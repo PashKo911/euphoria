@@ -11,6 +11,7 @@ const ClearFilterBlock = ({ state, filterOptions, dispatch }) => {
 
 	const clearFilter = (key) => {
 		dispatch({ type: 'CLEAR_FILTER', payload: { key } })
+		dispatch({ type: 'SET_PAGE', payload: 0 })
 	}
 	const clearAll = () => {
 		dispatch({ type: 'CLEAR_ALL_FILTERS' })

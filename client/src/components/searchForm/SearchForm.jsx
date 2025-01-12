@@ -15,7 +15,7 @@ const SearchForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch({ type: 'SET_SEARCH', payload: search })
-
+		dispatch({ type: 'SET_PAGE', payload: 0 })
 		if (location.pathname !== '/home/products') {
 			navigate('/home/products?gender=men')
 		}
@@ -24,6 +24,7 @@ const SearchForm = () => {
 	const handleClear = () => {
 		setSearch('')
 		dispatch({ type: 'SET_SEARCH', payload: '' })
+		dispatch({ type: 'SET_PAGE', payload: 0 })
 	}
 
 	useEffect(() => {

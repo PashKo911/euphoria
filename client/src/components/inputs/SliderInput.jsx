@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import styles from './sliderInput.module.scss'
 
-const SliderInput = ({ min, max }) => {
+const SliderInput = ({ min = 1, max = 1000 }) => {
 	const { state, dispatch } = useFilter()
 	const initialMin = state.price[0] ?? min
 	const initialMax = state.price[1] ?? max
@@ -13,6 +13,7 @@ const SliderInput = ({ min, max }) => {
 
 	const handleFinalChange = (values) => {
 		dispatch({ type: 'SET_PRICE', payload: [...values] })
+		dispatch({ type: 'SET_PAGE', payload: 0 })
 	}
 
 	const handleInputChange = (index, event) => {

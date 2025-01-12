@@ -4,7 +4,6 @@ import Preloader from '../../components/process/Preloader'
 import styles from './cartTable.module.scss'
 
 const CartTable = ({ products, amountHandler, deleteHandler, processes }) => {
-	console.log(processes)
 	return (
 		<>
 			<div className={styles.header}>

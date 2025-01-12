@@ -59,7 +59,6 @@ class AuthController {
 			const guestId = req.headers['x-guest-id']
 
 			const cart = await CartDBService.transferGuestCartToUser(guestId, user._id.toString())
-			console.log('Cart controller', cart)
 			const { token, expireInMs } = prepareToken({ id: user._id, username: user.username }, req.headers)
 
 			res.json({

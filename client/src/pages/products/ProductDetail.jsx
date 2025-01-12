@@ -22,7 +22,6 @@ const ProductDetail = () => {
 	const { get, post, processes } = useHttp()
 	const { id } = useParams()
 	const { syncCart } = useCart()
-	console.log(processes)
 
 	const fetchProduct = async () => {
 		try {
