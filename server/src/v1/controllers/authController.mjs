@@ -19,7 +19,9 @@ class AuthController {
 		try {
 			const user = await UsersDBService.create(newUser)
 
-			await AuthController.transferGuestCartToUser(req, user)
+			const guestId = req.headers['x-guest-id']
+
+			const cart = await CartDBService.transferGuestCartToUser(guestId, user._id.toString())
 
 			const { token, expireInMs } = prepareToken({ _id: user._id, username: user.name }, req.headers)
 
@@ -30,8 +32,8 @@ class AuthController {
 				user: {
 					name: user.name,
 					type: user.type,
-					cart: user.cart,
 				},
+				cart,
 			})
 		} catch (error) {
 			console.error(error)
@@ -56,16 +58,8 @@ class AuthController {
 			}
 			const guestId = req.headers['x-guest-id']
 
-			console.log('==================== guest id Auth Controller')
-			console.log(guestId)
-			console.log('==================== user id  Auth Controller')
-			console.log(user._id.toString())
-
 			const cart = await CartDBService.transferGuestCartToUser(guestId, user._id.toString())
-
-			console.log('==================== cart')
-			console.log(cart)
-
+			console.log('Cart controller', cart)
 			const { token, expireInMs } = prepareToken({ id: user._id, username: user.username }, req.headers)
 
 			res.json({
@@ -75,8 +69,8 @@ class AuthController {
 				user: {
 					name: user.name,
 					type: user.type,
-					cart,
 				},
+				cart,
 			})
 		} catch (error) {
 			console.error(error)

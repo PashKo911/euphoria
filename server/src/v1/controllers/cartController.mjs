@@ -4,14 +4,16 @@ import ProductsDBService from '../models/product/ProductsDBService.mjs'
 class CartController {
 	static async getCartDetails(req, res) {
 		try {
+			console.log(req.user)
 			const userId = req.user.id // Отримання id користувача
 
 			const cartDetails = await CartDBService.getCartDetails(userId)
-			res.status(200).json({
-				data: cartDetails,
+			res.status(200).json(
+				cartDetails
 				// user: req.user,
-			})
+			)
 		} catch (error) {
+			console.error(error)
 			res.status(500).json({ error: 'Error fetching products' })
 		}
 	}
@@ -19,7 +21,7 @@ class CartController {
 		const userId = req.user.id // Отримання id користувача
 
 		try {
-			const { productId } = req.body // Отримання id продукту
+			const { productId, options } = req.body // Отримання id продукту
 			// Перевірка чи існує продукт const
 			const product = await ProductsDBService.getById(productId)
 
@@ -31,9 +33,10 @@ class CartController {
 			const cart = await CartDBService.addProduct({
 				userId,
 				productId,
+				options,
 			})
 
-			res.status(200).json({ message: 'Product added successfully' })
+			res.status(200).json({ message: 'Product added successfully', cart })
 		} catch (err) {
 			console.error(err)
 			res.status(500).json({ errors: [{ msg: err.message }] })
@@ -57,18 +60,18 @@ class CartController {
 				amount,
 			})
 
-			res.status(200).json({ message: 'Product amount updated successfully' })
+			res.status(200).json({ message: 'Product amount updated successfully', cart })
 		} catch (err) {
 			res.status(500).json({ errors: [{ msg: err.message }] })
 		}
 	}
 	static async deleteProduct(req, res) {
-		const userId = req.user.id // Отримання id користувача
-
+		const userId = req.user.id
 		try {
 			const { id } = req.body
-			await CartDBService.deleteProduct({ userId, productId: id })
-			res.status(200).json({ message: 'Product deleted' })
+			const cart = await CartDBService.deleteProduct({ userId, productId: id })
+			console.log(cart)
+			res.status(200).json({ message: 'Product deleted', cart })
 		} catch (error) {
 			res.status(500).json({ error: 'Error deleting product' })
 		}

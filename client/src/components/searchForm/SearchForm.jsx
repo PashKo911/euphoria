@@ -17,7 +17,7 @@ const SearchForm = () => {
 		dispatch({ type: 'SET_SEARCH', payload: search })
 
 		if (location.pathname !== '/home/products') {
-			navigate('/home/products')
+			navigate('/home/products?gender=men')
 		}
 	}
 

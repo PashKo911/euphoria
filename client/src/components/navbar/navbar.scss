@@ -158,6 +158,7 @@
 		align-items: center;
 		cursor: pointer;
 		transition: all 0.3s;
+		position: relative;
 
 		@media (any-hover: hover) {
 			&:hover {
@@ -171,6 +172,25 @@
 		&.active {
 			background-color: var(--purple-color);
 			color: #fff;
+		}
+		// .action-header__item--counter
+		&--counter {
+			span {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				min-width: toRem(15);
+				font-size: toRem(12);
+				top: 0%;
+				right: 0%;
+				background-color: #32cd32;
+				border-radius: toRem(50);
+				color: #fff;
+				padding: 0 toRem(4);
+				transform: translate(toRem(5), toRem(-5));
+				pointer-events: none;
+			}
 		}
 
 		svg {

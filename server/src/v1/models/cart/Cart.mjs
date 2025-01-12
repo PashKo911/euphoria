@@ -13,6 +13,16 @@ const cartProductSchema = new Schema({
 		required: true, // Поле обов'язкове для заповнення
 		min: 1, // Мінімальне значення - 1
 	},
+	size: {
+		type: Schema.Types.ObjectId, // Ссилка на одиничний розмір
+		ref: 'Size', // Вказує, що це посилання на модель 'Size'
+		required: [true, 'Size is required'], // Поле обов'язкове для заповнення
+	},
+	color: {
+		type: Schema.Types.ObjectId, // Ссилка на одиничний колір
+		ref: 'Color', // Вказує, що це посилання на модель 'Color'
+		required: [true, 'Color is required'], // Поле обов'язкове для заповнення
+	},
 })
 
 //========  Схема для кошика  ========

@@ -7,6 +7,8 @@
 	width: fit-content;
 	gap: toRem(5);
 	border-radius: toRem(12);
+	min-height: toRem(36);
+	min-width: toRem(100);
 
 	.button {
 		display: flex;
@@ -41,6 +43,19 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		svg {
+			animation: spin 1s linear infinite;
+
+			@keyframes spin {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+		}
 	}
 	.value {
 		color: var(--dark-color);

@@ -20,7 +20,8 @@ const Products = () => {
 	const [filterOptions, setFilterOptions] = useState({})
 	const [productsCount, setProductsCount] = useState(null)
 	const location = useLocation()
-	const { get, process } = useHttp()
+	const { get, processes } = useHttp()
+
 	useEffect(() => {
 		const fetchFilterOptions = async () => {
 			try {
@@ -75,14 +76,18 @@ const Products = () => {
 							</div>
 							<ClearFilterBlock state={state} filterOptions={filterOptions} dispatch={dispatch} />
 						</div>
-						<ProcessMessage process={process} items={products} />
-
-						<div className="catalog__items">
-							{products.map((product) => (
-								<Product key={product._id} product={product} />
-							))}
-						</div>
-						<Pagination productsCount={productsCount} />
+						{processes['/products'] === 'loading' ? (
+							<ProcessMessage process={processes['/products']} items={products} />
+						) : (
+							<>
+								<div className="catalog__items">
+									{products.map((product) => (
+										<Product key={product._id} product={product} />
+									))}
+								</div>
+								<Pagination productsCount={productsCount} />
+							</>
+						)}
 					</div>
 				</div>
 			</section>

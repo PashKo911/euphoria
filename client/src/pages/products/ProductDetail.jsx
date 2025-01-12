@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import useHttp from '../../hooks/useHttp'
-import { useAuth } from '../../context/AuthContext'
 
 import { LuArrowRight } from 'react-icons/lu'
 import { FiShoppingCart } from 'react-icons/fi'
@@ -15,13 +14,15 @@ import ButtonPurple from '../../components/buttons/ButtonPurple'
 import ProductDetailSlider from '../../components/sliders/ProductDetailSlider'
 import TitleDecor from '../../components/TitleDecor'
 import ProcessMessage from '../../components/process/ProcessMessage'
+import { useCart } from '../../context/CartContext'
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs'
 
 const ProductDetail = () => {
 	const [productData, setProductData] = useState({})
-	const { get, post, process } = useHttp()
+	const { get, post, processes } = useHttp()
 	const { id } = useParams()
-	const { isAuthenticated } = useAuth()
+	const { syncCart } = useCart()
+	console.log(processes)
 
 	const fetchProduct = async () => {
 		try {
@@ -38,11 +39,14 @@ const ProductDetail = () => {
 
 		const data = {
 			productId: id,
-			size: formElements.size?.value || null,
-			color: formElements.color?.value || null,
+			options: {
+				size: formElements.size?.value || null,
+				color: formElements.color?.value || null,
+			},
 		}
 		try {
-			const res = await post('/cart', data, isAuthenticated)
+			const res = await post('/cart', data)
+			syncCart(res.cart)
 		} catch (error) {
 			console.error('Error adding product to cart:', error)
 		}
@@ -54,7 +58,7 @@ const ProductDetail = () => {
 
 	return (
 		<div className="layout-wrapper">
-			<ProcessMessage process={process} />
+			<ProcessMessage process={processes[`/products/detail/${id}`]} />
 			<div className="page__product product">
 				<section className="product__main main-product">
 					<div className="main-product__container">
@@ -95,7 +99,7 @@ const ProductDetail = () => {
 									style={{ width: 'max-content', minWidth: 167 }}
 									title={'Add to cart'}
 									icon={<FiShoppingCart />}
-									// isLoading={process}
+									isLoading={processes['/cart']}
 								/>
 								<div className="main-product__price">${productData.price}</div>
 							</div>

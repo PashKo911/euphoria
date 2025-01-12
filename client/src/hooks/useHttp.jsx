@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import constants from '../utils/constants'
 
 const useHttp = () => {
-	const [process, setProcess] = useState('')
+	const [processes, setProcesses] = useState({})
 	const baseUrl = constants.API_URL
 	const { token, isAuthenticated, user } = useAuth()
 
@@ -14,7 +14,6 @@ const useHttp = () => {
 			if (addAuthorization && isAuthenticated && token) {
 				headers['Authorization'] = `Bearer ${token}`
 			}
-
 			if (!isAuthenticated && user?.id) {
 				headers['x-guest-id'] = user.id
 			}
@@ -31,7 +30,10 @@ const useHttp = () => {
 				}
 			}
 			try {
-				setProcess('loading')
+				setProcesses((prev) => {
+					const cleanEndpoint = new URL(endpoint, baseUrl).pathname
+					return { ...prev, [cleanEndpoint]: 'loading' }
+				})
 				const endpointUrl = `${baseUrl}${endpoint}`
 				const response = await fetch(endpointUrl, options)
 				const data = await response.json()
@@ -39,11 +41,17 @@ const useHttp = () => {
 				if (!response.ok) {
 					throw data.errors
 				}
+				setProcesses((prev) => {
+					const cleanEndpoint = new URL(endpoint, baseUrl).pathname
+					return { ...prev, [cleanEndpoint]: 'confirmed' }
+				})
 
-				setProcess('confirmed')
 				return data
 			} catch (error) {
-				setProcess('error')
+				setProcesses((prev) => {
+					const cleanEndpoint = new URL(endpoint, baseUrl).pathname
+					return { ...prev, [cleanEndpoint]: 'error' }
+				})
 				console.error('HTTP Error:', error)
 				throw error
 			}
@@ -60,9 +68,13 @@ const useHttp = () => {
 	const del = (endpoint, id, addAuthorization = true, headers = {}) =>
 		request('DELETE', endpoint, { id }, addAuthorization, headers)
 
-	const clearError = () => setProcess('waiting')
+	const clearError = (endpoint) =>
+		setProcesses((prev) => {
+			const cleanEndpoint = new URL(endpoint, baseUrl).pathname
+			return { ...prev, [cleanEndpoint]: 'waiting' }
+		})
 
-	return { get, post, put, del, process, clearError }
+	return { get, post, put, del, processes, clearError }
 }
 
 export default useHttp

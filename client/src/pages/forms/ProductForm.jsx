@@ -17,7 +17,7 @@ import styles from './productForm.module.scss'
 
 const ProductForm = () => {
 	const { id } = useParams()
-	const { post, get, put, process } = useHttp()
+	const { post, get, put, processes } = useHttp()
 	const { errorMessage, addError, clearError } = useErrorMessage()
 	const [resetValues, setResetValues] = useState(false)
 	const navigate = useNavigate()
@@ -123,6 +123,8 @@ const ProductForm = () => {
 		e.preventDefault()
 		clearError()
 
+		console.log(processes)
+
 		try {
 			const formDataToSend = new FormData()
 
@@ -222,7 +224,7 @@ const ProductForm = () => {
 						placeholder="Select product colors"
 						onChange={(value) => handleSelectChange('colors', value)}
 						colors={true}
-						isLoading={process}
+						isLoading={processes['/dashboard/products/options']}
 						resetValues={resetValues}
 						value={searchSelectedOptions(formData.colors, options.colors)}
 					/>
@@ -230,7 +232,7 @@ const ProductForm = () => {
 						options={options.sizes}
 						placeholder="Select product sizes"
 						onChange={(value) => handleSelectChange('sizes', value)}
-						isLoading={process}
+						isLoading={processes['/dashboard/products/options']}
 						resetValues={resetValues}
 						value={searchSelectedOptions(formData.sizes, options.sizes)}
 					/>
@@ -238,7 +240,7 @@ const ProductForm = () => {
 						options={options.genders}
 						placeholder="Select product gender"
 						onChange={(value) => handleSelectChange('gender', value.value)}
-						isLoading={process}
+						isLoading={processes['/dashboard/products/options']}
 						resetValues={resetValues}
 						value={options.genders.find((el) => el.value === formData.gender)}
 					/>
@@ -246,7 +248,7 @@ const ProductForm = () => {
 						options={options.styles}
 						placeholder="Select product style"
 						onChange={(value) => handleSelectChange('styles', value.value)}
-						isLoading={process}
+						isLoading={processes['/dashboard/products/options']}
 						resetValues={resetValues}
 						value={options.styles.find((el) => el.value === formData.styles)}
 					/>
@@ -268,7 +270,7 @@ const ProductForm = () => {
 						minWidth: '175px',
 						minHeight: '42px',
 					}}
-					isLoading={process}
+					isLoading={processes['/dashboard/products/add']}
 				/>
 			</form>
 		</>

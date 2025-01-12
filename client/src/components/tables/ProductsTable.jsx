@@ -15,14 +15,13 @@ const ProductsTable = ({ filterOptions }) => {
 	useSyncFiltersWithURL()
 	const { state, dispatch } = useFilter()
 	const [products, setProducts] = useState([])
-	const { get, del, process } = useHttp()
+	const { get, del, processes } = useHttp()
 	const [productsCount, setProductsCount] = useState(null)
+	const query = new URLSearchParams(state).toString()
 
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const query = new URLSearchParams(state).toString()
-
 				const data = await get(`/dashboard/products?${query.toString()}`)
 				const { documents, count } = data?.products
 				setProducts(documents || [])
@@ -86,7 +85,7 @@ const ProductsTable = ({ filterOptions }) => {
 				</tbody>
 			</table>
 			<Pagination productsCount={productsCount} />
-			<ProcessMessage process={process} items={products} />
+			<ProcessMessage process={processes['/dashboard/products']} items={products} />
 		</>
 	)
 }

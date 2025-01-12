@@ -12,7 +12,7 @@ import styles from './table.module.scss'
 const UsersTable = () => {
 	const [users, setUsers] = useState([])
 	const [types, setTypes] = useState([])
-	const { get, del, put, process } = useHttp()
+	const { get, del, put, processes } = useHttp()
 	const hasAccess = useRouteAccessSwitcher(['admin'])
 
 	const fetchUsers = async () => {
@@ -102,7 +102,7 @@ const UsersTable = () => {
 					))}
 				</tbody>
 			</table>
-			<ProcessMessage process={process} items={users} />
+			<ProcessMessage process={processes['/dashboard/users']} items={users} />
 		</>
 	)
 }

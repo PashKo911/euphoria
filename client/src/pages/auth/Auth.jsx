@@ -7,9 +7,9 @@ import { useErrorMessage } from '../../hooks/useErrorMessage'
 import ErrorMessage from '../../components/ErrorMessage'
 import useHttp from '../../hooks/useHttp'
 import ButtonPurple from '../../components/buttons/ButtonPurple'
+import { useAuth } from '../../context/AuthContext'
 
 import styles from './auth.module.scss'
-import { useAuth } from '../../context/AuthContext'
 
 const Auth = (props) => {
 	const {
@@ -28,7 +28,7 @@ const Auth = (props) => {
 	const { errorMessage, addError, clearError } = useErrorMessage()
 	const [isPassHide, setIsPassHide] = useState(false)
 	const { login } = useAuth()
-	const { post, process } = useHttp()
+	const { post, processes } = useHttp()
 
 	const navigate = useNavigate()
 
@@ -44,7 +44,8 @@ const Auth = (props) => {
 
 		try {
 			const data = await post(`${route}`, formData, false)
-			login(data.token, data.user)
+			login(data)
+
 			navigate(`${redirectRoute}`)
 		} catch (error) {
 			addError(error)
@@ -109,7 +110,7 @@ const Auth = (props) => {
 						<ButtonPurple
 							style={{ width: 'max-content', minWidth: 167, marginBottom: 10 }}
 							title={buttonText}
-							isLoading={process}
+							isLoading={processes[route]}
 						/>
 						<Link className={styles.signup} to={subButtonRoute}>
 							{subButtonText} <span>{subButtonSpan}</span>

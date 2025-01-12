@@ -21,12 +21,19 @@ class CartDBService extends MongooseCRUDManager {
 			// Знаходимо корзину за userId та заповнюємо зв'язані поля
 			const cartDetails = await Cart.findOne({
 				customer: userId,
-			}).populate({
-				path: 'customer',
-				populate: {
-					path: 'type', // Заповнюємо тип користувача
-				},
 			})
+				.populate({
+					path: 'productsList.product',
+					select: 'count paths price title',
+				})
+				.populate({
+					path: 'productsList.color',
+					select: 'label value',
+				})
+				.populate({
+					path: 'productsList.size',
+					select: 'label',
+				})
 
 			if (!cartDetails) {
 				throw new Error('Cart not found') // Викидання помилки, якщо корзину не знайдено
@@ -43,10 +50,13 @@ class CartDBService extends MongooseCRUDManager {
 
 					totalProductsPrice: item.product.price * item.amount,
 					amount: item.amount,
+					color: item.color,
+					size: item.size,
 				}))
 
 				total = products.reduce((total, item) => total + item.totalProductsPrice, 0)
 			}
+			console.log('Cart products', products)
 
 			return {
 				customer,
@@ -84,7 +94,7 @@ class CartDBService extends MongooseCRUDManager {
 	}
 
 	//--- додавння  проудкту в корзину
-	async addProduct({ userId, productId }) {
+	async addProduct({ userId, productId, options }) {
 		try {
 			let cart = await Cart.findOne({ customer: userId })
 			if (cart) {
@@ -96,14 +106,14 @@ class CartDBService extends MongooseCRUDManager {
 					cart.productsList[productIndex].amount += 1
 				} else {
 					// Якщо продукт не існує, додаємо його з кількістю 1
-					cart.productsList.push({ product: productId, amount: 1 })
+					cart.productsList.push({ product: productId, amount: 1, ...options })
 				}
 				cart = await cart.save() // Збереження змін у корзині
 			} else {
 				// Оновлення корзини або додавання нового продукту
 				cart = await Cart.create({
 					customer: userId,
-					productsList: [{ product: productId, amount: 1 }],
+					productsList: [{ product: productId, amount: 1, ...options }],
 				})
 			}
 			return cart
@@ -114,9 +124,11 @@ class CartDBService extends MongooseCRUDManager {
 	}
 	//--- видаленя проудкту з корзини
 	async deleteProduct({ userId, productId }) {
+		console.log('User Id', userId)
+		console.log('Product Id', productId)
 		try {
 			// Оновлення корзини або додавання нового продукту
-			return await Cart.findOneAndUpdate(
+			const cart = await Cart.findOneAndUpdate(
 				{ customer: userId }, // Знаходження корзини за userId
 				{
 					// Видалення продукту з масиву productsList
@@ -127,6 +139,7 @@ class CartDBService extends MongooseCRUDManager {
 					new: true, // Повернення оновленого документу
 				}
 			)
+			return cart
 		} catch (error) {
 			console.error(error)
 			throw error

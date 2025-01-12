@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { FaSpinner } from 'react-icons/fa'
+
 import styles from './counter.module.scss'
-const Counter = ({ initialValue = 1, min = 1, max = 1000 }) => {
+
+const Counter = ({ initialValue = 1, min = 1, max = 1000, amountHandler, productId, processes }) => {
 	const [count, setCount] = useState(initialValue)
 
 	const handleInputChange = (event) => {
@@ -8,22 +11,26 @@ const Counter = ({ initialValue = 1, min = 1, max = 1000 }) => {
 	}
 	const handleDecrement = () => {
 		if (count > min) {
-			setCount((prev) => prev - 1)
+			const newCount = count - 1
+			setCount(newCount)
+			amountHandler(productId, newCount)
 		}
 	}
 	const handleIncrement = () => {
 		if (count < max) {
-			setCount((prev) => prev + 1)
+			const newCount = count + 1
+			setCount(newCount)
+			amountHandler(productId, newCount)
 		}
 	}
 
 	const handleInputBlur = () => {
-		const value = Number(count)
-		if (value < min) {
-			setCount(min)
-		} else if (value > max) {
-			setCount(max)
-		}
+		let value = Number(count)
+		if (value < min) value = min
+		else if (value > max) value = max
+
+		setCount(value)
+		amountHandler(productId, value)
 	}
 
 	return (
@@ -34,16 +41,20 @@ const Counter = ({ initialValue = 1, min = 1, max = 1000 }) => {
 				</svg>
 			</button>
 			<label className={styles.label}>
-				<input
-					type="number"
-					name="quantity"
-					value={count}
-					onChange={handleInputChange}
-					onBlur={handleInputBlur}
-					min={min}
-					max={max}
-					className={styles.value}
-				/>
+				{processes['/cart/amount'] === 'loading' ? (
+					<FaSpinner />
+				) : (
+					<input
+						type="number"
+						name="quantity"
+						value={count}
+						onChange={handleInputChange}
+						onBlur={handleInputBlur}
+						min={min}
+						max={max}
+						className={styles.value}
+					/>
+				)}
 			</label>
 			<button onClick={handleIncrement} className={styles.button} disabled={count === max}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">

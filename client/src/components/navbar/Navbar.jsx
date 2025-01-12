@@ -7,13 +7,14 @@ import { FiShoppingCart } from 'react-icons/fi'
 import { IoMdLogIn } from 'react-icons/io'
 import { IoMdLogOut } from 'react-icons/io'
 import { BsKey } from 'react-icons/bs'
+import { useCart } from '../../context/CartContext'
 
 import { useAuth } from '../../context/AuthContext'
 import { useFilter } from '../../context/FilterProvider'
 import useRouteAccessSwitcher from '../../hooks/useRouteAccessSwitcher'
+import SearchForm from '../searchForm/SearchForm'
 
 import './navbar.scss'
-import SearchForm from '../searchForm/SearchForm'
 
 const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
@@ -22,6 +23,7 @@ const Navbar = () => {
 	const location = useLocation()
 	const { dispatch } = useFilter()
 	const hasAccess = useRouteAccessSwitcher(['admin', 'manager'])
+	const { cart } = useCart()
 
 	const handleLogout = async () => {
 		try {
@@ -52,14 +54,14 @@ const Navbar = () => {
 							</li>
 							<li className="menu__item">
 								<Link
-									to={'/home/products?gender=men'}
+									to={'/home/products?gender=men&page=0'}
 									className={`menu__link ${isActive('men') ? 'active' : ''}`}>
 									Men
 								</Link>
 							</li>
 							<li className="menu__item">
 								<Link
-									to={'/home/products?gender=women'}
+									to={'/home/products?gender=women&page=0'}
 									className={`menu__link ${isActive('women') ? 'active' : ''}`}>
 									Women
 								</Link>
@@ -69,9 +71,9 @@ const Navbar = () => {
 				</div>
 				<SearchForm />
 				<div className="header__action action-header">
-					<NavLink to={'/home/favorite'} className="action-header__item" aria-label="Favorite">
+					{/* <NavLink to={'/home/favorite'} className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />
-					</NavLink>
+					</NavLink> */}
 					{isAuthenticated ? (
 						<>
 							<NavLink to={'/home/profile'} className="action-header__item" aria-label="Profile">
@@ -83,8 +85,13 @@ const Navbar = () => {
 							<IoMdLogIn />
 						</NavLink>
 					)}
-					<NavLink to={'/home/cart'} className="action-header__item" aria-label="Cart">
+					<NavLink
+						key={cart}
+						to={'/home/cart'}
+						className="action-header__item action-header__item--counter"
+						aria-label="Cart">
 						<FiShoppingCart />
+						<span>{cart?.productsList?.length > 0 && cart?.productsList?.length}</span>
 					</NavLink>
 					{isAuthenticated && (
 						<button onClick={handleLogout} type="button" className="action-header__item" aria-label="Logout">
