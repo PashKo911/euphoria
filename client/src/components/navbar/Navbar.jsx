@@ -50,7 +50,7 @@ const Navbar = () => {
 						<ul className="menu__list">
 							<li className="menu__item">
 								<NavLink to={'/home/shop'} className="menu__link">
-									Home
+									Shop
 								</NavLink>
 							</li>
 							<li className="menu__item">
