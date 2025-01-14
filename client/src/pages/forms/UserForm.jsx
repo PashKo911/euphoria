@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import InfoInput from '../../components/inputs/InfoInput'
 import styles from './userForm.module.scss'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 
 const UserForm = () => {
 	const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ const UserForm = () => {
 					onChange={handleChange}
 				/>
 			))}
-			<ButtonPurple
+			<Button
 				title={'Add new user'}
 				style={{ gridColumn: 'span 2', width: 'max-content', justifySelf: 'center' }}
 			/>

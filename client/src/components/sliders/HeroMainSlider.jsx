@@ -1,12 +1,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+// import 'swiper/css'
+// import 'swiper/css/navigation'
+// import 'swiper/css/pagination'
 
 import styles from './heroMainSlider.module.scss'
-import { Link } from 'react-router-dom'
+import Button from '../buttons/Button'
 
 const slides = [
 	{
@@ -40,11 +40,16 @@ const HeroMainSlider = () => {
 		<Swiper
 			className={styles.swiper}
 			modules={[Navigation, Pagination, Autoplay]}
-			navigation
-			pagination={{ clickable: true, el: `.${styles.pagination}` }}
-			// autoplay={{ delay: 3000, disableOnInteraction: false }}
-			loop={true}
-			spaceBetween={20}>
+			navigation={{
+				prevEl: `.${styles.prevButton}`,
+				nextEl: `.${styles.nextButton}`,
+			}}
+			pagination={{
+				clickable: true,
+				el: `.${styles.pagination}`,
+			}}
+			// autoplay={{ delay: 8000, disableOnInteraction: false }}
+			loop={true}>
 			{slides.map((slide) => (
 				<SwiperSlide key={slide.id} className={styles.swiperSlide}>
 					<div className={styles.container}>
@@ -52,117 +57,38 @@ const HeroMainSlider = () => {
 							<div className={styles.label}>{slide.label}</div>
 							<h2 className={styles.title}>{slide.title}</h2>
 							<div className={styles.label}>{slide.subtitle}</div>
-							<Link className={styles.button} to={slide.link}>
-								Shop Now
-							</Link>
-							<img src={slide.imgSrc} alt={`${slide.title} image`} />
+							<Button
+								style={{ minWidth: 250 }}
+								title={'Shop Now'}
+								variant="white"
+								to={'/home/products?gender=men&page=0'}
+							/>
 						</div>
 					</div>
+					<img className={styles.image} src={slide.imgSrc} alt={`${slide.title} image`} />
 				</SwiperSlide>
 			))}
 			<div className={styles.pagination}></div>
+			<button className={styles.prevButton}>
+				<svg viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						fillRule="evenodd"
+						clipRule="evenodd"
+						d="M6.19711 0.46967C6.49001 0.762563 6.49001 1.23744 6.19711 1.53033L1.78637 5.94107C1.75383 5.97362 1.75383 6.02638 1.78637 6.05893L6.19711 10.4697C6.49001 10.7626 6.49001 11.2374 6.19711 11.5303C5.90422 11.8232 5.42935 11.8232 5.13645 11.5303L0.72571 7.11959C0.10738 6.50126 0.10738 5.49874 0.72571 4.88041L5.13645 0.46967C5.42935 0.176777 5.90422 0.176777 6.19711 0.46967Z"
+					/>
+				</svg>
+			</button>
+			<button className={styles.nextButton}>
+				<svg viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						fillRule="evenodd"
+						clipRule="evenodd"
+						d="M0.802922 0.46967C1.09582 0.176777 1.57069 0.176777 1.86358 0.46967L6.27433 4.88041C6.89266 5.49874 6.89266 6.50126 6.27433 7.11959L1.86358 11.5303C1.57069 11.8232 1.09582 11.8232 0.802922 11.5303C0.510029 11.2374 0.510029 10.7626 0.802922 10.4697L5.21367 6.05893C5.24621 6.02638 5.24621 5.97362 5.21367 5.94107L0.802922 1.53033C0.510029 1.23744 0.510029 0.762563 0.802922 0.46967Z"
+					/>
+				</svg>
+			</button>
 		</Swiper>
 	)
 }
 
 export default HeroMainSlider
-
-// <section className="page__hero hero swiper">
-// 	<div className="hero__wrapper swiper-wrapper">
-// 		<div className="hero__slide slide-hero swiper-slide">
-// 			<div className="slide-hero__container">
-// 				<div className="slide-hero__body">
-// 					<div data-swiper-parallax="-80%" className="slide-hero__label">
-// 						T-shirt / Tops
-// 					</div>
-// 					<h2 data-swiper-parallax="-100%" className="slide-hero__title">
-// 						Some other <br /> products
-// 					</h2>
-// 					<div data-swiper-parallax="-60%" className="slide-hero__label">
-// 						cool / colorful / comfy
-// 					</div>
-// 					<a data-swiper-parallax="-100%" href="#" className="slide-hero__button button button--white">
-// 						Shop Now
-// 					</a>
-// 				</div>
-// 			</div>
-// 			<img
-// 				src="/assets/img/hero/slide-01.png"
-// 				className="slide-hero__image slide-hero__image--top-right"
-// 				alt="Image"
-// 			/>
-// 		</div>
-// 		<div className="hero__slide slide-hero swiper-slide">
-// 			<div className="slide-hero__container">
-// 				<div className="slide-hero__body">
-// 					<div data-swiper-parallax="-80%" className="slide-hero__label">
-// 						T-shirt / Tops
-// 					</div>
-// 					<h2 data-swiper-parallax="-100%" className="slide-hero__title">
-// 						Some other <br /> products
-// 					</h2>
-// 					<div data-swiper-parallax="-60%" className="slide-hero__label">
-// 						cool / colorful / comfy
-// 					</div>
-// 					<a data-swiper-parallax="-100%" href="#" className="slide-hero__button button button--white">
-// 						Shop Now
-// 					</a>
-// 				</div>
-// 			</div>
-// 			<img
-// 				src="/assets/img/hero/slide-01.png"
-// 				className="slide-hero__image slide-hero__image--top-right"
-// 				alt="Image"
-// 			/>
-// 		</div>
-// 		<div className="hero__slide slide-hero swiper-slide">
-// 			<div className="slide-hero__container">
-// 				<div className="slide-hero__body">
-// 					<div data-swiper-parallax="-80%" className="slide-hero__label">
-// 						T-shirt / Tops
-// 					</div>
-// 					<h2 data-swiper-parallax="-100%" className="slide-hero__title">
-// 						Some other <br /> products
-// 					</h2>
-// 					<div data-swiper-parallax="-60%" className="slide-hero__label">
-// 						cool / colorful / comfy
-// 					</div>
-// 					<a data-swiper-parallax="-100%" href="#" className="slide-hero__button button button--white">
-// 						Shop Now
-// 					</a>
-// 				</div>
-// 			</div>
-// 			<img
-// 				src="/assets/img/hero/slide-01.png"
-// 				className="slide-hero__image slide-hero__image--top-right"
-// 				alt="Image"
-// 			/>
-// 		</div>
-// 		<div className="hero__slide slide-hero swiper-slide">
-// 			<div className="slide-hero__container">
-// 				<div className="slide-hero__body">
-// 					<div data-swiper-parallax="-80%" className="slide-hero__label">
-// 						T-shirt / Tops
-// 					</div>
-// 					<h2 data-swiper-parallax="-100%" className="slide-hero__title">
-// 						Some other <br /> products
-// 					</h2>
-// 					<div data-swiper-parallax="-60%" className="slide-hero__label">
-// 						cool / colorful / comfy
-// 					</div>
-// 					<a data-swiper-parallax="-100%" href="#" className="slide-hero__button button button--white">
-// 						Shop Now
-// 					</a>
-// 				</div>
-// 			</div>
-// 			<img
-// 				src="/assets/img/hero/slide-01.png"
-// 				className="slide-hero__image slide-hero__image--top-right"
-// 				alt="Image"
-// 			/>
-// 		</div>
-// 	</div>
-// 	<div className="hero__pagination"></div>
-// 	<button className="hero__arrow hero__arrow--prev _icon-ch-left"></button>
-// 	<button className="hero__arrow hero__arrow--next _icon-ch-right"></button>
-// </section>

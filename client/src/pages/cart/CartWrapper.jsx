@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
 
 import styles from './cartWrapper.module.scss'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 
 const CartWrapper = () => {
 	const [cartDetails, setCartDetails] = useState()
@@ -57,7 +57,7 @@ const CartWrapper = () => {
 							<span className={styles.total}>${cartDetails?.total.toFixed(2)}</span>
 						</div>
 					</div>
-					<ButtonPurple style={{ width: 'max-content', alignSelf: 'center' }} title={'Proceed To Checkout'} />
+					<Button style={{ width: 'max-content', alignSelf: 'center' }} title={'Proceed To Checkout'} />
 				</div>
 			</div>
 		</>

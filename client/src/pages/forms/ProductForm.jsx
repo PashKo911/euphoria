@@ -5,7 +5,7 @@ import { useErrorMessage } from '../../hooks/useErrorMessage'
 import ErrorMessage from '../../components/ErrorMessage'
 
 import InfoInput from '../../components/inputs/InfoInput'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 import MultiplySelect from '../../components/slelects/MultiplySelect'
 import Textarea from '../../components/textareas/Textarea'
 import ImageInputWrapper from '../../components/inputs/ImageInputWrapper'
@@ -259,7 +259,7 @@ const ProductForm = () => {
 					placeholder="Enter product description"
 					required
 				/>
-				<ButtonPurple
+				<Button
 					title={id ? 'Update Product' : 'Add New Product'}
 					style={{
 						gridColumn: 'span 2',

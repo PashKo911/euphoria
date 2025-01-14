@@ -6,7 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
 import ErrorMessage from '../../components/ErrorMessage'
 import useHttp from '../../hooks/useHttp'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 import { useAuth } from '../../context/AuthContext'
 
 import styles from './auth.module.scss'
@@ -107,7 +107,7 @@ const Auth = (props) => {
 						</div>
 						{isSignIn && <Link className={styles.forget}>Forget your password</Link>}
 
-						<ButtonPurple
+						<Button
 							style={{ width: 'max-content', minWidth: 167, marginBottom: 10 }}
 							title={buttonText}
 							isLoading={processes[route]}

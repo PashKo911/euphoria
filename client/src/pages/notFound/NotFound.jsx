@@ -1,4 +1,4 @@
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 import styles from './notFound.module.scss'
 
 const NotFound = () => {
@@ -12,7 +12,7 @@ const NotFound = () => {
 				<div className={styles.subtitle}>
 					The page you are looking for might have been removed or temporarily unavailable.
 				</div>
-				<ButtonPurple title={'Back to HomePage'} to={'/home'} />
+				<Button title={'Back to HomePage'} to={'/home'} />
 			</div>
 		</section>
 	)

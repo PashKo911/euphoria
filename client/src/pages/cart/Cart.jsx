@@ -3,7 +3,7 @@ import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs'
 import { useAuth } from '../../context/AuthContext'
 import CartWrapper from './CartWrapper'
 import { useCart } from '../../context/CartContext'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 
 import styles from './cart.module.scss'
 
@@ -22,7 +22,7 @@ const Cart = () => {
 						</div>
 						<h1 className={styles.title}>Your cart is empty and sad :(</h1>
 						<h2 className={styles.subtitle}>Add something to make it happy!</h2>
-						<ButtonPurple to={'/home/products?gender=men'} title={'Continue Shopping'} />
+						<Button to={'/home/products?gender=men'} title={'Continue Shopping'} />
 					</div>
 				) : (
 					<>

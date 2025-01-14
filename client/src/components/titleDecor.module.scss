@@ -10,8 +10,9 @@
 	align-items: center;
 	gap: toEm(15, 36);
 	@include adaptiveValue('font-size', 36, 26);
+
 	&:not(:last-child) {
-		margin-bottom: toRem(20);
+		@include adaptiveValue('margin-bottom', 70, 20);
 	}
 
 	&::before {

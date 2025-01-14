@@ -10,7 +10,7 @@ import Rating from '../../components/rating/Rating'
 import './productDetail.scss'
 import SizeInput from '../../components/inputs/SizeInput'
 import ColorsInputRound from '../../components/inputs/ColorsInputRound'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 import ProductDetailSlider from '../../components/sliders/ProductDetailSlider'
 import TitleDecor from '../../components/TitleDecor'
 import ProcessMessage from '../../components/process/ProcessMessage'
@@ -94,7 +94,7 @@ const ProductDetail = () => {
 								</div>
 							</div>
 							<div className="main-product__footer">
-								<ButtonPurple
+								<Button
 									style={{ width: 'max-content', minWidth: 167 }}
 									title={'Add to cart'}
 									icon={<FiShoppingCart />}

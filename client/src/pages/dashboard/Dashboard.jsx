@@ -6,7 +6,7 @@ import { useFilter } from '../../context/FilterProvider'
 import useRouteAccessSwitcher from '../../hooks/useRouteAccessSwitcher'
 
 import TitleDecor from '../../components/TitleDecor'
-import ButtonPurple from '../../components/buttons/ButtonPurple'
+import Button from '../../components/buttons/Button'
 import ClearFilterBlock from '../../components/filters/ClearFilterBlock'
 import Filter from '../../components/filters/Filter'
 import FilterSort from '../../components/filters/FilterSort'
@@ -86,7 +86,7 @@ const Dashboard = () => {
 						<div className={styles.bodyHeader}>
 							<div className={styles.bodyHeaderTop}>
 								<h2 className={styles.title}>{title}</h2>
-								{!isAddPath && <ButtonPurple to={addPath} title="Add" />}
+								{!isAddPath && <Button to={addPath} title="Add" />}
 							</div>
 							{!isFormPage && !isUsersPage && (
 								<FilterSort

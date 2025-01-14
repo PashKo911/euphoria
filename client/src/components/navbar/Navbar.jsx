@@ -72,9 +72,9 @@ const Navbar = () => {
 				</div>
 				<SearchForm />
 				<div className="header__action action-header">
-					{/* <NavLink to={'/home/favorite'} className="action-header__item" aria-label="Favorite">
+					<Link className="action-header__item" aria-label="Favorite">
 						<MdFavoriteBorder />
-					</NavLink> */}
+					</Link>
 					{isAuthenticated ? (
 						<>
 							<NavLink to={'/home/profile'} className="action-header__item" aria-label="Profile">

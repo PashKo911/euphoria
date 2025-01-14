@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
 	const [token, setToken] = useState(null)
 	const [user, setUser] = useState(null)
 	const { syncCart } = useCart()
+	let logoutTimer = null
 
 	useEffect(() => {
 		const storedToken = localStorage.getItem('jwt_token')
@@ -26,10 +27,34 @@ export const AuthProvider = ({ children }) => {
 		}
 	}, [])
 
+	useEffect(() => {
+		if (isAuthenticated && token) {
+			const storedExpireTime = parseInt(localStorage.getItem('expire_time'), 10)
+			const timeLeft = storedExpireTime - Date.now()
+
+			if (timeLeft > 0) {
+				logoutTimer = setTimeout(() => {
+					logout()
+				}, timeLeft)
+			} else {
+				logout()
+			}
+		}
+
+		return () => {
+			if (logoutTimer) {
+				clearTimeout(logoutTimer)
+			}
+		}
+	}, [isAuthenticated, token])
+
 	const login = (data) => {
 		localStorage.removeItem('guest_id')
 		localStorage.setItem('jwt_token', data.token)
 		localStorage.setItem('user_data', JSON.stringify(data.user))
+		const expireTime = Date.now() + data.expireInMs
+		localStorage.setItem('expire_time', expireTime)
+
 		setToken(data.token)
 		setUser(data.user)
 		setIsAuthenticated(true)
@@ -39,6 +64,7 @@ export const AuthProvider = ({ children }) => {
 	const logout = () => {
 		localStorage.removeItem('jwt_token')
 		localStorage.removeItem('user_data')
+		localStorage.removeItem('expire_time')
 		setToken(null)
 		setUser(null)
 		setIsAuthenticated(false)

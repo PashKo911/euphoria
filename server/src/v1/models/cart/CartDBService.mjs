@@ -171,20 +171,32 @@ class CartDBService extends MongooseCRUDManager {
 			const productMap = new Map()
 
 			// Додаємо продукти з корзини користувача
-			userCart.productsList.forEach(({ product, amount }) => {
-				productMap.set(product.toString(), amount)
+			userCart.productsList.forEach(({ product, amount, color, size }) => {
+				productMap.set(product.toString(), { amount, color, size })
 			})
 
 			// Додаємо продукти з корзини гостя
-			guestCart.productsList.forEach(({ product, amount }) => {
-				const currentAmount = productMap.get(product.toString()) || 0
-				productMap.set(product.toString(), currentAmount + amount)
+			guestCart.productsList.forEach(({ product, amount, color, size }) => {
+				if (productMap.has(product.toString())) {
+					// Якщо продукт вже є, оновлюємо кількість
+					const existingProduct = productMap.get(product.toString())
+					productMap.set(product.toString(), {
+						amount: existingProduct.amount + amount,
+						color: existingProduct.color, // Колір залишаємо старий
+						size: existingProduct.size, // Розмір залишаємо старий
+					})
+				} else {
+					// Якщо продукту немає, додаємо новий запис
+					productMap.set(product.toString(), { amount, color, size })
+				}
 			})
 
 			// Оновлюємо корзину користувача
-			userCart.productsList = Array.from(productMap.entries()).map(([product, amount]) => ({
+			userCart.productsList = Array.from(productMap.entries()).map(([product, { amount, color, size }]) => ({
 				product: new mongoose.Types.ObjectId(product),
 				amount,
+				color,
+				size,
 			}))
 
 			await userCart.save()
