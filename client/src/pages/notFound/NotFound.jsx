@@ -12,7 +12,7 @@ const NotFound = () => {
 				<div className={styles.subtitle}>
 					The page you are looking for might have been removed or temporarily unavailable.
 				</div>
-				<Button title={'Back to HomePage'} to={'/home'} />
+				<Button title={'Back to HomePage'} to={'/home/shop'} />
 			</div>
 		</section>
 	)
