@@ -22,7 +22,7 @@ const Dashboard = () => {
 	const isUsersPage = location.pathname.includes('users')
 	const isAddPath = location.pathname.includes('add')
 	const title = isUsersPage ? 'Users' : 'Products'
-	const addPath = isUsersPage ? '/home/dashboard/users/add' : '/home/dashboard/products/add'
+	const addPath = isUsersPage ? '/dashboard/users/add' : '/dashboard/products/add'
 	const isFormPage = location.pathname.includes('add')
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 	const { user } = useAuth()
@@ -57,7 +57,7 @@ const Dashboard = () => {
 					<ul className={styles.list}>
 						<li className={styles.asideItem}>
 							<NavLink
-								to="/home/dashboard/products"
+								to="/dashboard/products"
 								className={({ isActive }) =>
 									isActive ? `${styles.asideLink} ${styles.active}` : styles.asideLink
 								}>
@@ -67,7 +67,7 @@ const Dashboard = () => {
 						</li>
 						<li className={styles.asideItem}>
 							<NavLink
-								to="/home/dashboard/users"
+								to="/dashboard/users"
 								className={({ isActive }) =>
 									isActive ? `${styles.asideLink} ${styles.active}` : styles.asideLink
 								}>

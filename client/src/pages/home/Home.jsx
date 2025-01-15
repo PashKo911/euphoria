@@ -18,7 +18,7 @@ const Home = () => {
 							<div className="deals__label">Low Price</div>
 							<h4 className="deals__title">High Coziness</h4>
 							<div className="deals__sale">UPTO 50% OFF</div>
-							<Link to={'/home/products?gender=men&page=0'} className="deals__link">
+							<Link to={'/products?gender=men&page=0'} className="deals__link">
 								Explore Items
 							</Link>
 						</div>
@@ -31,7 +31,7 @@ const Home = () => {
 								Breezy Summer <br /> Style
 							</h4>
 							<div className="deals__sale">UPTO 50% OFF</div>
-							<Link to={'/home/products?gender=men&page=0'} className="deals__link">
+							<Link to={'/products?gender=men&page=0'} className="deals__link">
 								Explore Items
 							</Link>
 						</div>
@@ -46,7 +46,7 @@ const Home = () => {
 						<article className="sale__item item-sale">
 							<div className="item-sale__body">
 								<h4 className="item-sale__title">
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__link-title">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__link-title">
 										Hawaiian <br /> Shirts
 									</Link>
 								</h4>
@@ -61,7 +61,7 @@ const Home = () => {
 										/>
 									</svg>
 
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__button">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__button">
 										SHOP NOW
 									</Link>
 								</div>
@@ -72,7 +72,7 @@ const Home = () => {
 							<div className="item-sale__body">
 								<div className="item-sale__limited">Limited Stock</div>
 								<h4 className="item-sale__title">
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__link-title">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__link-title">
 										Printed <br /> T-Shirt
 									</Link>
 								</h4>
@@ -86,7 +86,7 @@ const Home = () => {
 											d="M6 0.416748C6.41421 0.416748 6.75 0.752535 6.75 1.16675L6.75 11.0228L10.4697 7.30308C10.7626 7.01019 11.2374 7.01019 11.5303 7.30308C11.8232 7.59598 11.8232 8.07085 11.5303 8.36375L7.11959 12.7745C6.50126 13.3928 5.49874 13.3928 4.88041 12.7745L0.46967 8.36374C0.176777 8.07085 0.176777 7.59598 0.46967 7.30308C0.762563 7.01019 1.23744 7.01019 1.53033 7.30308L5.25 11.0228L5.25 1.16675C5.25 0.752534 5.58579 0.416748 6 0.416748Z"
 										/>
 									</svg>
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__button">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__button">
 										SHOP NOW
 									</Link>
 								</div>
@@ -96,7 +96,7 @@ const Home = () => {
 						<article className="sale__item item-sale item-sale--dark item-sale--right">
 							<div className="item-sale__body">
 								<h4 className="item-sale__title">
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__link-title">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__link-title">
 										Cargo <br /> Joggers
 									</Link>
 								</h4>
@@ -110,7 +110,7 @@ const Home = () => {
 											d="M6 0.416748C6.41421 0.416748 6.75 0.752535 6.75 1.16675L6.75 11.0228L10.4697 7.30308C10.7626 7.01019 11.2374 7.01019 11.5303 7.30308C11.8232 7.59598 11.8232 8.07085 11.5303 8.36375L7.11959 12.7745C6.50126 13.3928 5.49874 13.3928 4.88041 12.7745L0.46967 8.36374C0.176777 8.07085 0.176777 7.59598 0.46967 7.30308C0.762563 7.01019 1.23744 7.01019 1.53033 7.30308L5.25 11.0228L5.25 1.16675C5.25 0.752534 5.58579 0.416748 6 0.416748Z"
 										/>
 									</svg>
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__button">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__button">
 										SHOP NOW
 									</Link>
 								</div>
@@ -120,7 +120,7 @@ const Home = () => {
 						<article className="sale__item item-sale item-sale--dark item-sale--right">
 							<div className="item-sale__body">
 								<h4 className="item-sale__title">
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__link-title">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__link-title">
 										Urban <br /> Shirts
 									</Link>
 								</h4>
@@ -134,7 +134,7 @@ const Home = () => {
 											d="M6 0.416748C6.41421 0.416748 6.75 0.752535 6.75 1.16675L6.75 11.0228L10.4697 7.30308C10.7626 7.01019 11.2374 7.01019 11.5303 7.30308C11.8232 7.59598 11.8232 8.07085 11.5303 8.36375L7.11959 12.7745C6.50126 13.3928 5.49874 13.3928 4.88041 12.7745L0.46967 8.36374C0.176777 8.07085 0.176777 7.59598 0.46967 7.30308C0.762563 7.01019 1.23744 7.01019 1.53033 7.30308L5.25 11.0228L5.25 1.16675C5.25 0.752534 5.58579 0.416748 6 0.416748Z"
 										/>
 									</svg>
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__button">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__button">
 										SHOP NOW
 									</Link>
 								</div>
@@ -144,7 +144,7 @@ const Home = () => {
 						<article className="sale__item item-sale item-sale--dark item-sale--right">
 							<div className="item-sale__body">
 								<h4 className="item-sale__title">
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__link-title">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__link-title">
 										Oversized <br /> T-Shirts
 									</Link>
 								</h4>
@@ -158,7 +158,7 @@ const Home = () => {
 											d="M6 0.416748C6.41421 0.416748 6.75 0.752535 6.75 1.16675L6.75 11.0228L10.4697 7.30308C10.7626 7.01019 11.2374 7.01019 11.5303 7.30308C11.8232 7.59598 11.8232 8.07085 11.5303 8.36375L7.11959 12.7745C6.50126 13.3928 5.49874 13.3928 4.88041 12.7745L0.46967 8.36374C0.176777 8.07085 0.176777 7.59598 0.46967 7.30308C0.762563 7.01019 1.23744 7.01019 1.53033 7.30308L5.25 11.0228L5.25 1.16675C5.25 0.752534 5.58579 0.416748 6 0.416748Z"
 										/>
 									</svg>
-									<Link to={'/home/products?gender=men&page=0'} className="item-sale__button">
+									<Link to={'/products?gender=men&page=0'} className="item-sale__button">
 										SHOP NOW
 									</Link>
 								</div>
@@ -178,7 +178,7 @@ const Home = () => {
 								Comfortable & Affordable fashion 24/7
 							</p>
 						</div>
-						<Button title={'Shop Now'} variant="white" to={'/home/products?gender=men&page=0'} />
+						<Button title={'Shop Now'} variant="white" to={'/products?gender=men&page=0'} />
 					</div>
 					<img className="shop-now__image" src="/assets/img/shop-now/01.jpg" alt="Image" />
 				</div>

@@ -15,7 +15,7 @@ const slides = [
 		title: 'Summer Value Pack',
 		subtitle: 'cool / colorful / comfy',
 		imgSrc: '/assets/img/hero/slide-01.png',
-		link: '/home/products?gender=men&page=0',
+		link: '/products?gender=men&page=0',
 	},
 	{
 		id: 2,
@@ -23,7 +23,7 @@ const slides = [
 		title: 'Casual Denim Deals',
 		subtitle: 'stylish / durable / versatile',
 		imgSrc: '/assets/img/hero/slide-02.png',
-		link: '/home/products?gender=women&page=0',
+		link: '/products?gender=women&page=0',
 	},
 	{
 		id: 3,
@@ -31,7 +31,7 @@ const slides = [
 		title: 'Complete Your Look',
 		subtitle: 'trendy / elegant / affordable',
 		imgSrc: '/assets/img/hero/slide-03.png',
-		link: '/home/products?gender=all&page=0',
+		link: '/products?gender=all&page=0',
 	},
 ]
 
@@ -61,7 +61,7 @@ const HeroMainSlider = () => {
 								style={{ minWidth: 250 }}
 								title={'Shop Now'}
 								variant="white"
-								to={'/home/products?gender=men&page=0'}
+								to={'/products?gender=men&page=0'}
 							/>
 						</div>
 					</div>

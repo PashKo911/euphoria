@@ -47,7 +47,7 @@ const CartWrapper = () => {
 				processes={processes}
 			/>
 			<div className={styles.bottom}>
-				<Link to={'/home/products?gender=men'} className={styles.buttonTransparent}>
+				<Link to={'/products?gender=men'} className={styles.buttonTransparent}>
 					Continue Shopping
 				</Link>
 				<div className={styles.totalWrapper}>

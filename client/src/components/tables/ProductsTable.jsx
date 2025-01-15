@@ -61,7 +61,7 @@ const ProductsTable = ({ filterOptions }) => {
 					{products.map((product) => (
 						<tr key={product._id}>
 							<td>
-								<Link to={`/home/products/detail/${product._id}`} className={styles.details}>
+								<Link to={`/products/detail/${product._id}`} className={styles.details}>
 									<img src={`${constants.API_BASE}${product.paths[0]}`} alt={product.title} />
 									<div className={styles.detailsContent}>
 										<h3 className={styles.detailsTitle}>{product.title}</h3>

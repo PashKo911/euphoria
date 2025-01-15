@@ -10,11 +10,11 @@ const CartProduct = ({ product, amountHandler, deleteHandler, processes }) => {
 	return (
 		<article className={styles.item}>
 			<div className={styles.details}>
-				<Link to={`/home/products/detail/${details._id}`} className={styles.img}>
+				<Link to={`/products/detail/${details._id}`} className={styles.img}>
 					<img src={`${constants.API_BASE}${details.paths[0]}`} alt={details.title} />
 				</Link>
 				<div className={styles.infoWrapper}>
-					<Link to={`/home/products/detail/${details._id}`} className={styles.title}>
+					<Link to={`/products/detail/${details._id}`} className={styles.title}>
 						{details.title}
 					</Link>
 					<h3 className={styles.param}>

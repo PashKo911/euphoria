@@ -28,9 +28,10 @@ const Navbar = () => {
 	const handleLogout = async () => {
 		try {
 			logout()
-			navigate('/home/products')
+			navigate('/products')
 			dispatch({ type: 'SET_GENDER', payload: 'men' })
 			dispatch({ type: 'SET_PAGE', payload: 0 })
+			setShowMenu(false)
 		} catch (error) {
 			console.error('Error during logout:', error.message)
 		}
@@ -49,20 +50,22 @@ const Navbar = () => {
 					<nav className="menu__body">
 						<ul className="menu__list">
 							<li className="menu__item">
-								<NavLink to={'/home/shop'} className="menu__link">
+								<NavLink to={'/'} className="menu__link" onClick={() => setShowMenu(false)}>
 									Shop
 								</NavLink>
 							</li>
 							<li className="menu__item">
 								<Link
-									to={'/home/products?gender=men&page=0'}
+									to={'/products?gender=men&page=0'}
+									onClick={() => setShowMenu(false)}
 									className={`menu__link ${isActive('men') ? 'active' : ''}`}>
 									Men
 								</Link>
 							</li>
 							<li className="menu__item">
 								<Link
-									to={'/home/products?gender=women&page=0'}
+									to={'/products?gender=women&page=0'}
+									onClick={() => setShowMenu(false)}
 									className={`menu__link ${isActive('women') ? 'active' : ''}`}>
 									Women
 								</Link>
@@ -77,20 +80,29 @@ const Navbar = () => {
 					</Link>
 					{isAuthenticated ? (
 						<>
-							<NavLink to={'/home/profile'} className="action-header__item" aria-label="Profile">
+							<NavLink
+								to={'/profile'}
+								className="action-header__item"
+								aria-label="Profile"
+								onClick={() => setShowMenu(false)}>
 								<LuUser2 />
 							</NavLink>
 						</>
 					) : (
-						<NavLink to={'/home/auth/sign-in'} className="action-header__item" aria-label="Login">
+						<NavLink
+							to={'/auth/sign-in'}
+							className="action-header__item"
+							aria-label="Login"
+							onClick={() => setShowMenu(false)}>
 							<IoMdLogIn />
 						</NavLink>
 					)}
 					<NavLink
 						key={cart}
-						to={'/home/cart'}
+						to={'/cart'}
 						className="action-header__item action-header__item--counter"
-						aria-label="Cart">
+						aria-label="Cart"
+						onClick={() => setShowMenu(false)}>
 						<FiShoppingCart />
 						<span>{cart?.productsList?.length > 0 && cart?.productsList?.length}</span>
 					</NavLink>
@@ -100,7 +112,11 @@ const Navbar = () => {
 						</button>
 					)}
 					{hasAccess && (
-						<NavLink to={'/home/dashboard/products'} className="action-header__item" aria-label="Cart">
+						<NavLink
+							to={'/dashboard/products'}
+							className="action-header__item"
+							aria-label="Cart"
+							onClick={() => setShowMenu(false)}>
 							<BsKey />
 						</NavLink>
 					)}

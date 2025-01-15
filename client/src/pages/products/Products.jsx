@@ -77,12 +77,17 @@ const Products = () => {
 							<ClearFilterBlock state={state} filterOptions={filterOptions} dispatch={dispatch} />
 						</div>
 						<ProcessMessage process={processes['/products']} items={products} />
-						<div className="catalog__items">
-							{products.map((product) => (
-								<Product key={product._id} product={product} />
-							))}
-						</div>
-						<Pagination productsCount={productsCount} />
+						{processes['/products'] !== 'loading' && (
+							<>
+								<div className="catalog__items">
+									{products.map((product) => (
+										<Product key={product._id} product={product} />
+									))}
+								</div>
+
+								<Pagination productsCount={productsCount} />
+							</>
+						)}
 					</div>
 				</div>
 			</section>

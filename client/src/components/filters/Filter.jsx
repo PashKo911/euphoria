@@ -1,9 +1,10 @@
 import React from 'react'
 import Accordion from '../accordion/Accordion'
-import styles from './filter.module.scss'
 import { filterConfig } from '../../data/data'
 import { GiSettingsKnobs } from 'react-icons/gi'
 import { RiCloseLargeFill } from 'react-icons/ri'
+
+import styles from './filter.module.scss'
 
 const Filter = ({ options, isFilterOpen, callback }) => {
 	if (!options || Object.keys(options).length === 0) return null

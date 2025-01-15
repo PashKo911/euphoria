@@ -22,7 +22,7 @@ const Cart = () => {
 						</div>
 						<h1 className={styles.title}>Your cart is empty and sad :(</h1>
 						<h2 className={styles.subtitle}>Add something to make it happy!</h2>
-						<Button to={'/home/products?gender=men'} title={'Continue Shopping'} />
+						<Button to={'/products?gender=men'} title={'Continue Shopping'} />
 					</div>
 				) : (
 					<>
@@ -32,7 +32,7 @@ const Cart = () => {
 								<p>Please fill in the fields below and click place order to complete your purchase!</p>
 								<p>
 									Already registered?{' '}
-									<Link to={'/home/auth/sign-in'} className={styles.navLink}>
+									<Link to={'/auth/sign-in'} className={styles.navLink}>
 										Please login here
 									</Link>
 								</p>

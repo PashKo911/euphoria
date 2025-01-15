@@ -8,18 +8,42 @@
 	@include adaptiveValue('width', 295, 240, 2, $containerWidth, 767.98);
 
 	@media (max-width: $mobile) {
-		position: absolute;
-		top: 0;
+		position: fixed;
+		top: toRem(85.05);
 		left: -100%;
 		width: auto;
-		height: auto;
+
 		max-height: 100%;
 		overflow-y: scroll;
 		max-width: toRem(295);
 		transition: left 0.2s;
+		@include adaptiveValue('top', 85.05, 65, 1, 767.98, 320);
+
+		@media (max-width: toEm(540.98)) {
+			height: calc(100% - toRem(130));
+		}
 
 		&.open {
 			left: 0;
+
+			body:has(&.open) {
+				overflow: hidden;
+				touch-action: none;
+				overscroll-behavior: none;
+				position: relative;
+
+				&::after {
+					content: '';
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					top: 0%;
+					left: 0%;
+					pointer-events: none;
+					background: rgba(0, 0, 0, 0.3);
+					backdrop-filter: blur(toRem(6));
+				}
+			}
 		}
 	}
 }

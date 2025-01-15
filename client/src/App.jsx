@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import Home from './pages/home/Home'
 import Products from './pages/products/Products'
@@ -25,8 +25,8 @@ function App() {
 				<FilterProvider>
 					<BrowserRouter>
 						<Routes>
-							<Route path="/home" element={<Layout />}>
-								<Route path="shop" element={<Home />} />
+							<Route path="/" element={<Layout />}>
+								<Route index element={<Home />} />
 
 								<Route path="products" element={<Products />} />
 								<Route path="products/detail/:id" element={<ProductDetail />} />
