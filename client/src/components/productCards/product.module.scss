@@ -1,12 +1,7 @@
 @import '../../styles/mixins';
 
 .product {
-}
-
-.link {
 	position: relative;
-	display: grid;
-	gap: toRem(30);
 
 	@media (any-hover: hover) {
 		&:hover img {
@@ -15,7 +10,19 @@
 		&:hover .title {
 			text-decoration-color: var(--dark-color);
 		}
+		&:has(.favorite:hover) img {
+			transform: scale(1.05);
+		}
+		&:has(.favorite:hover) .title {
+			text-decoration-color: var(--dark-color);
+		}
 	}
+}
+
+.link {
+	position: relative;
+	display: grid;
+	gap: toRem(30);
 }
 .favorite {
 	position: absolute;
@@ -28,6 +35,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 2;
 	&::before {
 		transition: color 0.3s;
 	}

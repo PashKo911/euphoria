@@ -42,6 +42,11 @@ const Navbar = () => {
 		return params.get('gender') === gender
 	}
 
+	const handlePage = () => {
+		setShowMenu(false)
+		// dispatch({ type: 'CLEAR_ALL_FILTERS' })
+	}
+
 	return (
 		<header className={`${showMenu ? 'header menu-open' : 'header'}`}>
 			<div className="header__container">
@@ -50,14 +55,14 @@ const Navbar = () => {
 					<nav className="menu__body">
 						<ul className="menu__list">
 							<li className="menu__item">
-								<NavLink to={'/'} className="menu__link" onClick={() => setShowMenu(false)}>
+								<NavLink to={'/'} className="menu__link" onClick={handlePage}>
 									Shop
 								</NavLink>
 							</li>
 							<li className="menu__item">
 								<Link
 									to={'/products?gender=men&page=0'}
-									onClick={() => setShowMenu(false)}
+									onClick={handlePage}
 									className={`menu__link ${isActive('men') ? 'active' : ''}`}>
 									Men
 								</Link>
@@ -65,7 +70,7 @@ const Navbar = () => {
 							<li className="menu__item">
 								<Link
 									to={'/products?gender=women&page=0'}
-									onClick={() => setShowMenu(false)}
+									onClick={handlePage}
 									className={`menu__link ${isActive('women') ? 'active' : ''}`}>
 									Women
 								</Link>
@@ -84,7 +89,7 @@ const Navbar = () => {
 								to={'/profile'}
 								className="action-header__item"
 								aria-label="Profile"
-								onClick={() => setShowMenu(false)}>
+								onClick={handlePage}>
 								<LuUser2 />
 							</NavLink>
 						</>
@@ -93,7 +98,7 @@ const Navbar = () => {
 							to={'/auth/sign-in'}
 							className="action-header__item"
 							aria-label="Login"
-							onClick={() => setShowMenu(false)}>
+							onClick={handlePage}>
 							<IoMdLogIn />
 						</NavLink>
 					)}
@@ -102,7 +107,7 @@ const Navbar = () => {
 						to={'/cart'}
 						className="action-header__item action-header__item--counter"
 						aria-label="Cart"
-						onClick={() => setShowMenu(false)}>
+						onClick={handlePage}>
 						<FiShoppingCart />
 						<span>{cart?.productsList?.length > 0 && cart?.productsList?.length}</span>
 					</NavLink>
@@ -116,7 +121,7 @@ const Navbar = () => {
 							to={'/dashboard/products'}
 							className="action-header__item"
 							aria-label="Cart"
-							onClick={() => setShowMenu(false)}>
+							onClick={handlePage}>
 							<BsKey />
 						</NavLink>
 					)}

@@ -8,10 +8,10 @@ const Product = ({ product }) => {
 	const { paths, title, price, _id } = product
 	return (
 		<article className={styles.product}>
+			<button type="button" className={styles.favorite}>
+				<GrFavorite />
+			</button>
 			<Link to={`/products/detail/${_id}`} className={styles.link}>
-				<button type="button" className={styles.favorite}>
-					<GrFavorite />
-				</button>
 				<div className={styles.img}>
 					<img src={`${constants.API_BASE}${paths[0]}`} alt={title} />
 				</div>

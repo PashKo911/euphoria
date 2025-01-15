@@ -7,7 +7,6 @@ import { FiShoppingCart } from 'react-icons/fi'
 
 import Rating from '../../components/rating/Rating'
 
-import './productDetail.scss'
 import SizeInput from '../../components/inputs/SizeInput'
 import ColorsInputRound from '../../components/inputs/ColorsInputRound'
 import Button from '../../components/buttons/Button'
@@ -16,6 +15,8 @@ import TitleDecor from '../../components/TitleDecor'
 import ProcessMessage from '../../components/process/ProcessMessage'
 import { useCart } from '../../context/CartContext'
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs'
+
+import './productDetail.scss'
 
 const ProductDetail = () => {
 	const [productData, setProductData] = useState({})
