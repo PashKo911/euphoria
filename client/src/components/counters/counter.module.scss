@@ -1,0 +1,79 @@
+@import '../../styles/mixins';
+
+.counter {
+	display: flex;
+	justify-content: space-between;
+	background-color: var(--lite-color);
+	width: fit-content;
+	gap: toRem(5);
+	border-radius: toRem(12);
+	min-height: toRem(36);
+	min-width: toRem(100);
+
+	.button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		padding: toRem(4) toRem(8);
+		transition: color 0.2s;
+
+		@media (any-hover: hover) {
+			&:hover {
+				svg {
+					stroke: var(--purple-color);
+				}
+			}
+		}
+
+		&:disabled {
+			cursor: auto;
+			svg {
+				stroke: #ccc;
+			}
+		}
+
+		svg {
+			stroke: var(--dark-color);
+			transition: stroke 0.2s;
+		}
+	}
+
+	.label {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		svg {
+			animation: spin 1s linear infinite;
+
+			@keyframes spin {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+	.value {
+		color: var(--dark-color);
+		font-weight: 500;
+		line-height: normal;
+		text-align: center;
+		min-height: toRem(36);
+		min-width: toRem(34);
+	}
+
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+	}
+}

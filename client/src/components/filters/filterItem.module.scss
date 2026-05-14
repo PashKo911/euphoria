@@ -1,0 +1,7 @@
+@import '../../styles/mixins';
+
+.items {
+	display: grid;
+	gap: toRem(20);
+	@include adaptiveValue('gap', 20, 10);
+}

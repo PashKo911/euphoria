@@ -1,0 +1,38 @@
+@import '../../styles/mixins';
+
+.range {
+	background: #807d7e;
+	border-radius: toRem(4);
+	height: toRem(3);
+	// opacity: 0.6;
+	&:not(:last-child) {
+		margin-bottom: toRem(32);
+	}
+}
+
+.marker {
+	width: toRem(16);
+	height: toRem(16);
+	background-color: var(--purple-color);
+	border-radius: 50%;
+}
+
+.zone {
+	position: absolute;
+	height: toRem(3);
+	background-color: var(--purple-color);
+}
+
+.wrapper {
+	display: flex;
+	gap: toRem(30);
+}
+
+.input {
+	height: toRem(30);
+	text-align: center;
+	border-radius: toRem(8);
+	color: var(--dark-color);
+	font-weight: 500;
+	border: toRem(1) solid #bebcbd;
+}

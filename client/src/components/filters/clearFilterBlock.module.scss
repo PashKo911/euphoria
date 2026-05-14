@@ -1,0 +1,18 @@
+@import '../../styles/mixins';
+
+.clearBlock {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: toRem(10);
+	row-gap: toRem(8);
+}
+
+.items {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: toRem(10);
+	row-gap: toRem(10);
+}

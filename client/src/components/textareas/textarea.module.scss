@@ -1,0 +1,29 @@
+@import '../../styles/mixins';
+
+.textareaWrapper {
+	display: grid;
+	gap: toRem(10);
+}
+
+.label {
+	color: var(--dark-color);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: toRem(0.36);
+	font-size: toRem(18);
+}
+
+.textarea {
+	border-radius: toRem(8);
+	background-color: var(--lite-color);
+	min-height: toRem(155);
+	font-size: toRem(16);
+	color: var(--dark-color);
+	resize: vertical;
+
+	@include adaptiveValue('padding', 22, 15);
+}
+
+.textarea:focus {
+	outline: toRem(2) solid #007bff;
+}

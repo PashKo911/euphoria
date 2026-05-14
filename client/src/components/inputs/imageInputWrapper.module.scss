@@ -1,0 +1,25 @@
+@import '../../styles/mixins';
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: toRem(10);
+}
+
+.label {
+	color: var(--dark-color);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: toRem(0.36);
+	font-size: toRem(18);
+}
+.items {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: toRem(15);
+	justify-content: center;
+
+	@media (max-width: $mobile) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

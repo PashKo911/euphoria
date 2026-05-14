@@ -1,0 +1,34 @@
+@import '../../styles/mixins';
+
+.wrapper {
+	display: flex;
+	align-items: center;
+	column-gap: toRem(15);
+
+	@media (max-width: $mobile) {
+		justify-content: space-between;
+	}
+	@media (min-width: $mobile) {
+		justify-content: flex-end;
+	}
+}
+
+.button {
+	@media (max-width: $mobile) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: toRem(10);
+		color: var(--dark-color);
+		font-weight: 500;
+		line-height: 1.2;
+		font-size: toRem(16);
+		border: toRem(1) solid #bebcbd;
+		padding: toRem(5) toRem(10);
+		border-radius: toRem(5);
+	}
+
+	@media (min-width: $mobile) {
+		display: none;
+	}
+}

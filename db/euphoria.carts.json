@@ -1,0 +1,71 @@
+[{
+  "_id": {
+    "$oid": "67869119215eb7cdcde68ad3"
+  },
+  "customer": {
+    "$oid": "67695f4de915d46b5dd2558c"
+  },
+  "productsList": [
+    {
+      "product": {
+        "$oid": "6783fe3ce38fd8ed4ff6b05e"
+      },
+      "amount": 3,
+      "size": {
+        "$oid": "676bff418a281b4943246186"
+      },
+      "color": {
+        "$oid": "6783f65101747c6d5349b9e4"
+      },
+      "_id": {
+        "$oid": "678698d5565e5fe9f1837068"
+      }
+    },
+    {
+      "product": {
+        "$oid": "678400c7e38fd8ed4ff6b0b9"
+      },
+      "amount": 3,
+      "size": {
+        "$oid": "676bff418a281b494324618a"
+      },
+      "color": {
+        "$oid": "676bff288a281b494324617f"
+      },
+      "_id": {
+        "$oid": "678698d5565e5fe9f1837069"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6784015ae38fd8ed4ff6b0c1"
+      },
+      "amount": 1,
+      "size": {
+        "$oid": "676bff418a281b4943246189"
+      },
+      "color": {
+        "$oid": "676bff288a281b494324617f"
+      },
+      "_id": {
+        "$oid": "678698d5565e5fe9f183706a"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6783fe04e38fd8ed4ff6b05a"
+      },
+      "amount": 1,
+      "size": {
+        "$oid": "676bff418a281b4943246188"
+      },
+      "color": {
+        "$oid": "676bff288a281b4943246180"
+      },
+      "_id": {
+        "$oid": "678698d5565e5fe9f183706b"
+      }
+    }
+  ],
+  "__v": 4
+}]

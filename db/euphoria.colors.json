@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "676bff288a281b494324617b"
+  },
+  "label": "purple",
+  "value": "#8434E1"
+},
+{
+  "_id": {
+    "$oid": "676bff288a281b494324617c"
+  },
+  "label": "green",
+  "value": "#48BC4E"
+},
+{
+  "_id": {
+    "$oid": "676bff288a281b494324617d"
+  },
+  "label": "blue",
+  "value": " #3FDEFF"
+},
+{
+  "_id": {
+    "$oid": "676bff288a281b494324617e"
+  },
+  "label": "yellow",
+  "value": "#FDC761"
+},
+{
+  "_id": {
+    "$oid": "676bff288a281b494324617f"
+  },
+  "label": "pink",
+  "value": "#E08D9D"
+},
+{
+  "_id": {
+    "$oid": "676bff288a281b4943246180"
+  },
+  "label": "orange",
+  "value": "#F16F2B"
+},
+{
+  "_id": {
+    "$oid": "6783f65101747c6d5349b9e4"
+  },
+  "label": "black",
+  "value": "#000"
+},
+{
+  "_id": {
+    "$oid": "6783f90201747c6d5349b9e5"
+  },
+  "label": "brown",
+  "value": "#bb6e0a"
+}]

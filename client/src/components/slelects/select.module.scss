@@ -1,0 +1,66 @@
+@import '../../styles/mixins';
+
+.select {
+	position: relative;
+	width: auto;
+	user-select: none;
+	font-weight: 500;
+	line-height: 1.2;
+	font-size: toRem(16);
+	min-height: toRem(31.5);
+	min-width: toRem(171);
+}
+
+.selectHeader {
+	padding: toRem(5) toRem(10);
+	border: toRem(1) solid #bebcbd;
+	min-height: toRem(31.2);
+	border-radius: toRem(5);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: toRem(10);
+	background: white;
+	color: var(--dark-color);
+	cursor: pointer;
+
+	svg {
+		flex-shrink: 0;
+	}
+}
+
+.selectList {
+	position: absolute;
+	top: 0%;
+	left: 0;
+	width: 100%;
+	border: toRem(1) solid #bebcbd;
+	border-radius: toRem(5);
+	background: white;
+	overflow-y: auto;
+	z-index: 1000;
+}
+
+.selectItem {
+	padding: toRem(5);
+	cursor: pointer;
+	color: var(--main-color);
+}
+
+.selectItem:hover {
+	background: #f0f0f0;
+}
+
+.spinner {
+	margin-left: auto;
+	margin-right: auto;
+	animation: spin 1s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

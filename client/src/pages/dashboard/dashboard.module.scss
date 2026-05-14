@@ -1,0 +1,123 @@
+@import '../../styles/mixins';
+
+.dashboard {
+	@include adaptiveValue('padding-top', 60, 50);
+}
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.top {
+	display: flex;
+	flex-wrap: wrap;
+	gap: toRem(25);
+	justify-content: space-between;
+	width: 100%;
+	border-bottom: toRem(1) solid #bebcbd;
+	&:not(:last-child) {
+		@include adaptiveValue('padding-bottom', 40, 30);
+	}
+}
+.content {
+	display: flex;
+	align-items: flex-start;
+	position: relative;
+	@include adaptiveValue('column-gap', 50, 20, 0, $containerWidth, 767.98);
+	@include adaptiveValue('padding-bottom', 60, 50);
+
+	@media (max-width: $mobile) {
+		flex-direction: column;
+	}
+}
+.header {
+}
+
+.asideSubtitle {
+	color: var(--main-color);
+	font-family: var(--core-sans);
+	font-weight: 400;
+	line-height: 1.2;
+	letter-spacing: toRem(0.28);
+	font-size: toRem(14);
+	@include adaptiveValue('font-size', 14, 13);
+}
+.list {
+	display: flex;
+	@include adaptiveValue('row-gap', 30, 20);
+	@include adaptiveValue('column-gap', 35, 15);
+
+	@media (max-width: $mobile) {
+		display: flex;
+	}
+}
+.asideItem {
+}
+.asideLink {
+	color: var(--main-color);
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	display: flex;
+	align-items: center;
+	border-bottom: toRem(2) solid transparent;
+	transition: color 0.2s;
+	@include adaptiveValue('column-gap', 15, 8);
+	@include adaptiveValue('padding-bottom', 8, 5);
+	@include adaptiveValue('font-size', 18, 16);
+
+	&.active {
+		border-color: var(--dark-color);
+		color: var(--dark-color);
+	}
+	@media (any-hover: hover) {
+		&:hover {
+			color: var(--dark-color);
+		}
+	}
+
+	svg {
+		margin-top: toEm(-3.5, 18);
+	}
+}
+.body {
+	padding: toRem(20) 0;
+	@media (max-width: $tablet) {
+		width: 100%;
+	}
+	@media (min-width: $mobile) {
+		flex-grow: 1;
+	}
+}
+.bodyHeader {
+	&:not(:last-child) {
+		margin-bottom: toRem(20);
+	}
+}
+
+.bodyHeaderTop {
+	display: flex;
+	column-gap: toRem(15);
+	justify-content: space-between;
+
+	&:not(:last-child) {
+		margin-bottom: toRem(20);
+	}
+
+	@media (max-width: $mobile) {
+		align-items: center;
+	}
+
+	@media (min-width: $mobile) {
+		align-items: flex-start;
+	}
+}
+
+.title {
+	color: #3c4242;
+	font-family: var(--core-sans);
+	font-weight: 600;
+	line-height: 1.2; /* 119.643% */
+	letter-spacing: toRem(0.56);
+	@include adaptiveValue('font-size', 28, 18);
+}

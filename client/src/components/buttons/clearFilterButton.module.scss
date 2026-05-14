@@ -1,0 +1,41 @@
+@import '../../styles/mixins';
+
+.button {
+	border: toRem(1) solid var(--main-color);
+	padding: toRem(3) toRem(10);
+	padding-right: toRem(5);
+	border-radius: toRem(8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: toRem(10);
+	color: var(--main-color);
+	font-family: var(--causten);
+	font-size: toRem(16);
+	font-weight: 600;
+	line-height: normal;
+	letter-spacing: toRem(0.32);
+	text-transform: capitalize;
+	transition: background-color 0.2s;
+	min-width: toRem(93);
+	@include adaptiveValue('padding-left', 10, 5);
+
+	@media (any-hover: hover) {
+		&:hover {
+			background-color: var(--lite-color);
+		}
+	}
+
+	span {
+		padding: toRem(5);
+		border-radius: 50%;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	svg {
+		color: red;
+	}
+}
