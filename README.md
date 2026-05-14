@@ -2,7 +2,7 @@
 
 Full-stack e-commerce web application with product catalog, authentication, cart system, and role-based admin dashboard.
 
-Demo: https://meek-bunny-684a27.netlify.app
+Demo: https://euphoria-gwbb.onrender.com
 
 ---
 
