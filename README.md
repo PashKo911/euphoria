@@ -6,6 +6,12 @@ Demo: https://meek-bunny-684a27.netlify.app
 
 ---
 
+## 🧰 Tech Stack
+
+React, Vite, Node.js, Express, MongoDB, Mongoose, JWT, SCSS
+
+---
+
 ## 🔐 Demo Accounts
 
 You can use the following accounts to test the admin dashboard:
@@ -21,12 +27,6 @@ You can use the following accounts to test the admin dashboard:
 - Password: manager
 
 > ⚠️ These accounts are for demo purposes only.
-
----
-
-## 🧰 Tech Stack
-
-React, Vite, Node.js, Express, MongoDB, Mongoose, JWT, SCSS
 
 ---
 
@@ -48,12 +48,6 @@ Client (React SPA) + REST API (Express + MongoDB)
 
 ---
 
-## 🚀 Run locally
+## 🚀 CI/CD
 
-### Client
-
-```bash
-cd client
-npm install
-npm run dev
-```
+CI/CD pipeline is implemented using GitHub Actions with automated deployment to Render.
